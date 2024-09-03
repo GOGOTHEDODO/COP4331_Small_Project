@@ -3,7 +3,48 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="css\syle.css" />
     <title>Small Project Group 14</title>
   </head>
-  <body></body>
+  <body>
+    <div class="container" id="container">
+      <div class="choice-btns">
+        <input type="radio" name="btn" id="login" checked />
+        <input type="radio" name="btn" id="signup" />
+        <label for="login" class="btn login">Login</label>
+        <label for="signup" class="btn signup">Signup</label>
+        <div class="btn-tab"></div>
+      </div>
+
+      <div class="inner-container">
+        <div class="form-container log-in">
+          <form>
+            <div class="divider">
+              <input type="text" placeholder="Username" />
+            </div>
+            <div class="divider">
+              <input type="password" placeholder="Password" />
+            </div>
+            <button>Log In</button>
+          </form>
+        </div>
+        <div class="form-container sign-up">
+          <form>
+            <div class="divider">
+              <input type="text" placeholder="Username" />
+            </div>
+            <div class="divider">
+              <input type="password" placeholder="Password" />
+            </div>
+            <div class="divider">
+              <input type="password" placeholder="Confirm Password" />
+            </div>
+            <button>Sign Up</button>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <script src="js\script.js"></script>
+  </body>
 </html>
