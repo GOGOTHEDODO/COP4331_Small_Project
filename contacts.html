@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Bootstrap -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+      integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="css\contactSyle.css" />
+
+    <title>Contact Manager</title>
+  </head>
+  <body>
+    <div class="container">
+      <div class="search-container">
+        <input class="search-input" type="text" placeholder="Search" />
+      </div>
+      <div class="header"><h1>Contacts</h1></div>
+      <div class="row no-gutters">
+        <div class="col-6 col-md-4">
+          <form>
+            <div class="divider">
+              <input type="text" placeholder="First" />
+            </div>
+            <div class="divider">
+              <input type="text" placeholder="Last" />
+            </div>
+            <div class="divider">
+              <input type="email" placeholder="Email" />
+            </div>
+            <div class="divider">
+              <input type="tel" placeholder="Phone Number" />
+            </div>
+            <button>Add Contact</button>
+          </form>
+        </div>
+        <div class="col-12 col-sm-6 col-md-8">
+          <table class="table table-hover">
+            <thead>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">First</th>
+                <th scope="col">Last</th>
+                <th scope="col">Email</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row">1</th>
+                <td>Mark</td>
+                <td>Otto</td>
+                <td>mark@gmail.com</td>
+              </tr>
+              <tr>
+                <th scope="row">2</th>
+                <td>Jacob</td>
+                <td>Thornton</td>
+                <td>jacob@outlook.com</td>
+              </tr>
+              <tr>
+                <th scope="row">3</th>
+                <td colspan="2">Larry the Bird</td>
+                <td>larry@gmail.com</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
