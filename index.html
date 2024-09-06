@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="css\syle.css" />
+    <script type="text/javascript" src="js/code.js"></script>
     <title>Small Project Group 14</title>
   </head>
   <body>
@@ -20,12 +21,17 @@
         <div class="form-container log-in">
           <form>
             <div class="divider">
-              <input type="text" placeholder="Username" />
+              <input type="text" placeholder="Username" id="loginUsername" />
             </div>
             <div class="divider">
-              <input type="password" placeholder="Password" />
+              <input
+                type="password"
+                placeholder="Password"
+                id="loginPassword"
+              />
             </div>
             <button>Log In</button>
+            <span id="loginResult"></span>
           </form>
         </div>
         <div class="form-container sign-up">
