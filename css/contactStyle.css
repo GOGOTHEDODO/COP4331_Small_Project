@@ -1,0 +1,163 @@
+@import url('https://fonts.googleapis.com/css2?family=SUSE:wght@100..800&display=swap');
+
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'SUSE';
+}
+
+body {
+    width: 100vw;
+    height: 100vh;
+    background: #0F2027;
+    background: -webkit-linear-gradient(to right, #2C5364, #203A43, #0F2027); 
+    background: linear-gradient(to right, #2C5364, #203A43, #0F2027); 
+}
+
+h1 {
+    padding-left: 10px;
+    color: #fffafb;
+}
+
+h3 {
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+    margin-top: 5px;
+}
+
+.container {
+    margin: 2px 35px 0 50px;
+    min-width: 87%;
+}
+
+/* Search bar Styling */
+.search-container {
+    display: flex;
+    justify-content: center;
+    padding-top: 10px;
+    padding-bottom: 20px;
+ }
+ 
+.search-input {
+    width: 75%;
+    padding: 12px 24px;
+    background-color: transparent;
+    transition: transform 250ms ease-in-out;
+    font-size: 14px;
+    line-height: 18px;        
+    color: #fffafb;
+    border-radius: 50px;
+    border: 1px solid #fffafb;
+    transition: all 250ms ease-in-out;
+    backface-visibility: hidden;
+    transform-style: preserve-3d;
+}
+
+.search-input:hover, .search-input:focus {
+    padding: 12px 0;
+    outline: 0;
+    border: 1px solid transparent;
+    border-bottom: 1px solid #339989;
+    border-radius: 0;
+    background-position: 100% center;
+}
+
+.search-input::placeholder {
+    color: #fffafb;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+}
+ 
+/* Contacts Styling */
+.header {
+    display: flex;
+    justify-content: flex-start;
+}
+
+.fa-phone {
+    color: #339989;
+    font-size: 35px;
+}
+
+/* Grid */
+.columns-container {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+}
+
+/* Styles for the add form */
+.contacts-form {
+    background-color: #fffafb;
+    padding: 20px;
+    border-radius: 15px;
+}
+
+.contacts-form .divider {
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.contacts-form input {
+    background-color: #eee;
+    height: 35px;
+    border: transparent;
+    border-bottom: 3px solid #339989;
+    border-radius: 15px;
+    width: 100%;
+    outline: none;
+    padding-left: 15px;
+    font-size: 15px;
+    transition: all 0.3s ease;
+    box-shadow: #575756;
+}
+
+.contacts-form input:hover {
+    border-bottom: 3px solid #7de2d1;
+    border-radius: 0;
+}
+
+.contacts-form button {
+    padding: 6px;
+    margin-top: 10px;
+    background-color: #339989;
+    border-radius: 15px;
+    height: 35px;
+    border: 1px solid #eee;
+    cursor: pointer;
+    font-size: 15px;
+    font-weight: 600;
+}
+
+.contacts-form button:hover {
+    background-color: #7de2d1;
+}
+
+/* Styles for the table */
+.columns-container .table-container {
+    padding-left: 35px
+}
+
+.table {
+    overflow: hidden;
+    background-color: #fffafb;
+    border-radius: 15px;
+}
+
+.table .button-table button {
+    background-color: transparent;
+    color: #339989;
+    font-size: 15px;
+}
+
+.table .button-table {
+    padding: 2px;
+}
+
+.table .button-table button:hover {
+    color: #7de2d1;
+}
+
+
+

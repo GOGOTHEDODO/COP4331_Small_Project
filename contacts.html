@@ -3,42 +3,69 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <!-- Bootstrap -->
+
+    <!-- Bootstrap for the table -->
     <link
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
       integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
       crossorigin="anonymous"
     />
-    <link rel="stylesheet" href="css\contactSyle.css" />
+    <!-- Icons -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+    />
+
+    <!-- Stylesheet and scripts -->
+    <link rel="stylesheet" href="css\contactStyle.css" />
     <script type="text/javascript" src="js/code.js"></script>
+
     <title>Contact Manager</title>
   </head>
+
   <body>
     <div class="container">
+      <!-- Start of Search Bar -->
       <div class="search-container">
         <input class="search-input" type="text" placeholder="Search" />
       </div>
-      <div class="header"><h1>Contacts</h1></div>
-      <div class="row no-gutters">
-        <div class="col-6 col-md-4">
+      <!-- End of Search Bar -->
+
+      <!-- Contacts Header and Icon -->
+      <div class="header">
+        <i class="fa-solid fa-phone"></i>
+        <h1>Contacts</h1>
+      </div>
+
+      <!-- Start of grid -->
+      <div class="columns-container">
+        <!-- First colums that contains the form -->
+        <div class="contacts-form">
           <form>
             <div class="divider">
-              <input type="text" placeholder="First" />
+              <h3>First</h3>
+              <input type="text" placeholder="value" />
             </div>
             <div class="divider">
-              <input type="text" placeholder="Last" />
+              <h3>Last</h3>
+              <input type="text" placeholder="value" />
             </div>
             <div class="divider">
-              <input type="email" placeholder="Email" />
+              <h3>Email</h3>
+              <input type="email" placeholder="value" />
             </div>
             <div class="divider">
-              <input type="tel" placeholder="Phone Number" />
+              <h3>Phone</h3>
+              <input type="tel" placeholder="value" />
             </div>
             <button>Add Contact</button>
           </form>
         </div>
-        <div class="col-12 col-sm-6 col-md-8">
+        <!-- End of form column -->
+
+        <!-- Second column that contains contacts table -->
+        <div class="table-container">
           <table class="table table-hover">
             <thead>
               <tr>
@@ -54,21 +81,33 @@
                 <td>Mark</td>
                 <td>Otto</td>
                 <td>mark@gmail.com</td>
+                <td class="button-table">
+                  <button class="btn">
+                    <i class="fa-solid fa-pen-to-square"></i>
+                  </button>
+                  <button class="btn">
+                    <i class="fa-solid fa-trash"></i>
+                  </button>
+                </td>
               </tr>
               <tr>
                 <th scope="row">2</th>
                 <td>Jacob</td>
                 <td>Thornton</td>
                 <td>jacob@outlook.com</td>
-              </tr>
-              <tr>
-                <th scope="row">3</th>
-                <td colspan="2">Larry the Bird</td>
-                <td>larry@gmail.com</td>
+                <td class="button-table">
+                  <button class="btn">
+                    <i class="fa-solid fa-pen-to-square"></i>
+                  </button>
+                  <button class="btn">
+                    <i class="fa-solid fa-trash"></i>
+                  </button>
+                </td>
               </tr>
             </tbody>
           </table>
         </div>
+        <!-- End of table container -->
       </div>
     </div>
   </body>
