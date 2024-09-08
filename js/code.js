@@ -51,6 +51,44 @@ function doLogin() {
   }
 }
 
+// added signup function 
+function doSignup() {
+  let username = document.getElementById("signupUsername").value;
+  let password = document.getElementById("signupPassword").value;
+  let passwordConfirm = document.getElementById("signupPasswordConfirm").value;
+  document.getElementById("signupResult").innerHTML = "";
+  if (password !== passwordConfirm) {
+    return; // passwords dont match
+  }
+  let tmp = {
+    username: username,
+    password: password,
+  };
+  let jsonPayload = JSON.stringify(tmp);
+  let url = urlBase + "/Signup." + extension;
+  let xhr = new XMLHttpRequest();
+  xhr.open("POST", url, true);
+  xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+  try {
+    xhr.onreadystatechange = function () {
+      if (this.readyState == 4 && this.status == 200) {
+        let jsonObject = JSON.parse(xhr.responseText);
+        if (jsonObject.error) {
+          document.getElementById("signupResult").innerHTML =
+            "Error: " + jsonObject.error;
+          return;
+        }
+        document.getElementById("signupResult").innerHTML =
+          "Account created successfully. Please log in.";
+        // Optionally redirect to login page or log the user in directly
+      }
+    };
+    xhr.send(jsonPayload);
+  } catch (err) {
+    document.getElementById("signupResult").innerHTML = err.message;
+  }
+}
+
 function saveCookie() {
   let minutes = 20;
   let date = new Date();
@@ -88,3 +126,4 @@ function readCookie() {
     //		document.getElementById("userName").innerHTML = "Logged in as " + firstName + " " + lastName;
   }
 }
+
