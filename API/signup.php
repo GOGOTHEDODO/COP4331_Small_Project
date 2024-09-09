@@ -1,5 +1,5 @@
 <?php
-
+include 'helperFunctions.php'; 
 $inData = getRequestInfo();
 
 $username = $inData["username"];
@@ -33,29 +33,6 @@ if ($conn->connect_error) {
 
     $stmt->close();
     $conn->close();
-}
-
-function getRequestInfo()
-{
-    return json_decode(file_get_contents('php://input'), true);
-}
-
-function sendResultInfoAsJson($obj)
-{
-    header('Content-type: application/json');
-    echo $obj;
-}
-
-function returnWithError($err)
-{
-    $retValue = '{"id":0,"username":"","error":"' . $err . '"}';
-    sendResultInfoAsJson($retValue);
-}
-
-function returnWithInfo($username, $id)
-{
-    $retValue = '{"id":' . $id . ',"username":"' . $username . '","error":""}';
-    sendResultInfoAsJson($retValue);
 }
 
 ?>
