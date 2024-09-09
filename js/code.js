@@ -50,8 +50,7 @@ function doLogin() {
     document.getElementById("loginResult").innerHTML = err.message;
   }
 }
-
-// added signup function 
+// added signup function
 function doSignup() {
   let username = document.getElementById("signupUsername").value;
   let password = document.getElementById("signupPassword").value;
@@ -87,6 +86,24 @@ function doSignup() {
   } catch (err) {
     document.getElementById("signupResult").innerHTML = err.message;
   }
+}
+function doLogout() {
+  fetch("logout.php", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      if (data.message === "Logout successful") {
+        clearCookie();
+        indow.location.href = "index.html";
+      }
+    })
+    .catch((error) => {
+      console.error("Error during logout:", error);
+    });
 }
 
 function saveCookie() {
@@ -126,4 +143,10 @@ function readCookie() {
     //		document.getElementById("userName").innerHTML = "Logged in as " + firstName + " " + lastName;
   }
 }
-
+function clearCookie() {
+  userId = 0;
+  firstName = "";
+  lastName = "";
+  document.cookie = "firstName= ; expires = Thu, 01 Jan 1970 00:00:00 GMT";
+  window.location.href = "index.html";
+}
