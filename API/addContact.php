@@ -2,6 +2,7 @@
 <?php
 include 'helperFunctions.php'; 
 
+$inData = getRequestInfo();
 
 $firstName = $inData['firstName'];
 $lastName = $inData['lastName'];
@@ -9,7 +10,6 @@ $email = $inData['email'];
 $phone = $inData['phone'];
 $userId = $inData['userId'];
 
-$inData = getRequestInfo();
 $conn = getDatabaseConnection()
 
 if ($conn->connect_error) {
