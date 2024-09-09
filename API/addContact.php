@@ -1,4 +1,3 @@
-
 <?php
 include 'helperFunctions.php'; 
 
@@ -10,7 +9,7 @@ $email = $inData['email'];
 $phone = $inData['phone'];
 $userId = $inData['userId'];
 
-$conn = getDatabaseConnection()
+$conn = getDatabaseConnection();
 
 if ($conn->connect_error) {
     returnWithError($conn->connect_error);
@@ -23,11 +22,13 @@ if ($conn->connect_error) {
 
     if ($userCheckResult->num_rows > 0) {
         // User is valid, proceed with adding the contact
-        $stmt = $conn->prepare("INSERT INTO contacts (user_id, first_name, last_name, email, phone, address) VALUES (?, ?, ?, ?, ?, ?)");
+        $stmt = $conn->prepare("INSERT INTO contacts (user_id, first_name, last_name, email, phone) VALUES (?, ?, ?, ?, ?)");
         $stmt->bind_param("issss", $userId, $firstName, $lastName, $email, $phone);
         
         if ($stmt->execute()) {
-            returnWithSuccess("Contact added successfully.");
+            // Retrieve the last inserted ID
+            $contactId = $conn->insert_id;
+            returnWithSuccess("Contact added successfully. Contact ID: " . $contactId);
         } else {
             returnWithError("Error adding contact: " . $stmt->error);
         }

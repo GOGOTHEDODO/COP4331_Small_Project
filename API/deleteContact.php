@@ -3,46 +3,41 @@ include 'helperFunctions.php';
 
 $inData = getRequestInfo();
 
-$contactId = $inData['contactId']; 
-$firstName = $inData['firstName'];
-$lastName = $inData['lastName'];
-$email = $inData['email'];
-$phone = $inData['phone'];
-$userId = $inData['userId']; 
+$contactId = $inData['contactId'];
+$userId = $inData['userId'];
 
 $conn = getDatabaseConnection();
 
 if ($conn->connect_error) {
     returnWithError($conn->connect_error);
 } else {
-    // Verify the user exists and is logged in
+    // Verify the user exists and is logged in (you can expand this based on your authentication system)
     $userCheckStmt = $conn->prepare("SELECT ID FROM Users WHERE ID = ?");
     $userCheckStmt->bind_param("i", $userId);
     $userCheckStmt->execute();
     $userCheckResult = $userCheckStmt->get_result();
 
     if ($userCheckResult->num_rows > 0) {
-        // User is valid, proceed with updating the contact
-        // Verify the contact belongs to the user
+        // Verify the contact exists and belongs to the user
         $contactCheckStmt = $conn->prepare("SELECT ID FROM contacts WHERE ID = ? AND user_id = ?");
         $contactCheckStmt->bind_param("ii", $contactId, $userId);
         $contactCheckStmt->execute();
         $contactCheckResult = $contactCheckStmt->get_result();
 
         if ($contactCheckResult->num_rows > 0) {
-            // Contact exists for this user, proceed with updating
-            $stmt = $conn->prepare("UPDATE contacts SET first_name = ?, last_name = ?, email = ?, phone = ? WHERE ID = ? AND user_id = ?");
-            $stmt->bind_param("ssssii", $firstName, $lastName, $email, $phone, $contactId, $userId);
+            // Contact is valid, proceed with deletion
+            $stmt = $conn->prepare("DELETE FROM contacts WHERE ID = ? AND user_id = ?");
+            $stmt->bind_param("ii", $contactId, $userId);
             
             if ($stmt->execute()) {
-                returnWithSuccess("Contact updated successfully.");
+                returnWithSuccess("Contact deleted successfully.");
             } else {
-                returnWithError("Error updating contact: " . $stmt->error);
+                returnWithError("Error deleting contact: " . $stmt->error);
             }
 
             $stmt->close();
         } else {
-            returnWithError("Contact does not belong to this user.");
+            returnWithError("Contact not found or does not belong to user.");
         }
 
         $contactCheckStmt->close();
@@ -53,4 +48,3 @@ if ($conn->connect_error) {
     $userCheckStmt->close();
     $conn->close();
 }
-?>
