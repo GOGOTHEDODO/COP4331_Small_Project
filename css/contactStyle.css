@@ -9,8 +9,8 @@
 }
 
 body {
-    width: 100vw;
-    height: 100vh;
+    width: 98vw;
+    height: 98vh;
     background: #0F2027;
     background: -webkit-linear-gradient(to right, #2C5364, #203A43, #0F2027); 
     background: linear-gradient(to right, #2C5364, #203A43, #0F2027); 
@@ -28,7 +28,7 @@ h3 {
 }
 
 .container {
-    margin: 2px 35px 0 50px;
+    margin: 2px 35px 0 45px;
     min-width: 87%;
 }
 
@@ -159,5 +159,23 @@ h3 {
     color: #7de2d1;
 }
 
+.log-out {
+    display: flex;
+    justify-content: end;
+}
 
+#logoutButton {
+    padding: 6px;
+    margin-top: 10px;
+    background-color: #339989;
+    border-radius: 15px;
+    height: 35px;
+    border: transparent;
+    cursor: pointer;
+    font-size: 15px;
+    font-weight: 600;
+}
 
+#logoutButton:hover {
+    background-color: #7de2d1;
+}

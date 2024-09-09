@@ -27,9 +27,15 @@
               <input type="text" placeholder="Username" id="loginUsername" />
             </div>
             <div class="divider">
-              <input type="password" placeholder="Password" id="loginPassword" />
+              <input
+                type="password"
+                placeholder="Password"
+                id="loginPassword"
+              />
             </div>
-            <button>Log In</button>
+            <button type="button" id="loginButton" onclick="doLogin();">
+              Log In
+            </button>
             <span id="loginResult"></span>
           </form>
         </div>
@@ -38,15 +44,25 @@
         <div class="form-container sign-up">
           <form>
             <div class="divider">
-              <input type="text" placeholder="Username" id="signupUsername"/>
+              <input type="text" placeholder="Username" id="signupUsername" />
             </div>
             <div class="divider">
-              <input type="password" placeholder="Password" id="signupPassword"/>
+              <input
+                type="password"
+                placeholder="Password"
+                id="signupPassword"
+              />
             </div>
             <div class="divider">
-              <input type="password" placeholder="Confirm Password" id="signupPasswordConfirm" />
+              <input
+                type="password"
+                placeholder="Confirm Password"
+                id="signupPasswordConfirm"
+              />
             </div>
-            <button>Sign Up</button>
+            <button type="button" id="signUpButton" onclick="doSignup();">
+              Sign Up
+            </button>
           </form>
         </div>
       </div>
