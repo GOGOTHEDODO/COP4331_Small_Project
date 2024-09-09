@@ -8,9 +8,9 @@ $lastName = $inData['lastName'];
 $email = $inData['email'];
 $phone = $inData['phone'];
 $userId = $inData['userId'];
-// need to change to actual db info
-$conn = new mysqli("localhost", "admin", "password", "userInfo"); 	
 
+$inData = getRequestInfo();
+$conn = getDatabaseConnection()
 
 if ($conn->connect_error) {
     returnWithError($conn->connect_error);

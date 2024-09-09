@@ -8,7 +8,7 @@
 	$lastName = "";
 
     // change user and password to real info for db
-	$conn = new mysqli("localhost", "admin", "password", "userInfo"); 	
+	$conn = getDatabaseConnection()
 	if( $conn->connect_error )
 	{
 		returnWithError( $conn->connect_error );

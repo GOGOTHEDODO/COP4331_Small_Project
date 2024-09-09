@@ -6,7 +6,7 @@ $username = $inData["username"];
 $password = $inData["password"];
 
 // Replace with your database credentials
-$conn = new mysqli("localhost", "admin", "password", "userInfo");
+$conn = getDatabaseConnection()
 
 if ($conn->connect_error) {
     returnWithError($conn->connect_error);
