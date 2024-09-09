@@ -24,7 +24,7 @@ if ($conn->connect_error) {
     if ($userCheckResult->num_rows > 0) {
         // User is valid, proceed with adding the contact
         $stmt = $conn->prepare("INSERT INTO contacts (user_id, first_name, last_name, email, phone, address) VALUES (?, ?, ?, ?, ?, ?)");
-        $stmt->bind_param("isssss", $userId, $firstName, $lastName, $email, $phone, $address);
+        $stmt->bind_param("issss", $userId, $firstName, $lastName, $email, $phone);
         
         if ($stmt->execute()) {
             returnWithSuccess("Contact added successfully.");
