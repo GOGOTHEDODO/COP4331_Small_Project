@@ -25,7 +25,7 @@
   </head>
 
   <body>
-    <div class="container">
+    <div class="grid-container">
       <!-- Start of Search Bar -->
       <div class="search-container">
         <input class="search-input" type="text" placeholder="Search" />
@@ -38,87 +38,84 @@
         <h1>Contacts</h1>
       </div>
 
-      <!-- Start of grid -->
-      <div class="columns-container">
-        <!-- First colums that contains the form -->
-        <div class="contacts-form">
-          <form>
-            <div class="divider">
-              <h3>First</h3>
-              <input type="text" placeholder="value" />
-            </div>
-            <div class="divider">
-              <h3>Last</h3>
-              <input type="text" placeholder="value" />
-            </div>
-            <div class="divider">
-              <h3>Email</h3>
-              <input type="email" placeholder="value" />
-            </div>
-            <div class="divider">
-              <h3>Phone</h3>
-              <input type="tel" placeholder="value" />
-            </div>
-            <button>Add Contact</button>
-          </form>
-        </div>
-        <!-- End of form column -->
-
-        <!-- Second column that contains contacts table -->
-        <div class="table-container">
-          <table class="table table-hover">
-            <thead>
-              <tr>
-                <th scope="col">#</th>
-                <th scope="col">First</th>
-                <th scope="col">Last</th>
-                <th scope="col">Email</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <th scope="row">1</th>
-                <td>Mark</td>
-                <td>Otto</td>
-                <td>mark@gmail.com</td>
-                <td class="button-table">
-                  <button class="btn">
-                    <i class="fa-solid fa-pen-to-square"></i>
-                  </button>
-                  <button class="btn">
-                    <i class="fa-solid fa-trash"></i>
-                  </button>
-                </td>
-              </tr>
-              <tr>
-                <th scope="row">2</th>
-                <td>Jacob</td>
-                <td>Thornton</td>
-                <td>jacob@outlook.com</td>
-                <td class="button-table">
-                  <button class="btn">
-                    <i class="fa-solid fa-pen-to-square"></i>
-                  </button>
-                  <button class="btn">
-                    <i class="fa-solid fa-trash"></i>
-                  </button>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-          <div class="log-out">
-            <button
-              type="button"
-              id="logoutButton"
-              class="buttons"
-              onclick="doLogout();"
-            >
-              Log Out
-            </button>
+      <!-- First colums that contains the form -->
+      <div class="contacts-form">
+        <form>
+          <div class="divider">
+            <h3>First</h3>
+            <input type="text" placeholder="first name" />
           </div>
-        </div>
-        <!-- End of table container -->
+          <div class="divider">
+            <h3>Last</h3>
+            <input type="text" placeholder="last name" />
+          </div>
+          <div class="divider">
+            <h3>Email</h3>
+            <input type="email" placeholder="email@address.com" />
+          </div>
+          <div class="divider">
+            <h3>Phone</h3>
+            <input type="tel" placeholder="+1 (XXX) XXX-XXXX" />
+          </div>
+          <button>Add Contact</button>
+        </form>
       </div>
+      <!-- End of form column -->
+
+      <!-- Second column that contains contacts table -->
+      <div class="table-container">
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">First</th>
+              <th scope="col">Last</th>
+              <th scope="col">Email</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row">1</th>
+              <td>Mark</td>
+              <td>Otto</td>
+              <td>mark@gmail.com</td>
+              <td class="button-table">
+                <button class="btn">
+                  <i class="fa-solid fa-pen-to-square"></i>
+                </button>
+                <button class="btn">
+                  <i class="fa-solid fa-trash"></i>
+                </button>
+              </td>
+            </tr>
+            <tr>
+              <th scope="row">2</th>
+              <td>Jacob</td>
+              <td>Thornton</td>
+              <td>jacob@outlook.com</td>
+              <td class="button-table">
+                <button class="btn">
+                  <i class="fa-solid fa-pen-to-square"></i>
+                </button>
+                <button class="btn">
+                  <i class="fa-solid fa-trash"></i>
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="log-out">
+          <button
+            type="button"
+            id="logoutButton"
+            class="buttons"
+            onclick="doLogout();"
+          >
+            Log Out
+          </button>
+        </div>
+      </div>
+      <!-- End of table container -->
     </div>
   </body>
 </html>

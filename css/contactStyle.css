@@ -27,18 +27,26 @@ h3 {
     margin-top: 5px;
 }
 
-.container {
-    margin: 2px 35px 0 45px;
-    min-width: 87%;
+/* Grid */
+.grid-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    /* grid-template-rows: 0.3fr 0.3fr 1fr; */
+    grid-template-areas: 
+    "search search search"
+    "header header header"
+    "contact table table";
+    grid-gap: 1rem;
 }
 
 /* Search bar Styling */
 .search-container {
+    grid-area: search;
     display: flex;
     justify-content: center;
     padding-top: 10px;
-    padding-bottom: 20px;
- }
+    padding-bottom: 10px;
+}
  
 .search-input {
     width: 75%;
@@ -72,8 +80,10 @@ h3 {
  
 /* Contacts Styling */
 .header {
+    grid-area: header;
     display: flex;
     justify-content: flex-start;
+    padding-left: 25px;
 }
 
 .fa-phone {
@@ -81,17 +91,14 @@ h3 {
     font-size: 35px;
 }
 
-/* Grid */
-.columns-container {
-    display: grid;
-    grid-template-columns: 1fr 2fr;
-}
-
 /* Styles for the add form */
 .contacts-form {
+    grid-area: contact;
     background-color: #fffafb;
     padding: 20px;
     border-radius: 15px;
+    margin-left: 25px;
+    box-shadow: 4.1px 8.2px 8.2px hsl(0deg 0% 0% / 0.37);
 }
 
 .contacts-form .divider {
@@ -130,19 +137,21 @@ h3 {
     font-weight: 600;
 }
 
-.contacts-form button:hover {
+.contacts-form button:hover, .contacts-form button:focus {
     background-color: #7de2d1;
 }
 
 /* Styles for the table */
-.columns-container .table-container {
-    padding-left: 35px
+.table-container {
+    grid-area: table;
+    margin-left: 25px;
 }
 
 .table {
     overflow: hidden;
     background-color: #fffafb;
     border-radius: 15px;
+    box-shadow: 4.1px 8.2px 8.2px hsl(0deg 0% 0% / 0.37);
 }
 
 .table .button-table button {
@@ -174,8 +183,24 @@ h3 {
     cursor: pointer;
     font-size: 15px;
     font-weight: 600;
+    box-shadow: 4.1px 8.2px 8.2px hsl(0deg 0% 0% / 0.37);
 }
 
-#logoutButton:hover {
+#logoutButton:hover, #logoutButton:focus {
     background-color: #7de2d1;
+}
+
+@media only screen and (max-width: 650px) {
+    body {
+        background: #0F2027;
+    }
+    .grid-container {
+    grid-template-columns: 1fr;
+    grid-template-rows: 0.2fr 0.1fr 1.2fr 1.2fr;
+    grid-template-areas:
+        "search"
+        "header"
+        "contact"
+        "table";
+    }
 }
