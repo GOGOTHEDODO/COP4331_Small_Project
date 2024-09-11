@@ -13,6 +13,7 @@ $user_id = $inData['user_id'];
 $conn = getDatabaseConnection();
 
 if ($conn->connect_error) {
+    http_response_code(500)
     returnWithError($conn->connect_error);
 } else {
     // Verify the user exists and is logged in
@@ -35,18 +36,22 @@ if ($conn->connect_error) {
             $stmt->bind_param("ssssii", $firstName, $lastName, $email, $phone, $contactId, $user_id);
             
             if ($stmt->execute()) {
+                http_response_code(200)
                 returnWithSuccess("Contact updated successfully.");
             } else {
+                http_response_code(400)
                 returnWithError("Error updating contact: " . $stmt->error);
             }
 
             $stmt->close();
         } else {
+            http_response_code(400)
             returnWithError("Contact does not belong to this user.");
         }
 
         $contactCheckStmt->close();
     } else {
+        http_response_code(400)
         returnWithError("Invalid user.");
     }
 

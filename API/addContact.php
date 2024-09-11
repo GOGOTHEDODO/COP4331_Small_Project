@@ -12,6 +12,7 @@ $user_id = $inData['user_id'];
 $conn = getDatabaseConnection();
 
 if ($conn->connect_error) {
+    http_response_code(500)
     returnWithError($conn->connect_error);
 } else {
     // Verify the user exists and is logged in (you can expand this based on your authentication system)
@@ -28,13 +29,16 @@ if ($conn->connect_error) {
         if ($stmt->execute()) {
             // Retrieve the last inserted ID
             $contactId = $conn->insert_id;
+            http_response_code(200)
             returnWithSuccess("Contact added successfully. Contact ID: " . $contactId);
         } else {
+            http_response_code(400)
             returnWithError("Error adding contact: " . $stmt->error);
         }
 
         $stmt->close();
     } else {
+        http_response_code(400)
         returnWithError("Invalid user.");
     }
 

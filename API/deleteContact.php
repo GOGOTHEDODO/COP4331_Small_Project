@@ -9,6 +9,7 @@ $userId = $inData['user_id'];
 $conn = getDatabaseConnection();
 
 if ($conn->connect_error) {
+    http_response_code(500)
     returnWithError($conn->connect_error);
 } else {
     // Verify the user exists and is logged in (you can expand this based on your authentication system)
@@ -30,13 +31,16 @@ if ($conn->connect_error) {
             $stmt->bind_param("ii", $contactId, $userId);
             
             if ($stmt->execute()) {
+                http_response_code(200)
                 returnWithSuccess("Contact deleted successfully.");
             } else {
+                http_response_code(400)
                 returnWithError("Error deleting contact: " . $stmt->error);
             }
 
             $stmt->close();
         } else {
+            http_response_code(400)
             returnWithError("Contact not found or does not belong to user.");
         }
 

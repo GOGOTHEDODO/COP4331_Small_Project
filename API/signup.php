@@ -18,6 +18,7 @@ if ($conn->connect_error) {
     $result = $stmt->get_result();
 
     if ($result->num_rows > 0) {
+        http_response_code(400)
         returnWithError("Username already exists");
     } else {
         // Insert new user into the database
@@ -25,8 +26,10 @@ if ($conn->connect_error) {
         $stmt->bind_param("ss", $username, $password);
         if ($stmt->execute()) {
             $id = $stmt->insert_id;
+            http_response_code(200)
             returnWithInfo($username, $id);
         } else {
+            http_response_code(500)
             returnWithError($stmt->error);
         }
     }
