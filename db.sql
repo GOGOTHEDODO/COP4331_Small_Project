@@ -24,11 +24,11 @@ DROP TABLE IF EXISTS `Contacts`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `Contacts` (
-  `ContactID` int(11) NOT NULL AUTO_INCREMENT,
-  `Name` varchar(50) NOT NULL DEFAULT '',
-  `Phone` varchar(50) NOT NULL DEFAULT '',
-  `Email` varchar(50) NOT NULL DEFAULT '',
-  PRIMARY KEY (`ContactID`)
+  `contact_id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(50) NOT NULL DEFAULT '',
+  `phone` varchar(50) NOT NULL DEFAULT '',
+  `email` varchar(50) NOT NULL DEFAULT '',
+  PRIMARY KEY (`contact_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -52,14 +52,14 @@ DROP TABLE IF EXISTS `Users`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `Users` (
-  `UserID` int(11) NOT NULL AUTO_INCREMENT,
-  `DateCreated` datetime NOT NULL DEFAULT current_timestamp(),
-  `DateLastLoggedIn` datetime NOT NULL DEFAULT current_timestamp(),
-  `FirstName` varchar(50) NOT NULL DEFAULT '',
-  `LastName` varchar(50) NOT NULL DEFAULT '',
-  `UserName` varchar(50) NOT NULL DEFAULT '',
-  `Password` varchar(50) NOT NULL DEFAULT '',
-  PRIMARY KEY (`UserID`)
+  `user_id` int(11) NOT NULL AUTO_INCREMENT,
+  `date_created` datetime NOT NULL DEFAULT current_timestamp(),
+  `date_last_logged_in` datetime NOT NULL DEFAULT current_timestamp(),
+  `first_name` varchar(50) NOT NULL DEFAULT '',
+  `last_name` varchar(50) NOT NULL DEFAULT '',
+  `user_name` varchar(50) NOT NULL DEFAULT '',
+  `password` varchar(50) NOT NULL DEFAULT '',
+  PRIMARY KEY (`user_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 

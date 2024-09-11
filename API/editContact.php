@@ -3,12 +3,12 @@ include 'helperFunctions.php';
 
 $inData = getRequestInfo();
 
-$contactId = $inData['contactId']; 
-$firstName = $inData['firstName'];
-$lastName = $inData['lastName'];
+$firstName = $inData['first_name'];
+$lastName = $inData['last_name'];
+$contactId = $inData['contact_id']; 
 $email = $inData['email'];
 $phone = $inData['phone'];
-$userId = $inData['userId']; 
+$user_id = $inData['user_id']; 
 
 $conn = getDatabaseConnection();
 
@@ -16,23 +16,23 @@ if ($conn->connect_error) {
     returnWithError($conn->connect_error);
 } else {
     // Verify the user exists and is logged in
-    $userCheckStmt = $conn->prepare("SELECT ID FROM Users WHERE ID = ?");
-    $userCheckStmt->bind_param("i", $userId);
+    $userCheckStmt = $conn->prepare("SELECT user_id FROM Users WHERE user_id = ?");
+    $userCheckStmt->bind_param("i", $user_id);
     $userCheckStmt->execute();
     $userCheckResult = $userCheckStmt->get_result();
 
     if ($userCheckResult->num_rows > 0) {
         // User is valid, proceed with updating the contact
         // Verify the contact belongs to the user
-        $contactCheckStmt = $conn->prepare("SELECT ID FROM contacts WHERE ID = ? AND user_id = ?");
-        $contactCheckStmt->bind_param("ii", $contactId, $userId);
+        $contactCheckStmt = $conn->prepare("SELECT contact_id FROM contacts WHERE contact_id = ? AND user_id = ?");
+        $contactCheckStmt->bind_param("ii", $contactId, $user_id);
         $contactCheckStmt->execute();
         $contactCheckResult = $contactCheckStmt->get_result();
 
         if ($contactCheckResult->num_rows > 0) {
             // Contact exists for this user, proceed with updating
-            $stmt = $conn->prepare("UPDATE contacts SET first_name = ?, last_name = ?, email = ?, phone = ? WHERE ID = ? AND user_id = ?");
-            $stmt->bind_param("ssssii", $firstName, $lastName, $email, $phone, $contactId, $userId);
+            $stmt = $conn->prepare("UPDATE contacts SET first_name = ?, last_name = ?, email = ?, phone = ? WHERE contact_id = ? AND user_id = ?");
+            $stmt->bind_param("ssssii", $firstName, $lastName, $email, $phone, $contactId, $user_id);
             
             if ($stmt->execute()) {
                 returnWithSuccess("Contact updated successfully.");

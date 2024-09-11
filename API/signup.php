@@ -12,7 +12,7 @@ if ($conn->connect_error) {
     returnWithError($conn->connect_error);
 } else {
     // Check if username already exists
-    $stmt = $conn->prepare("SELECT ID FROM Users WHERE Login=?");
+    $stmt = $conn->prepare("SELECT user_id FROM Users WHERE user_name = ?");
     $stmt->bind_param("s", $username);
     $stmt->execute();
     $result = $stmt->get_result();
@@ -21,7 +21,7 @@ if ($conn->connect_error) {
         returnWithError("Username already exists");
     } else {
         // Insert new user into the database
-        $stmt = $conn->prepare("INSERT INTO Users (Login, Password) VALUES (?, ?)");
+        $stmt = $conn->prepare("INSERT INTO Users (user_name, password) VALUES (?, ?)");
         $stmt->bind_param("ss", $username, $password);
         if ($stmt->execute()) {
             $id = $stmt->insert_id;
