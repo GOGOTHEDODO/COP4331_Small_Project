@@ -28,7 +28,7 @@
     <div class="grid-container">
       <!-- Start of Search Bar -->
       <div class="search-container">
-        <input class="search-input" type="text" placeholder="Search" />
+        <input class="search-input" type="text" id="searchInput" placeholder="Search" onkeyup="searchTable()" />
       </div>
       <!-- End of Search Bar -->
 
@@ -40,26 +40,27 @@
 
       <!-- First colums that contains the form -->
       <div class="contacts-form">
-        <form>
+        <form id="addContactForm" onsubmit="addContact(event)">
           <div class="divider">
             <h3>First</h3>
-            <input type="text" placeholder="first name" />
+            <input type="text" id="firstName" placeholder="first name" required />
           </div>
           <div class="divider">
             <h3>Last</h3>
-            <input type="text" placeholder="last name" />
+            <input type="text" id="lastName" placeholder="last name" required />
           </div>
           <div class="divider">
             <h3>Email</h3>
-            <input type="email" placeholder="email@address.com" />
+            <input type="email" id="email" placeholder="email@address.com" required />
           </div>
           <div class="divider">
             <h3>Phone</h3>
-            <input type="tel" placeholder="+1 (XXX) XXX-XXXX" />
+            <input type="tel" id="phone" placeholder="+1 (XXX) XXX-XXXX" />
           </div>
-          <button>Add Contact</button>
+          <button type="submit">Add Contact</button>
         </form>
       </div>
+
       <!-- End of form column -->
 
       <!-- Second column that contains contacts table -->
@@ -80,13 +81,13 @@
               <td>Otto</td>
               <td>mark@gmail.com</td>
               <td class="button-table">
-                <button class="btn">
+                <button class="btn" onclick="editContact(this)">
                   <i class="fa-solid fa-pen-to-square"></i>
                 </button>
-                <button class="btn">
+                <button class="btn" onclick="deleteContact(this)">
                   <i class="fa-solid fa-trash"></i>
                 </button>
-              </td>
+              </td>              
             </tr>
             <tr>
               <th scope="row">2</th>
@@ -94,10 +95,10 @@
               <td>Thornton</td>
               <td>jacob@outlook.com</td>
               <td class="button-table">
-                <button class="btn">
+                <button class="btn" onclick="editContact(this)">
                   <i class="fa-solid fa-pen-to-square"></i>
                 </button>
-                <button class="btn">
+                <button class="btn" onclick="deleteContact(this)">
                   <i class="fa-solid fa-trash"></i>
                 </button>
               </td>
