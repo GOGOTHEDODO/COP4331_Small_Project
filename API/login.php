@@ -16,14 +16,14 @@
 	else
 	{
         // potentially change query info
-		$stmt = $conn->prepare("SELECT ID,firstName,lastName FROM Users WHERE Login=? AND Password =?");
+		$stmt = $conn->prepare("SELECT user_id ,first_name , last_name FROM Users WHERE user_name =? AND password =?");
 		$stmt->bind_param("ss", $inData["login"], $inData["password"]);
 		$stmt->execute();
 		$result = $stmt->get_result();
 
 		if( $row = $result->fetch_assoc()  )
 		{
-			returnWithInfo( $row['firstName'], $row['lastName'], $row['ID'] );
+			returnWithInfo( $row['first_name'], $row['last_name'], $row['user_id'] );
 		}
 		else
 		{
