@@ -19,7 +19,7 @@
 
     <!-- Stylesheet and scripts -->
     <link rel="stylesheet" href="css\contactStyle.css" />
-    <script type="text/javascript" src="js/code.js"></script>
+    <script type="module" src="js/code.js"></script>
 
     <title>Contact Manager</title>
   </head>
@@ -28,7 +28,13 @@
     <div class="grid-container">
       <!-- Start of Search Bar -->
       <div class="search-container">
-        <input class="search-input" type="text" id="searchInput" placeholder="Search" onkeyup="searchTable()" />
+        <input
+          class="search-input"
+          type="text"
+          id="searchInput"
+          placeholder="Search"
+          onkeyup="searchTable()"
+        />
       </div>
       <!-- End of Search Bar -->
 
@@ -43,7 +49,12 @@
         <form id="addContactForm" onsubmit="addContact(event)">
           <div class="divider">
             <h3>First</h3>
-            <input type="text" id="firstName" placeholder="first name" required />
+            <input
+              type="text"
+              id="firstName"
+              placeholder="first name"
+              required
+            />
           </div>
           <div class="divider">
             <h3>Last</h3>
@@ -51,11 +62,20 @@
           </div>
           <div class="divider">
             <h3>Email</h3>
-            <input type="email" id="email" placeholder="email@address.com" required />
+            <input
+              type="email"
+              id="email"
+              placeholder="email@address.com"
+              required
+            />
           </div>
           <div class="divider">
             <h3>Phone</h3>
-            <input type="tel" id="phone" placeholder="+1 (XXX) XXX-XXXX" />
+            <input
+              type="tel"
+              id="phoneNumber"
+              placeholder="+1 (XXX) XXX-XXXX"
+            />
           </div>
           <button type="submit">Add Contact</button>
         </form>
@@ -87,7 +107,7 @@
                 <button class="btn" onclick="deleteContact(this)">
                   <i class="fa-solid fa-trash"></i>
                 </button>
-              </td>              
+              </td>
             </tr>
             <tr>
               <th scope="row">2</th>
