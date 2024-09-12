@@ -3,8 +3,8 @@ include 'helperFunctions.php';
 
 $inData = getRequestInfo();
 
-$contactId = $inData['contact_id'];
 $userId = $inData['user_id'];
+$contactId = $inData['contact_id'];
 
 $conn = getDatabaseConnection();
 
@@ -46,6 +46,7 @@ if ($conn->connect_error) {
 
         $contactCheckStmt->close();
     } else {
+        http_response_code(400)
         returnWithError("Invalid user.");
     }
 

@@ -6,7 +6,7 @@ $inData = getRequestInfo();
 $firstName = $inData['first_name'];
 $lastName = $inData['last_name'];
 $email = $inData['email'];
-$phone = $inData['phone'];
+$phoneNumber = $inData['phone_number'];
 $user_id = $inData['user_id']; 
 
 $conn = getDatabaseConnection();
@@ -23,8 +23,8 @@ if ($conn->connect_error) {
 
     if ($userCheckResult->num_rows > 0) {
         // User is valid, proceed with adding the contact
-        $stmt = $conn->prepare("INSERT INTO contacts (user_id, first_name, last_name, email, phone) VALUES (?, ?, ?, ?, ?)");
-        $stmt->bind_param("issss", $userId, $firstName, $lastName, $email, $phone);
+        $stmt = $conn->prepare("INSERT INTO contacts (user_id, first_name, last_name, email, phoneNumber) VALUES (?, ?, ?, ?, ?)");
+        $stmt->bind_param("issss", $userId, $firstName, $lastName, $email, $phoneNumber);
         
         if ($stmt->execute()) {
             // Retrieve the last inserted ID

@@ -3,11 +3,11 @@ include 'helperFunctions.php';
 
 $inData = getRequestInfo();
 
+$contactId = $inData['contact_id']; 
 $firstName = $inData['first_name'];
 $lastName = $inData['last_name'];
-$contactId = $inData['contact_id']; 
 $email = $inData['email'];
-$phone = $inData['phone'];
+$phoneNumber = $inData['phone_number'];
 $user_id = $inData['user_id']; 
 
 $conn = getDatabaseConnection();
@@ -32,8 +32,8 @@ if ($conn->connect_error) {
 
         if ($contactCheckResult->num_rows > 0) {
             // Contact exists for this user, proceed with updating
-            $stmt = $conn->prepare("UPDATE contacts SET first_name = ?, last_name = ?, email = ?, phone = ? WHERE contact_id = ? AND user_id = ?");
-            $stmt->bind_param("ssssii", $firstName, $lastName, $email, $phone, $contactId, $user_id);
+            $stmt = $conn->prepare("UPDATE contacts SET first_name = ?, last_name = ?, email = ?, phoneNumber = ? WHERE contact_id = ? AND user_id = ?");
+            $stmt->bind_param("ssssii", $firstName, $lastName, $email, $phoneNumber, $contactId, $user_id);
             
             if ($stmt->execute()) {
                 http_response_code(200)
