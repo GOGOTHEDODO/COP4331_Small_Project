@@ -75,11 +75,11 @@ function deleteContact(button) {
 
     // Reindex the rows after deletion
     reindexTable();
-
-    // Make an AJAX call to delete the contact on the server (Optional)
-    let tmp = { contactId: contactId };
+    // Backend part
+    const userId = userOps.getUserId();
+    let tmp = { contact_id: contactId, user_id: userId };
     let jsonPayload = JSON.stringify(tmp);
-    let url = urlBase + "/DeleteContact." + extension;
+    let url = urlBase + "/deleteContact." + extension;
 
     let xhr = new XMLHttpRequest();
     xhr.open("POST", url, true);
@@ -121,11 +121,13 @@ function saveContact(button, contactId) {
   const updatedFirstName = row.cells[1].querySelector("input").value;
   const updatedLastName = row.cells[2].querySelector("input").value;
   const updatedEmail = row.cells[3].querySelector("input").value;
+  const updatedPhoneNumber = row.cells[4].querySelector("input").value;
 
   // Update the row with new values
   row.cells[1].innerText = updatedFirstName;
   row.cells[2].innerText = updatedLastName;
   row.cells[3].innerText = updatedEmail;
+  row.cells[4].innerText = updatedPhoneNumber;
 
   // Revert save button back to edit button
   button.innerHTML = `<i class="fa-solid fa-pen-to-square"></i>`;
@@ -133,13 +135,14 @@ function saveContact(button, contactId) {
 
   // Make an AJAX call to update the contact on the server
   let tmp = {
-    contactId: contactId,
-    firstName: updatedFirstName,
-    lastName: updatedLastName,
+    contact_id: contactId,
+    first_name: updatedFirstName,
+    last_name: updatedLastName,
     email: updatedEmail,
+    phone_number: updatedPhoneNumber,
   };
   let jsonPayload = JSON.stringify(tmp);
-  let url = urlBase + "/EditContact." + extension;
+  let url = urlBase + "/editContact." + extension;
 
   let xhr = new XMLHttpRequest();
   xhr.open("POST", url, true);
@@ -154,6 +157,66 @@ function saveContact(button, contactId) {
   } catch (err) {
     console.error("Error updating contact:", err);
   }
+}
+function retrieveContacts(searchTerm = "") {
+  const userId = userOps.getUserId();
+
+  let tmp = {
+    user_id: userId,
+    search_term: searchTerm,
+  };
+  let jsonPayload = JSON.stringify(tmp);
+  let url = urlBase + "/retrieveContacts." + extension; // Adjust URL endpoint as needed
+
+  let xhr = new XMLHttpRequest();
+  xhr.open("POST", url, true);
+  xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+
+  xhr.onreadystatechange = function () {
+    if (this.readyState === 4) {
+      if (this.status === 200) {
+        // Success: Parse the response and update the table
+        let jsonObject = JSON.parse(this.responseText);
+        if (Array.isArray(jsonObject)) {
+          updateContactTable(jsonObject);
+        } else {
+          console.error("Unexpected response format:", jsonObject);
+        }
+      } else {
+        // Error: Handle error response
+        console.error("Error retrieving contacts:", this.responseText);
+      }
+    }
+  };
+
+  try {
+    xhr.send(jsonPayload);
+  } catch (err) {
+    console.error("Error sending request:", err);
+  }
+}
+
+function updateContactTable(contacts) {
+  const table = document.querySelector(".table tbody");
+  table.innerHTML = "";
+
+  contacts.forEach((contact, index) => {
+    const row = table.insertRow();
+    row.innerHTML = `
+        <th scope="row">${index + 1}</th>
+        <td>${contact.first_name}</td>
+        <td>${contact.last_name}</td>
+        <td>${contact.email}</td>
+        <td class="button-table">
+          <button class="btn" onclick="editContact(this)">
+            <i class="fa-solid fa-pen-to-square"></i>
+          </button>
+          <button class="btn" onclick="deleteContact(this)">
+            <i class="fa-solid fa-trash"></i>
+          </button>
+        </td>
+      `;
+  });
 }
 
 function searchTable() {
@@ -195,4 +258,8 @@ const contactOps = {
   addContact,
   deleteContact,
   editContact,
+  saveContact,
+  retrieveContacts,
 };
+
+export default contactOps;

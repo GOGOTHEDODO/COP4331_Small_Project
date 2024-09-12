@@ -1,3 +1,8 @@
+// TODO : Handle other codes other than 200 for all the functions
+
+const urlBase = "http://www.smallproject14.pro";
+const extension = "php";
+
 let userId = 0;
 let firstName = "";
 let lastName = "";
@@ -15,6 +20,12 @@ function doLogin() {
   //	var hash = md5( password );
 
   document.getElementById("loginResult").innerHTML = "";
+
+  if (!login || !password) {
+    document.getElementById("loginResult").innerHTML =
+      "Username and password are required.";
+    return;
+  }
 
   let tmp = { login: login, password: password };
   //	var tmp = {login:login,password:hash};
@@ -51,13 +62,19 @@ function doLogin() {
   }
 }
 // TODO : After signup log user in
+// TODO : color entries if invalid input
 function doSignup() {
   let username = document.getElementById("signupUsername").value;
   let password = document.getElementById("signupPassword").value;
   let passwordConfirm = document.getElementById("signupPasswordConfirm").value;
   document.getElementById("signupResult").innerHTML = "";
   if (password !== passwordConfirm) {
-    return; // passwords dont match
+    document.getElementById("signupResult").innerHTML = "Passwords dont match";
+    return;
+  } else if (!username || !password) {
+    document.getElementById("signupResult").innerHTML =
+      "Please fill out both entries";
+    return;
   }
   let tmp = {
     username: username,

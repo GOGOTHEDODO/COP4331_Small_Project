@@ -5,7 +5,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="css\style.css" />
-    <script type="text/javascript" src="js/code.js"></script>
+    <script type="module" src="js/code.js"></script>
   </head>
 
   <body>
@@ -33,9 +33,7 @@
                 id="loginPassword"
               />
             </div>
-            <button type="button" id="loginButton" onclick="doLogin();">
-              Log In
-            </button>
+            <button type="button" id="loginButton">Log In</button>
             <span id="loginResult"></span>
           </form>
         </div>
@@ -60,9 +58,8 @@
                 id="signupPasswordConfirm"
               />
             </div>
-            <button type="button" id="signUpButton" onclick="doSignup();">
-              Sign Up
-            </button>
+            <button type="button" id="signUpButton">Sign Up</button>
+            <span id="signupResult"></span>
           </form>
         </div>
       </div>
