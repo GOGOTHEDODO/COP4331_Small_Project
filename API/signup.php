@@ -9,8 +9,9 @@ $password = $inData["password"];
 
 $conn = getDatabaseConnection();
 
-if ($conn->connect_error) {
-    returnWithError($conn->connect_error);
+if ($conn === null) {
+    http_response_code(500);
+    returnWithError("Database connection failed");
 } else {
     // Check if username already exists
     $stmt = $conn->prepare("SELECT user_id FROM Users WHERE user_name = ?");
@@ -27,7 +28,13 @@ if ($conn->connect_error) {
         if ($stmt->execute()) {
             $id = $stmt->insert_id;
             http_response_code(200);
-            returnWithInfo($username, $id);
+
+            $userDetails = json_encode([
+                'username' => $username,
+                'user_id' => $id
+            ]);
+
+            returnWithSuccess($userDetails);
         } else {
             http_response_code(500);
             returnWithError($stmt->error);

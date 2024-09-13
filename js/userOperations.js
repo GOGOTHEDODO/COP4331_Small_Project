@@ -1,6 +1,5 @@
-// TODO : Handle other codes other than 200 for all the functions
 // TODO : Hash user passwords and retrieve them unhashed
-const urlBase = "http://www.smallproject14.pro";
+const urlBase = "http://www.smallproject14.pro/API";
 const extension = "php";
 
 let userId = 0;
@@ -12,13 +11,8 @@ function getUserId() {
   return userId;
 }
 function doLogin() {
-  userId = 0;
-  firstName = "";
-  lastName = "";
-
   let username = document.getElementById("loginUsername").value;
   let password = document.getElementById("loginPassword").value;
-  //	var hash = md5( password );
 
   document.getElementById("loginResult").innerHTML = "";
 
@@ -29,7 +23,6 @@ function doLogin() {
   }
 
   let tmp = { username: username, password: password };
-  //	var tmp = {login:login,password:hash};
   let jsonPayload = JSON.stringify(tmp);
 
   let url = urlBase + "/login." + extension;
@@ -37,31 +30,41 @@ function doLogin() {
   let xhr = new XMLHttpRequest();
   xhr.open("POST", url, true);
   xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
-  try {
-    xhr.onreadystatechange = function () {
-      if (this.readyState == 4 && this.status == 200) {
-        let jsonObject = JSON.parse(xhr.responseText);
-        userId = jsonObject.id;
+  xhr.onreadystatechange = function () {
+    if (this.readyState === 4) {
+      let jsonObject;
 
-        if (userId < 1) {
+      try {
+        jsonObject = JSON.parse(xhr.responseText);
+
+        if (xhr.status === 200) {
+          if (jsonObject.success) {
+            userId = jsonObject.message.user_id;
+            firstName = jsonObject.message.first_name;
+            lastName = jsonObject.message.last_name;
+
+            saveCookie();
+            window.location.href = "contacts.html";
+          } else {
+            // Handle server-side error
+            document.getElementById("loginResult").innerHTML =
+              jsonObject.message;
+          }
+        } else {
+          // Handle HTTP error
           document.getElementById("loginResult").innerHTML =
-            "User/password combination incorrect";
-          return;
+            "An error occurred: " + jsonObject.message;
         }
-
-        firstName = jsonObject.firstName;
-        lastName = jsonObject.lastName;
-
-        saveCookie();
-
-        window.location.href = "contacts.html";
+      } catch (err) {
+        document.getElementById("loginResult").innerHTML =
+          "Failed to parse response: " + err.message;
       }
-    };
-    xhr.send(jsonPayload);
-  } catch (err) {
-    document.getElementById("loginResult").innerHTML = err.message;
-  }
+    }
+  };
+
+  xhr.send(jsonPayload);
 }
+
 // TODO : After signup log user in
 // TODO : color entries if invalid input
 function doSignup() {
@@ -69,46 +72,62 @@ function doSignup() {
   let lastName = document.getElementById("signupLastName").value;
   let username = document.getElementById("signupUsername").value;
   let password = document.getElementById("signupPassword").value;
-
   let passwordConfirm = document.getElementById("signupPasswordConfirm").value;
+
   document.getElementById("signupResult").innerHTML = "";
+
+  // Check if passwords match
   if (password !== passwordConfirm) {
-    document.getElementById("signupResult").innerHTML = "Passwords dont match";
-    return;
-  } else if (!username || !password || !firstName || !lastName) {
     document.getElementById("signupResult").innerHTML =
-      "Please fill out both entries";
+      "Passwords don't match.";
     return;
   }
-  let tmp = {
+
+  // Check if all fields are filled
+  if (!username || !password || !firstName || !lastName) {
+    document.getElementById("signupResult").innerHTML =
+      "Please fill out all fields.";
+    return;
+  }
+
+  let payload = {
     first_name: firstName,
     last_name: lastName,
     username: username,
     password: password,
   };
-  let jsonPayload = JSON.stringify(tmp);
+  let jsonPayload = JSON.stringify(payload);
+
   let url = urlBase + "/signup." + extension;
+
   let xhr = new XMLHttpRequest();
   xhr.open("POST", url, true);
   xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
-  try {
-    xhr.onreadystatechange = function () {
-      if (this.readyState == 4 && this.status == 200) {
-        let jsonObject = JSON.parse(xhr.responseText);
-        if (jsonObject.error) {
+
+  xhr.onreadystatechange = function () {
+    if (this.readyState === 4) {
+      try {
+        let response = JSON.parse(xhr.responseText);
+
+        if (xhr.status === 200 && response.success) {
+          // Handle success
           document.getElementById("signupResult").innerHTML =
-            "Error: " + jsonObject.error;
-          return;
+            "Account created successfully. Please log in.";
+        } else {
+          // Handle server-side error
+          document.getElementById("signupResult").innerHTML =
+            "Error: " + (response.message || "An error occurred.");
         }
+      } catch (err) {
         document.getElementById("signupResult").innerHTML =
-          "Account created successfully. Please log in.";
+          "Failed to parse response: " + err.message;
       }
-    };
-    xhr.send(jsonPayload);
-  } catch (err) {
-    document.getElementById("signupResult").innerHTML = err.message;
-  }
+    }
+  };
+
+  xhr.send(jsonPayload);
 }
+
 function doLogout() {
   fetch("logout.php", {
     method: "POST",

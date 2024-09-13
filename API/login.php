@@ -19,10 +19,14 @@
 		$stmt->execute();
 		$result = $stmt->get_result();
 
-		if( $row = $result->fetch_assoc() )
-		{
+		if ($row = $result->fetch_assoc()) {
 			http_response_code(200);
-			returnWithInfo( $row['first_name'], $row['last_name'], $row['user_id'] );
+			$userDetails = json_encode([
+				'first_name' => $row['first_name'],
+				'last_name' => $row['last_name'],
+				'user_id' => $row['user_id']
+			]);
+			returnWithSuccess($userDetails);
 		}
 		else
 		{
