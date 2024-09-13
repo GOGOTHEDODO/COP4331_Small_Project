@@ -29,10 +29,10 @@ if ($conn === null) {
             $id = $stmt->insert_id;
             http_response_code(200);
 
-            $userDetails = json_encode([
+            $userDetails = array(
                 'username' => $username,
                 'user_id' => $id
-            ]);
+            );
 
             returnWithSuccess($userDetails);
         } else {

@@ -34,10 +34,15 @@ function returnWithError($err)
     sendResultInfoAsJson($retValue);
 }
 
-function returnWithSuccess($msg)
+function returnWithSuccess($data)
 {
-    $retValue = '{"success":true,"message":"' . $msg . '"}';
+    if (is_array($data) || is_object($data)) {
+        $retValue = json_encode(array_merge(['success' => true], $data));
+    } else {
+        $retValue = json_encode(['success' => true, 'message' => $data]);
+    }
     sendResultInfoAsJson($retValue);
 }
+
 
 ?>

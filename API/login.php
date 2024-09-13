@@ -21,11 +21,12 @@
 
 		if ($row = $result->fetch_assoc()) {
 			http_response_code(200);
-			$userDetails = json_encode([
+			$userDetails = array(
 				'first_name' => $row['first_name'],
 				'last_name' => $row['last_name'],
 				'user_id' => $row['user_id']
-			]);
+			);
+
 			returnWithSuccess($userDetails);
 		}
 		else
