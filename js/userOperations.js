@@ -121,6 +121,7 @@ function doSignup() {
       } catch (err) {
         document.getElementById("signupResult").innerHTML =
           "Failed to parse response: " + err.message;
+        console.log(err.message);
       }
     }
   };
