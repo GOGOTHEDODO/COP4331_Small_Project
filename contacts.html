@@ -18,9 +18,15 @@
     />
 
     <!-- Stylesheet and scripts -->
-    <link rel="stylesheet" href="css\contactStyle.css" />
-    <script type="module" src="js/code.js"></script>
+    <link rel="stylesheet" href="css/contactStyle.css" />
+    <script type="module" src="js/code.js" defer></script>
+    <script type="module" defer>
+      import { readCookie } from "./userOps.js";
 
+      window.onload = function () {
+        readCookie();
+      };
+    </script>
     <title>Contact Manager</title>
   </head>
 
@@ -33,7 +39,6 @@
           type="text"
           id="searchInput"
           placeholder="Search"
-          onkeyup="searchTable()"
         />
       </div>
       <!-- End of Search Bar -->
@@ -44,9 +49,9 @@
         <h1>Contacts</h1>
       </div>
 
-      <!-- First colums that contains the form -->
+      <!-- First column that contains the form -->
       <div class="contacts-form">
-        <form id="addContactForm" onsubmit="addContact(event)">
+        <form id="addContactForm">
           <div class="divider">
             <h3>First</h3>
             <input
@@ -101,10 +106,10 @@
               <td>Otto</td>
               <td>mark@gmail.com</td>
               <td class="button-table">
-                <button class="btn" onclick="editContact(this)">
+                <button class="btn">
                   <i class="fa-solid fa-pen-to-square"></i>
                 </button>
-                <button class="btn" onclick="deleteContact(this)">
+                <button class="btn">
                   <i class="fa-solid fa-trash"></i>
                 </button>
               </td>
@@ -115,10 +120,10 @@
               <td>Thornton</td>
               <td>jacob@outlook.com</td>
               <td class="button-table">
-                <button class="btn" onclick="editContact(this)">
+                <button class="btn">
                   <i class="fa-solid fa-pen-to-square"></i>
                 </button>
-                <button class="btn" onclick="deleteContact(this)">
+                <button class="btn">
                   <i class="fa-solid fa-trash"></i>
                 </button>
               </td>
@@ -126,12 +131,7 @@
           </tbody>
         </table>
         <div class="log-out">
-          <button
-            type="button"
-            id="logoutButton"
-            class="buttons"
-            onclick="doLogout();"
-          >
+          <button type="button" id="logoutButton" class="buttons">
             Log Out
           </button>
         </div>

@@ -6,6 +6,7 @@ const extension = "php";
 let userId = 0;
 let firstName = "";
 let lastName = "";
+let username = "";
 
 function getUserId() {
   return userId;
@@ -31,7 +32,7 @@ function doLogin() {
   //	var tmp = {login:login,password:hash};
   let jsonPayload = JSON.stringify(tmp);
 
-  let url = urlBase + "/Login." + extension;
+  let url = urlBase + "/login." + extension;
 
   let xhr = new XMLHttpRequest();
   xhr.open("POST", url, true);
@@ -130,6 +131,8 @@ function saveCookie() {
     firstName +
     ",lastName=" +
     lastName +
+    ",username=" +
+    username +
     ",userId=" +
     userId +
     ";expires=" +
@@ -140,13 +143,15 @@ function readCookie() {
   userId = -1;
   let data = document.cookie;
   let splits = data.split(",");
-  for (var i = 0; i < splits.length; i++) {
+  for (let i = 0; i < splits.length; i++) {
     let thisOne = splits[i].trim();
     let tokens = thisOne.split("=");
     if (tokens[0] == "firstName") {
       firstName = tokens[1];
     } else if (tokens[0] == "lastName") {
       lastName = tokens[1];
+    } else if (tokens[0] == "username") {
+      username = tokens[1];
     } else if (tokens[0] == "userId") {
       userId = parseInt(tokens[1].trim());
     }
@@ -154,10 +159,12 @@ function readCookie() {
 
   if (userId < 0) {
     window.location.href = "index.html";
+    // TODO : Logged in statement inside contacts.html
   } else {
-    //		document.getElementById("userName").innerHTML = "Logged in as " + firstName + " " + lastName;
+    // document.getElementById("userName").innerHTML = "Logged in as " + firstName + " " + lastName;
   }
 }
+
 function clearCookie() {
   userId = 0;
   firstName = "";
