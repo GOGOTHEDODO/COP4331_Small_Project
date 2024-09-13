@@ -27,7 +27,6 @@ if ($conn->connect_error) {
         $stmt->bind_param("issss", $userId, $firstName, $lastName, $email, $phoneNumber);
         
         if ($stmt->execute()) {
-            // Retrieve the last inserted ID
             $contactId = $conn->insert_id;
             http_response_code(200)
             returnWithSuccess("Contact added successfully. Contact ID: " . $contactId);

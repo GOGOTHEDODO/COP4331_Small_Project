@@ -40,7 +40,7 @@ if ($conn->connect_error) {
                 $contacts[] = $row;
             }
             http_response_code(200)
-            returnWithInfo($contacts);
+            returnWithSuccess($contacts);
         } else {
             http_response_code(400)
             returnWithError("No contacts found.");
