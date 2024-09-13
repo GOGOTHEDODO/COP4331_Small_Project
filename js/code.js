@@ -3,14 +3,13 @@ import contactOps from "./contactOperations.js";
 
 // Landing page functions for login and logout
 // TODO : Check login status on dom load
-document.getElementById("loginButton").addEventListener("click", () => {
-  userOps.doLogin;
-});
+document
+  .getElementById("loginButton")
+  .addEventListener("click", userOps.doLogin);
 
-document.getElementById("signUpButton").addEventListener("click", () => {
-  userOps.doSignup;
-});
-
+document
+  .getElementById("signUpButton")
+  .addEventListener("click", userOps.doSignup);
 // Contact page functions
 document.addEventListener("DOMContentLoaded", () => {
   document
