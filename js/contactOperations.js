@@ -1,4 +1,6 @@
 import userOps from "./userOperations.js";
+const urlBase = "http://www.smallproject14.pro";
+const extension = "php";
 
 function addContact(event) {
   event.preventDefault(); // Prevent form from submitting and refreshing the page
