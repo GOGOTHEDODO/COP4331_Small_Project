@@ -1,5 +1,5 @@
 // TODO : Handle other codes other than 200 for all the functions
-
+// TODO : Hash user passwords and retrieve them unhashed
 const urlBase = "http://www.smallproject14.pro";
 const extension = "php";
 
@@ -16,19 +16,19 @@ function doLogin() {
   firstName = "";
   lastName = "";
 
-  let login = document.getElementById("loginUsername").value;
+  let username = document.getElementById("loginUsername").value;
   let password = document.getElementById("loginPassword").value;
   //	var hash = md5( password );
 
   document.getElementById("loginResult").innerHTML = "";
 
-  if (!login || !password) {
+  if (!username || !password) {
     document.getElementById("loginResult").innerHTML =
       "Username and password are required.";
     return;
   }
 
-  let tmp = { login: login, password: password };
+  let tmp = { username: username, password: password };
   //	var tmp = {login:login,password:hash};
   let jsonPayload = JSON.stringify(tmp);
 
@@ -45,7 +45,7 @@ function doLogin() {
 
         if (userId < 1) {
           document.getElementById("loginResult").innerHTML =
-            "User/Password combination incorrect";
+            "User/password combination incorrect";
           return;
         }
 
@@ -65,19 +65,24 @@ function doLogin() {
 // TODO : After signup log user in
 // TODO : color entries if invalid input
 function doSignup() {
+  let firstName = document.getElementById("signupFirstName").value;
+  let lastName = document.getElementById("signupLastName").value;
   let username = document.getElementById("signupUsername").value;
   let password = document.getElementById("signupPassword").value;
+
   let passwordConfirm = document.getElementById("signupPasswordConfirm").value;
   document.getElementById("signupResult").innerHTML = "";
   if (password !== passwordConfirm) {
     document.getElementById("signupResult").innerHTML = "Passwords dont match";
     return;
-  } else if (!username || !password) {
+  } else if (!username || !password || !firstName || !lastName) {
     document.getElementById("signupResult").innerHTML =
       "Please fill out both entries";
     return;
   }
   let tmp = {
+    first_name: firstName,
+    last_name: lastName,
     username: username,
     password: password,
   };

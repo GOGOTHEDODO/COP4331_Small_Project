@@ -2,11 +2,12 @@
 include 'helperFunctions.php'; 
 $inData = getRequestInfo();
 
+$firstName = $inData["first_name"];
 $username = $inData["username"];
+$lastName = $inData["last_name"];
 $password = $inData["password"];
 
-// Replace with your database credentials
-$conn = getDatabaseConnection()
+$conn = getDatabaseConnection();
 
 if ($conn->connect_error) {
     returnWithError($conn->connect_error);
@@ -18,18 +19,17 @@ if ($conn->connect_error) {
     $result = $stmt->get_result();
 
     if ($result->num_rows > 0) {
-        http_response_code(400)
+        http_response_code(400);
         returnWithError("Username already exists");
     } else {
-        // Insert new user into the database
-        $stmt = $conn->prepare("INSERT INTO Users (user_name, password) VALUES (?, ?)");
-        $stmt->bind_param("ss", $username, $password);
+        $stmt = $conn->prepare("INSERT INTO Users (user_name, password, first_name, last_name) VALUES (?, ?, ?, ?)");
+        $stmt->bind_param("ssss", $username, $password, $firstName, $lastName);
         if ($stmt->execute()) {
             $id = $stmt->insert_id;
-            http_response_code(200)
+            http_response_code(200);
             returnWithInfo($username, $id);
         } else {
-            http_response_code(500)
+            http_response_code(500);
             returnWithError($stmt->error);
         }
     }
@@ -37,5 +37,4 @@ if ($conn->connect_error) {
     $stmt->close();
     $conn->close();
 }
-
 ?>
