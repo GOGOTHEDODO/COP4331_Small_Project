@@ -36,7 +36,7 @@ function doLogin() {
 
       try {
         jsonObject = JSON.parse(xhr.responseText);
-
+        console.log(jsonObject);
         if (xhr.status === 200) {
           if (jsonObject.success) {
             userId = jsonObject.message.user_id;
