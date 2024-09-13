@@ -37,12 +37,13 @@ function returnWithError($err)
 function returnWithSuccess($data)
 {
     if (is_array($data) || is_object($data)) {
-        $retValue = json_encode(array_merge(['success' => true], $data));
+        $response = ['success' => true, 'data' => $data];
     } else {
-        $retValue = json_encode(['success' => true, 'message' => $data]);
+        $response = ['success' => true, 'message' => $data];
     }
+
+    $retValue = json_encode($response);
+
     sendResultInfoAsJson($retValue);
 }
 
-
-?>
