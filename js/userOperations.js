@@ -157,10 +157,22 @@ function saveCookie() {
     `userId=${userId};` +
     `expires=${date.toUTCString()};` +
     `path=/`;
+
+  console.log("Cookie saved. Current cookies:");
+  console.log(document.cookie);
+
+  // Optional: Add a delay to see the cookie log before doing anything else
+  setTimeout(function () {
+    // If you want to perform follow-up actions, they can be placed here
+    console.log("2 seconds delay completed.");
+  }, 5000); // 2000 milliseconds = 2 seconds
 }
 
 function readCookie() {
   userId = -1;
+  firstName = "";
+  lastName = "";
+  username = "";
   const cookies = document.cookie.split(";");
 
   console.log("Cookies during read:", document.cookie);
