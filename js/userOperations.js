@@ -43,7 +43,10 @@ function doLogin() {
             firstName = userData.first_name;
             lastName = userData.last_name;
             saveCookie();
-            window.location.href = "contacts.html";
+            setTimeout(function () {
+              console.log("2 seconds delay completed.");
+              window.location.href = "contacts.html";
+            }, 5000); // 2000 milliseconds = 2 seconds
           } else {
             // Handle server-side error
             document.getElementById("loginResult").innerHTML =
@@ -162,10 +165,6 @@ function saveCookie() {
   console.log(document.cookie);
 
   // Optional: Add a delay to see the cookie log before doing anything else
-  setTimeout(function () {
-    // If you want to perform follow-up actions, they can be placed here
-    console.log("2 seconds delay completed.");
-  }, 5000); // 2000 milliseconds = 2 seconds
 }
 
 function readCookie() {
