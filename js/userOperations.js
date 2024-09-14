@@ -156,6 +156,7 @@ function saveCookie() {
 function readCookie() {
   userId = -1;
   const cookies = document.cookie.split(";");
+
   cookies.forEach((cookie) => {
     const [name, value] = cookie.trim().split("=");
     switch (name) {
@@ -174,9 +175,14 @@ function readCookie() {
     }
   });
 
+  console.log("Cookies:", document.cookie); // Debugging line to see all cookies
+  console.log("User ID:", userId); // Debugging line to check userId
+
   if (userId < 0) {
-    window.location.href = "index.html";
+    console.log("User ID is invalid, redirecting to index.html");
+    //   window.location.href = "index.html";
   } else {
+    console.log("Logged in as", firstName, lastName);
     // document.getElementById("userName").innerHTML = `Logged in as ${firstName} ${lastName}`;
   }
 }
