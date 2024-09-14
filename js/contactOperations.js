@@ -183,10 +183,12 @@ function retrieveContacts(searchTerm = "") {
           updateContactTable(jsonObject.data);
         } else {
           console.error("Unexpected response format:", jsonObject);
+          updateContactTable([]);
         }
       } else {
         // Error: Handle error response
         console.error("Error retrieving contacts:", this.responseText);
+        updateContactTable([]);
       }
     }
   };
@@ -201,7 +203,15 @@ function retrieveContacts(searchTerm = "") {
 function updateContactTable(contacts) {
   const table = document.querySelector(".table tbody");
   table.innerHTML = "";
-
+  if (contacts.length === 0) {
+    // Display a "No contacts found" message if the contacts array is empty
+    const row = table.insertRow();
+    const cell = row.insertCell();
+    cell.colSpan = 5; // Adjust this value based on the number of columns in your table
+    cell.textContent = "No contacts found";
+    cell.style.textAlign = "center";
+    return;
+  }
   contacts.forEach((contact, index) => {
     const row = table.insertRow();
     row.innerHTML = `
