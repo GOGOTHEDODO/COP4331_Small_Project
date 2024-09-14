@@ -44,7 +44,7 @@ function doLogin() {
             lastName = userData.last_name;
             saveCookie();
 
-            // window.location.href = "contacts.html";
+            window.location.href = "contacts.html";
           } else {
             // Handle server-side error
             document.getElementById("loginResult").innerHTML =
@@ -148,30 +148,20 @@ function doLogout() {
 }
 
 function saveCookie() {
-  console.log("Saving cookies with values:");
-  console.log("firstName:", firstName);
-  console.log("lastName:", lastName);
-  console.log("username:", username);
-  console.log("userId:", userId);
   const minutes = 20;
   const date = new Date();
   date.setTime(date.getTime() + minutes * 60 * 1000);
   document.cookie = `firstName=${encodeURIComponent(
     firstName
   )}; expires=${date.toUTCString()}; path=/`;
-  console.log("firstName cookie saved:", document.cookie);
 
   document.cookie = `lastName=${encodeURIComponent(
     lastName
   )}; expires=${date.toUTCString()}; path=/`;
-  console.log("lastName cookie saved:", document.cookie);
 
   document.cookie = `userId=${encodeURIComponent(
     userId
   )}; expires=${date.toUTCString()}; path=/`;
-  console.log("userId cookie saved:", document.cookie);
-  console.log("Cookie saved. Current cookies:");
-  console.log(document.cookie);
 }
 
 function readCookie() {
@@ -197,8 +187,6 @@ function readCookie() {
         break;
     }
   });
-
-  console.log("Read values:", { firstName, lastName, username, userId });
 
   if (userId < 0) {
     // window.location.href = "index.html";
