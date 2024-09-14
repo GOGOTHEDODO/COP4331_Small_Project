@@ -180,7 +180,7 @@ function retrieveContacts(searchTerm = "") {
         // Success: Parse the response and update the table
         let jsonObject = JSON.parse(this.responseText);
         if (Array.isArray(jsonObject.data)) {
-          updateContactTable(jsonObject);
+          updateContactTable(jsonObject.data);
         } else {
           console.error("Unexpected response format:", jsonObject);
         }
