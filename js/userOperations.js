@@ -150,7 +150,13 @@ function saveCookie() {
   const minutes = 20;
   const date = new Date();
   date.setTime(date.getTime() + minutes * 60 * 1000);
-  document.cookie = `firstName=${firstName};lastName=${lastName};username=${username};userId=${userId};expires=${date.toUTCString()};path=/`;
+  document.cookie =
+    `firstName=${encodeURIComponent(firstName)};` +
+    `lastName=${encodeURIComponent(lastName)};` +
+    `username=${encodeURIComponent(username)};` +
+    `userId=${userId};` +
+    `expires=${date.toUTCString()};` +
+    `path=/`;
 }
 
 function readCookie() {
