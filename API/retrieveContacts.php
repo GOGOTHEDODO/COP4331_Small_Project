@@ -23,11 +23,11 @@ if ($conn->connect_error) {
         if ($searchTerm) {
             // Search for specific contact
             $searchTerm = '%' . strtolower($searchTerm) . '%';
-            $stmt = $conn->prepare("SELECT * FROM contacts WHERE user_id = ? AND (LOWER(first_name) LIKE ? OR LOWER(last_name) LIKE ?)");
+            $stmt = $conn->prepare("SELECT * FROM Contacts WHERE user_id = ? AND (LOWER(first_name) LIKE ? OR LOWER(last_name) LIKE ?)");
             $stmt->bind_param("iss", $user_id, $searchTerm, $searchTerm);
         } else {
             // Retrieve all contacts for the user
-            $stmt = $conn->prepare("SELECT * FROM contacts WHERE user_id = ?");
+            $stmt = $conn->prepare("SELECT * FROM Contacts WHERE user_id = ?");
             $stmt->bind_param("i", $user_id);
         }
 

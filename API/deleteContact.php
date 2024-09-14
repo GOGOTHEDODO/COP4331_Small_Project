@@ -20,7 +20,7 @@ if ($conn->connect_error) {
 
     if ($userCheckResult->num_rows > 0) {
         // Verify the contact exists and belongs to the user
-        $contactCheckStmt = $conn->prepare("SELECT contact_id FROM contacts WHERE contact_id = ? AND user_id = ?");
+        $contactCheckStmt = $conn->prepare("SELECT contact_id FROM Contacts WHERE contact_id = ? AND user_id = ?");
         $contactCheckStmt->bind_param("ii", $contactId, $userId);
         $contactCheckStmt->execute();
         $contactCheckResult = $contactCheckStmt->get_result();
@@ -46,7 +46,7 @@ if ($conn->connect_error) {
 
         $contactCheckStmt->close();
     } else {
-        http_response_code(400)
+        http_response_code(400);
         returnWithError("Invalid user.");
     }
 
