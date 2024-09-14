@@ -42,7 +42,7 @@ if ($conn->connect_error) {
             http_response_code(200);
             returnWithSuccess($contacts);
         } else {
-            http_response_code(400);
+            http_response_code(200);
             returnWithError("No contacts found.");
         }
 
