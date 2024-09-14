@@ -28,6 +28,7 @@ function addContact(event) {
         <td>${firstName}</td>
         <td>${lastName}</td>
         <td>${email}</td>
+        <td>${phoneNumber}</td>
         <td class="button-table">
           <button class="btn" onclick="editContact(this)">
             <i class="fa-solid fa-pen-to-square"></i>
