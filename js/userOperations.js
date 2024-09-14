@@ -148,7 +148,6 @@ function doLogout() {
 }
 
 function saveCookie() {
-  clearCookie();
   console.log("Saving cookies with values:");
   console.log("firstName:", firstName);
   console.log("lastName:", lastName);
