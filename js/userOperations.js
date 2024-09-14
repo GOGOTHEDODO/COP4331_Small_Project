@@ -147,45 +147,37 @@ function doLogout() {
 }
 
 function saveCookie() {
-  let minutes = 20;
-  let date = new Date();
+  const minutes = 20;
+  const date = new Date();
   date.setTime(date.getTime() + minutes * 60 * 1000);
-  document.cookie =
-    "firstName=" +
-    firstName +
-    ",lastName=" +
-    lastName +
-    ",username=" +
-    username +
-    ",userId=" +
-    userId +
-    ";expires=" +
-    date.toGMTString();
+  document.cookie = `firstName=${firstName};lastName=${lastName};username=${username};userId=${userId};expires=${date.toUTCString()};path=/`;
 }
 
 function readCookie() {
   userId = -1;
-  let data = document.cookie;
-  let splits = data.split(",");
-  for (let i = 0; i < splits.length; i++) {
-    let thisOne = splits[i].trim();
-    let tokens = thisOne.split("=");
-    if (tokens[0] == "firstName") {
-      firstName = tokens[1];
-    } else if (tokens[0] == "lastName") {
-      lastName = tokens[1];
-    } else if (tokens[0] == "username") {
-      username = tokens[1];
-    } else if (tokens[0] == "userId") {
-      userId = parseInt(tokens[1].trim());
+  const cookies = document.cookie.split(";");
+  cookies.forEach((cookie) => {
+    const [name, value] = cookie.trim().split("=");
+    switch (name) {
+      case "firstName":
+        firstName = value;
+        break;
+      case "lastName":
+        lastName = value;
+        break;
+      case "username":
+        username = value;
+        break;
+      case "userId":
+        userId = parseInt(value.trim(), 10);
+        break;
     }
-  }
+  });
 
   if (userId < 0) {
     window.location.href = "index.html";
-    // TODO : Logged in statement inside contacts.html
   } else {
-    // document.getElementById("userName").innerHTML = "Logged in as " + firstName + " " + lastName;
+    // document.getElementById("userName").innerHTML = `Logged in as ${firstName} ${lastName}`;
   }
 }
 
@@ -193,7 +185,8 @@ function clearCookie() {
   userId = 0;
   firstName = "";
   lastName = "";
-  document.cookie = "firstName= ; expires = Thu, 01 Jan 1970 00:00:00 GMT";
+  username = "";
+  document.cookie = "firstName=;expires=Thu, 01 Jan 1970 00:00:00 GMT;path=/";
   window.location.href = "index.html";
 }
 const userOps = {
