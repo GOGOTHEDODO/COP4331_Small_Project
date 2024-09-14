@@ -148,6 +148,11 @@ function doLogout() {
 }
 
 function saveCookie() {
+  console.log("Saving cookies with values:");
+  console.log("firstName:", firstName);
+  console.log("lastName:", lastName);
+  console.log("username:", username);
+  console.log("userId:", userId);
   const minutes = 20;
   const date = new Date();
   date.setTime(date.getTime() + minutes * 60 * 1000);
