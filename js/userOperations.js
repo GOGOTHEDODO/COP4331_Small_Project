@@ -36,13 +36,12 @@ function doLogin() {
 
       try {
         jsonObject = JSON.parse(xhr.responseText);
-        console.log(jsonObject);
         if (xhr.status === 200) {
           if (jsonObject.success) {
-            userId = jsonObject.user_id;
-            firstName = jsonObject.first_name;
-            lastName = jsonObject.last_name;
-
+            let userData = jsonObject.data;
+            userId = userData.user_id;
+            firstName = userData.first_name;
+            lastName = userData.last_name;
             saveCookie();
             window.location.href = "contacts.html";
           } else {
