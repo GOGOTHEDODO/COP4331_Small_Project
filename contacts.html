@@ -21,10 +21,11 @@
     <link rel="stylesheet" href="css/contactStyle.css" />
     <script type="module" src="js/code.js" defer></script>
     <script type="module" defer>
-      import { readCookie } from "./userOps.js";
+      import userOps from "./userOperations.js";
 
       window.onload = function () {
-        readCookie();
+        userOps.readCookie();
+        userOps.getUserId();
       };
     </script>
     <title>Contact Manager</title>
