@@ -161,20 +161,21 @@ function saveCookie() {
 
 function readCookie() {
   userId = -1;
-  console.log("COOKIE: " + document.cookie);
   const cookies = document.cookie.split(";");
-  console.log(cookies);
+
+  console.log("Cookies during read:", document.cookie);
+
   cookies.forEach((cookie) => {
     const [name, value] = cookie.trim().split("=");
     switch (name) {
       case "firstName":
-        firstName = value;
+        firstName = decodeURIComponent(value);
         break;
       case "lastName":
-        lastName = value;
+        lastName = decodeURIComponent(value);
         break;
       case "username":
-        username = value;
+        username = decodeURIComponent(value);
         break;
       case "userId":
         userId = parseInt(value.trim(), 10);
@@ -182,14 +183,11 @@ function readCookie() {
     }
   });
 
-  console.log("Cookies:", document.cookie); // Debugging line to see all cookies
-  console.log("User ID:", userId); // Debugging line to check userId
+  console.log("Read values:", { firstName, lastName, username, userId });
 
   if (userId < 0) {
-    console.log("User ID is invalid, redirecting to index.html");
-    //   window.location.href = "index.html";
+    window.location.href = "index.html";
   } else {
-    console.log("Logged in as", firstName, lastName);
     // document.getElementById("userName").innerHTML = `Logged in as ${firstName} ${lastName}`;
   }
 }
