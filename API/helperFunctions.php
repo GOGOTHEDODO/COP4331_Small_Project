@@ -22,10 +22,9 @@ function getRequestInfo()
     return json_decode(file_get_contents('php://input'), true);
 }
 
-function sendResultInfoAsJson($obj)
-{
-    header('Content-type: application/json');
-    echo $obj;
+function sendResultInfoAsJson($data) {
+    header('Content-Type: application/json');
+    echo $data;
 }
 
 function returnWithError($err)
@@ -34,16 +33,15 @@ function returnWithError($err)
     sendResultInfoAsJson($retValue);
 }
 
-function returnWithSuccess($data)
-{
+function returnWithSuccess($data) {
     if (is_array($data) || is_object($data)) {
         $response = ['success' => true, 'data' => $data];
     } else {
         $response = ['success' => true, 'message' => $data];
     }
 
-    $retValue = json_encode($response);
-
-    sendResultInfoAsJson($retValue);
+    $jsonResponse = json_encode($response);
+    sendResultInfoAsJson($jsonResponse);
 }
+
 
