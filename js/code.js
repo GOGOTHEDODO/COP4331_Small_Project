@@ -18,7 +18,7 @@ document.addEventListener("DOMContentLoaded", () => {
   // Contact page functions
   const searchInput = document.getElementById("searchInput");
   if (searchInput) {
-    document.addEventListener("DOMContentLoaded", contactOps.retrieveContacts);
+    contactOps.retrieveContacts();
     searchInput.addEventListener("keyup", function () {
       contactOps.retrieveContacts(searchInput.value);
     });
