@@ -7,7 +7,7 @@ $firstName = $inData['first_name'];
 $lastName = $inData['last_name'];
 $email = $inData['email'];
 $phoneNumber = $inData['phone_number'];
-$user_id = $inData['user_id']; 
+$userId = $inData['user_id']; 
 
 $conn = getDatabaseConnection();
 
