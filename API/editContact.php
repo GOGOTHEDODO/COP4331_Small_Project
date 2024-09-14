@@ -32,7 +32,7 @@ if ($conn->connect_error) {
 
         if ($contactCheckResult->num_rows > 0) {
             // Contact exists for this user, proceed with updating
-            $stmt = $conn->prepare("UPDATE contacts SET first_name = ?, last_name = ?, email = ?, phone_number = ? WHERE contact_id = ? AND user_id = ?");
+            $stmt = $conn->prepare("UPDATE contacts SET first_name = ?, last_name = ?, email = ?, phone = ? WHERE contact_id = ? AND user_id = ?");
             $stmt->bind_param("ssssii", $firstName, $lastName, $email, $phoneNumber, $contactId, $user_id);
             
             if ($stmt->execute()) {
