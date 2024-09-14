@@ -39,9 +39,9 @@ function doLogin() {
         console.log(jsonObject);
         if (xhr.status === 200) {
           if (jsonObject.success) {
-            userId = jsonObject.message.user_id;
-            firstName = jsonObject.message.first_name;
-            lastName = jsonObject.message.last_name;
+            userId = jsonObject.user_id;
+            firstName = jsonObject.first_name;
+            lastName = jsonObject.last_name;
 
             saveCookie();
             window.location.href = "contacts.html";
