@@ -18,9 +18,11 @@ document.addEventListener("DOMContentLoaded", () => {
   // Contact page functions
   const searchInput = document.getElementById("searchInput");
   if (searchInput) {
-    searchInput.addEventListener("keyup", contactOps.retrieveContacts);
+    document.addEventListener("DOMContentLoaded", contactOps.retrieveContacts);
+    searchInput.addEventListener("keyup", function () {
+      contactOps.retrieveContacts(searchInput.value);
+    });
   }
-
   const addContactForm = document.getElementById("addContactForm");
   if (addContactForm) {
     addContactForm.addEventListener("submit", contactOps.addContact);
