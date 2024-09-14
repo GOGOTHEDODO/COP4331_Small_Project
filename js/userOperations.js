@@ -156,7 +156,7 @@ function saveCookie() {
 function readCookie() {
   userId = -1;
   const cookies = document.cookie.split(";");
-
+  console.log(cookies);
   cookies.forEach((cookie) => {
     const [name, value] = cookie.trim().split("=");
     switch (name) {
