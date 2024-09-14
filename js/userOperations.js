@@ -148,6 +148,7 @@ function doLogout() {
 }
 
 function saveCookie() {
+  clearCookie();
   console.log("Saving cookies with values:");
   console.log("firstName:", firstName);
   console.log("lastName:", lastName);
@@ -156,14 +157,20 @@ function saveCookie() {
   const minutes = 20;
   const date = new Date();
   date.setTime(date.getTime() + minutes * 60 * 1000);
-  document.cookie =
-    `firstName=${encodeURIComponent(firstName)};` +
-    `lastName=${encodeURIComponent(lastName)};` +
-    `username=${encodeURIComponent(username)};` +
-    `userId=${userId};` +
-    `expires=${date.toUTCString()};` +
-    `path=/`;
+  document.cookie = `firstName=${encodeURIComponent(
+    firstName
+  )}; expires=${date.toUTCString()}; path=/`;
+  console.log("firstName cookie saved:", document.cookie);
 
+  document.cookie = `lastName=${encodeURIComponent(
+    lastName
+  )}; expires=${date.toUTCString()}; path=/`;
+  console.log("lastName cookie saved:", document.cookie);
+
+  document.cookie = `userId=${encodeURIComponent(
+    userId
+  )}; expires=${date.toUTCString()}; path=/`;
+  console.log("userId cookie saved:", document.cookie);
   console.log("Cookie saved. Current cookies:");
   console.log(document.cookie);
 }
@@ -186,9 +193,6 @@ function readCookie() {
       case "lastName":
         lastName = decodeURIComponent(value);
         break;
-      case "username":
-        username = decodeURIComponent(value);
-        break;
       case "userId":
         userId = parseInt(value.trim(), 10);
         break;
@@ -210,6 +214,8 @@ function clearCookie() {
   lastName = "";
   username = "";
   document.cookie = "firstName=;expires=Thu, 01 Jan 1970 00:00:00 GMT;path=/";
+  document.cookie = "lastName=;expires=Thu, 01 Jan 1970 00:00:00 GMT;path=/";
+  document.cookie = "userId=;expires=Thu, 01 Jan 1970 00:00:00 GMT;path=/";
   window.location.href = "index.html";
 }
 const userOps = {
