@@ -41,7 +41,7 @@ if ($conn->connect_error) {
 
         $stmt->close();
     } else {
-        http_response_code(400)
+        http_response_code(400);
         returnWithError("Invalid user.");
     }
 
