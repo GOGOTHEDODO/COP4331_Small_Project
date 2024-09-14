@@ -9,7 +9,7 @@ $searchTerm = isset($inData['search_term']) ? $inData['search_term'] : null;
 $conn = getDatabaseConnection();
 
 if ($conn->connect_error) {
-    http_response_code(500)
+    http_response_code(500);
     returnWithError($conn->connect_error);
 } else {
     // Verify the user exists and is logged in
@@ -39,16 +39,16 @@ if ($conn->connect_error) {
             while ($row = $result->fetch_assoc()) {
                 $contacts[] = $row;
             }
-            http_response_code(200)
+            http_response_code(200);
             returnWithSuccess($contacts);
         } else {
-            http_response_code(400)
+            http_response_code(400);
             returnWithError("No contacts found.");
         }
 
         $stmt->close();
     } else {
-        http_response_code(400)
+        http_response_code(400);
         returnWithError("Invalid user.");
     }
 
