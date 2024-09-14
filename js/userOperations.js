@@ -36,7 +36,6 @@ function doLogin() {
 
       try {
         jsonObject = JSON.parse(xhr.responseText);
-        console.log("Parsed Response:", jsonObject);
         if (xhr.status === 200) {
           if (jsonObject.success) {
             let userData = jsonObject.data;

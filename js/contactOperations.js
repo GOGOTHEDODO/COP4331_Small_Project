@@ -1,5 +1,5 @@
 import userOps from "./userOperations.js";
-const urlBase = "http://www.smallproject14.pro";
+const urlBase = "http://www.smallproject14.pro/API";
 const extension = "php";
 
 function addContact(event) {
