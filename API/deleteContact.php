@@ -12,6 +12,7 @@ if ($conn->connect_error) {
     http_response_code(500);
     returnWithError($conn->connect_error);
 } else {
+
     // Verify the user exists and is logged in (you can expand this based on your authentication system)
     $userCheckStmt = $conn->prepare("SELECT user_id FROM Users WHERE user_id = ?");
     $userCheckStmt->bind_param("i", $userId);
@@ -27,7 +28,7 @@ if ($conn->connect_error) {
 
         if ($contactCheckResult->num_rows > 0) {
             // Contact is valid, proceed with deletion
-            $stmt = $conn->prepare("DELETE FROM Contacts WHERE ID = ? AND user_id = ?");
+            $stmt = $conn->prepare("DELETE FROM Contacts WHERE contact_id = ? AND user_id = ?");
             $stmt->bind_param("ii", $contactId, $userId);
             
             if ($stmt->execute()) {
@@ -53,3 +54,4 @@ if ($conn->connect_error) {
     $userCheckStmt->close();
     $conn->close();
 }
+?>
