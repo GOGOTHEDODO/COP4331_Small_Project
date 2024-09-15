@@ -251,12 +251,6 @@ function reindexTable() {
   }
 }
 
-document.addEventListener("DOMContentLoaded", () => {
-  retrieveContacts();
-  document
-    .querySelector("#search")
-    .addEventListener("input", (e) => retrieveContacts(e.target.value));
-});
 const contactOps = {
   addContact,
   retrieveContacts,
