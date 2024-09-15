@@ -261,4 +261,4 @@ const contactOps = {
   addContact,
   retrieveContacts,
 };
-export default userOps;
+export default contactOps;

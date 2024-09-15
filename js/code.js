@@ -32,5 +32,3 @@ document.addEventListener("DOMContentLoaded", () => {
     addContactForm.addEventListener("submit", contactOps.addContact);
   }
 });
-
-export default { addContact, retrieveContacts } = contactOps;
