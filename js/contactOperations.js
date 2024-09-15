@@ -258,7 +258,7 @@ function updateContactTable(contacts) {
       <td>${contact.first_name}</td>
       <td>${contact.last_name}</td>
       <td>${contact.email}</td>
-      <td>${contact.phone_number}</td>
+      <td>${contact.phone}</td>
       <td class="button-table" data-contact-id="${contact.contact_id}">
         <button class="btn edit-btn">
           <i class="fa-solid fa-pen-to-square"></i>
