@@ -1,5 +1,3 @@
-// TODO: loading sign while searching contacts?
-
 import userOps from "./userOperations.js";
 const urlBase = "http://www.smallproject14.pro/API";
 const extension = "php";
@@ -13,6 +11,7 @@ function addContact(event) {
   const email = document.getElementById("email").value;
   const phoneNumber = document.getElementById("phoneNumber").value;
   const userId = userOps.getUserId();
+
   // Get the table body
   const table = document.querySelector(".table tbody");
 
@@ -24,20 +23,20 @@ function addContact(event) {
 
   // Insert cells into the row
   newRow.innerHTML = `
-        <th scope="row">${rowCount}</th>
-        <td>${firstName}</td>
-        <td>${lastName}</td>
-        <td>${email}</td>
-        <td>${phoneNumber}</td>
-        <td class="button-table">
-          <button class="btn">
-            <i class="fa-solid fa-pen-to-square"></i>
-          </button>
-          <button class="btn">
-            <i class="fa-solid fa-trash"></i>
-          </button>
-        </td>
-      `;
+    <th scope="row">${rowCount}</th>
+    <td>${firstName}</td>
+    <td>${lastName}</td>
+    <td>${email}</td>
+    <td>${phoneNumber}</td>
+    <td class="button-table">
+      <button class="btn">
+        <i class="fa-solid fa-pen-to-square"></i>
+      </button>
+      <button class="btn">
+        <i class="fa-solid fa-trash"></i>
+      </button>
+    </td>
+  `;
 
   // Clear the form fields after adding the contact
   document.getElementById("addContactForm").reset();
@@ -67,8 +66,8 @@ function addContact(event) {
     console.error("Error adding contact to backend:", err);
   }
 }
+
 function deleteContact(row) {
-  // const row = button.closest("tr");
   const contactId = row.cells[0].innerText; // Assuming contact ID is in the first cell
 
   const confirmDelete = confirm(
@@ -76,8 +75,8 @@ function deleteContact(row) {
   );
   if (confirmDelete) {
     row.remove();
-
     reindexTable();
+
     // Backend part
     const userId = userOps.getUserId();
     let tmp = { contact_id: contactId, user_id: userId };
@@ -100,8 +99,7 @@ function deleteContact(row) {
   }
 }
 
-function editContact(button) {
-  const row = button.closest("tr");
+function editContact(row) {
   const contactId = row.cells[0].innerText; // Assuming the contact ID is in the first cell
 
   // Get current values from the row
@@ -114,13 +112,16 @@ function editContact(button) {
   row.cells[2].innerHTML = `<input type="text" value="${lastName}">`;
   row.cells[3].innerHTML = `<input type="email" value="${email}">`;
 
-  // Change edit button to save button
-  button.removeEventListener("click", () => editContact(row));
-  button.addEventListener("click", () => saveContact(row, contactId));
+  // Change the edit button to a save button
+  const saveBtn = row.querySelector(".fa-pen-to-square");
+  saveBtn.classList.remove("fa-pen-to-square");
+  saveBtn.classList.add("fa-save");
+  saveBtn
+    .closest("button")
+    .addEventListener("click", () => saveContact(row, contactId));
 }
 
-function saveContact(button, contactId) {
-  const row = button.closest("tr");
+function saveContact(row, contactId) {
   const updatedFirstName = row.cells[1].querySelector("input").value;
   const updatedLastName = row.cells[2].querySelector("input").value;
   const updatedEmail = row.cells[3].querySelector("input").value;
@@ -133,8 +134,10 @@ function saveContact(button, contactId) {
   row.cells[4].innerText = updatedPhoneNumber;
 
   // Revert save button back to edit button
-  button.innerHTML = `<i class="fa-solid fa-pen-to-square"></i>`;
-  button.setAttribute("onclick", "editContact(this)");
+  const editBtn = row.querySelector(".fa-save");
+  editBtn.classList.remove("fa-save");
+  editBtn.classList.add("fa-pen-to-square");
+  editBtn.closest("button").setAttribute("onclick", "editContact(this)");
 
   // Make an AJAX call to update the contact on the server
   let tmp = {
@@ -161,6 +164,7 @@ function saveContact(button, contactId) {
     console.error("Error updating contact:", err);
   }
 }
+
 function retrieveContacts(searchTerm = "") {
   const userId = userOps.getUserId();
 
@@ -169,7 +173,7 @@ function retrieveContacts(searchTerm = "") {
     search_term: searchTerm,
   };
   let jsonPayload = JSON.stringify(tmp);
-  let url = urlBase + "/retrieveContacts." + extension; // Adjust URL endpoint as needed
+  let url = urlBase + "/retrieveContacts." + extension;
 
   let xhr = new XMLHttpRequest();
   xhr.open("POST", url, true);
@@ -178,7 +182,6 @@ function retrieveContacts(searchTerm = "") {
   xhr.onreadystatechange = function () {
     if (this.readyState === 4) {
       if (this.status === 200) {
-        // Success: Parse the response and update the table
         let jsonObject = JSON.parse(this.responseText);
         if (Array.isArray(jsonObject.data)) {
           updateContactTable(jsonObject.data);
@@ -187,7 +190,6 @@ function retrieveContacts(searchTerm = "") {
           updateContactTable([]);
         }
       } else {
-        // Error: Handle error response
         console.error("Error retrieving contacts:", this.responseText);
         updateContactTable([]);
       }
@@ -205,7 +207,6 @@ function updateContactTable(contacts) {
   const table = document.querySelector(".table tbody");
   table.innerHTML = "";
   if (contacts.length === 0) {
-    // Display a "No contacts found" message if the contacts array is empty
     const row = table.insertRow();
     const cell = row.insertCell();
     cell.colSpan = 5; // Adjust this value based on the number of columns in your table
@@ -216,70 +217,43 @@ function updateContactTable(contacts) {
   contacts.forEach((contact, index) => {
     const row = table.insertRow();
     row.innerHTML = `
-        <th scope="row">${index + 1}</th>
-        <td>${contact.first_name}</td>
-        <td>${contact.last_name}</td>
-        <td>${contact.email}</td>
-        <td>${contact.phone_number}
-        <td class="button-table">
-          <button class="btn">
-            <i class="fa-solid fa-pen-to-square"></i>
-          </button>
-          <button class="btn">
-            <i class="fa-solid fa-trash"></i>
-          </button>
-        </td>
-      `;
+      <th scope="row">${index + 1}</th>
+      <td>${contact.first_name}</td>
+      <td>${contact.last_name}</td>
+      <td>${contact.email}</td>
+      <td>${contact.phone_number}</td>
+      <td class="button-table">
+        <button class="btn">
+          <i class="fa-solid fa-pen-to-square"></i>
+        </button>
+        <button class="btn">
+          <i class="fa-solid fa-trash"></i>
+        </button>
+      </td>
+    `;
     row
-      .querySelector(".edit-btn")
+      .querySelector(".fa-pen-to-square")
+      .closest("button")
       .addEventListener("click", () => editContact(row));
     row
-      .querySelector(".delete-btn")
+      .querySelector(".fa-trash")
+      .closest("button")
       .addEventListener("click", () => deleteContact(row));
   });
 }
 
-function searchTable() {
-  // Get the search input element and its value
-  const input = document.getElementById("searchInput");
-  const filter = input.value.toLowerCase();
-
-  // Get the table and its rows
-  const table = document.querySelector(".table tbody");
-  const rows = table.getElementsByTagName("tr");
-
-  // Loop through all table rows, and hide those who don't match the search query
-  for (let i = 0; i < rows.length; i++) {
-    let firstName = rows[i]
-      .getElementsByTagName("td")[0]
-      .textContent.toLowerCase();
-    let lastName = rows[i]
-      .getElementsByTagName("td")[1]
-      .textContent.toLowerCase();
-
-    if (firstName.includes(filter) || lastName.includes(filter)) {
-      rows[i].style.display = "";
-    } else {
-      rows[i].style.display = "none";
-    }
-  }
-}
 function reindexTable() {
   const table = document.querySelector(".table tbody");
   const rows = table.getElementsByTagName("tr");
 
-  // Reindex the rows so that the first column (#) is updated correctly
   for (let i = 0; i < rows.length; i++) {
-    rows[i].cells[0].innerText = i + 1; // Update the number to the new index
+    rows[i].cells[0].innerText = i + 1;
   }
 }
 
-const contactOps = {
-  addContact,
-  deleteContact,
-  editContact,
-  saveContact,
-  retrieveContacts,
-};
-
-export default contactOps;
+document.addEventListener("DOMContentLoaded", () => {
+  retrieveContacts();
+  document
+    .querySelector("#search")
+    .addEventListener("input", (e) => retrieveContacts(e.target.value));
+});
