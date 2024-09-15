@@ -52,20 +52,31 @@
       <!-- First column that contains the form -->
       <div class="contacts-form">
         <form id="addContactForm">
-          <div class="divider">
+          <div class="divider" id="fdiv">
             <h3>First</h3>
             <input
               type="text"
               id="firstName"
               placeholder="first name"
+              pattern="+[A-Za-z]"
               required
             />
+            <i class="fa-solid fa-check"></i>
+            <i class="fa-solid fa-xmark"></i>
           </div>
-          <div class="divider">
+          <div class="divider" id="ldiv">
             <h3>Last</h3>
-            <input type="text" id="lastName" placeholder="last name" required />
+            <input
+              type="text"
+              id="lastName"
+              placeholder="last name"
+              pattern="+[A-Za-z]"
+              required
+            />
+            <i class="fa-solid fa-check valid"></i>
+            <i class="fa-solid fa-xmark invalid""></i>
           </div>
-          <div class="divider">
+          <div class="divider" id="ediv">
             <h3>Email</h3>
             <input
               type="email"
@@ -73,8 +84,10 @@
               placeholder="email@address.com"
               required
             />
+            <i class="fa-solid fa-check valid"></i>
+            <i class="fa-solid fa-xmark"></i>
           </div>
-          <div class="divider">
+          <div class="divider" id="pdiv">
             <h3>Phone</h3>
             <input
               type="tel"
@@ -83,6 +96,8 @@
               pattern="[0-9]{3} [0-9]{3}-[0-9]{4}"
               required
             />
+            <i class="fa-solid fa-check valid"></i>
+            <i class="fa-solid fa-xmark"></i>
           </div>
           <button type="submit">Add Contact</button>
         </form>
@@ -112,5 +127,6 @@
       </div>
       <!-- End of table container -->
     </div>
+    <script src="js/iconScript.js"></script>
   </body>
 </html>

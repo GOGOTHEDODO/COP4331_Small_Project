@@ -104,6 +104,7 @@ h3 {
 }
 
 .contacts-form .divider {
+    position: relative;
     padding-top: 10px;
     padding-bottom: 10px;
 }
@@ -122,9 +123,35 @@ h3 {
     box-shadow: #575756;
 }
 
+.contacts-form .fa-xmark{
+    position: absolute;
+    top: 55px;
+    right: 10px;
+    color: lightcoral;
+    z-index: 2;
+}
+.contacts-form .fa-check{
+    position: absolute;
+    top: 55px;
+    right: 10px;
+    color: lightgreen;
+    opacity: 0;
+    z-index: 1;
+}
+
+.divider.valid .fa-check {
+    opacity: 1;
+    z-index: 3;
+}
+
+.divider.valid .fa-xmark {
+    opacity: 0;
+    z-index: 1;
+}
+
 .contacts-form input:valid {
     border-bottom: 6px solid palegreen;
-}
+} 
 
 .contacts-form input:invalid {
     border-bottom: 6px solid lightcoral;
@@ -134,6 +161,7 @@ h3 {
     border-radius: 5px;
     box-shadow: 2.1px 5.2px 5.2px hsl(0deg 0% 0% / 0.37);
 } 
+
 
 .contacts-form button {
     padding: 6px 10px 6px 10px;
