@@ -73,7 +73,9 @@ function addContact(event) {
 }
 
 function editContact(row) {
-  const contactId = row.cells[0].innerText; // Assuming the contact ID is in the first cell
+  const contactId = row
+    .querySelector(".button-table")
+    .getAttribute("data-contact-id");
 
   // Get current values from the row
   const firstName = row.cells[1].innerText;
