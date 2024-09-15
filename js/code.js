@@ -33,4 +33,4 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 });
 
-export const { addContact, retrieveContacts } = contactOps;
+export default { addContact, retrieveContacts } = contactOps;

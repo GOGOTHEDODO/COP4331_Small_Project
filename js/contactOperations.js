@@ -257,3 +257,8 @@ document.addEventListener("DOMContentLoaded", () => {
     .querySelector("#search")
     .addEventListener("input", (e) => retrieveContacts(e.target.value));
 });
+const contactOps = {
+  addContact,
+  retrieveContacts,
+};
+export default userOps;
