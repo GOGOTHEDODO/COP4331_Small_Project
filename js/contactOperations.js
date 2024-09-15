@@ -97,16 +97,8 @@ function editContact(row) {
 
   const saveButton = editBtn.closest("button");
 
-  // Ensure that any previously attached event listeners are removed
   saveButton.removeEventListener("click", handleEditContactClick);
-
-  // Add new event listener
-  saveButton.addEventListener("click", () => saveContact(row, contactId));
-
-  // Local function to handle edit click
-  function handleEditContactClick() {
-    editContact(row);
-  }
+  saveButton.addEventListener("click", handleSaveContactClick);
 }
 function saveContact(row, contactId) {
   const updatedFirstName = row.cells[1].querySelector("input").value;
@@ -128,13 +120,8 @@ function saveContact(row, contactId) {
   saveBtn.classList.remove("fa-save");
 
   const editButton = saveBtn.closest("button");
-
-  // Ensure that any previously attached event listeners are removed
   editButton.removeEventListener("click", handleSaveContactClick);
-
-  // Add event listener for the edit button
-  editButton.addEventListener("click", () => editContact(row));
-
+  editButton.addEventListener("click", handleEditContactClick);
   // Make an AJAX call to update the contact on the server
   const tmp = {
     contact_id: contactId,
@@ -263,7 +250,7 @@ function updateContactTable(contacts) {
     row
       .querySelector(".fa-pen-to-square")
       .closest("button")
-      .addEventListener("click", () => editContact(row));
+      .addEventListener("click", handleEditContactClick);
     row
       .querySelector(".fa-trash")
       .closest("button")
@@ -278,6 +265,15 @@ function reindexTable() {
   for (let i = 0; i < rows.length; i++) {
     rows[i].cells[0].innerText = i + 1;
   }
+}
+
+// Define your functions outside of other functions to maintain a consistent reference
+function handleEditContactClick(row) {
+  editContact(row);
+}
+
+function handleSaveContactClick(row, contactId) {
+  saveContact(row, contactId);
 }
 
 const contactOps = {
