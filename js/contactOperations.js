@@ -81,11 +81,13 @@ function editContact(row) {
   const firstName = row.cells[1].innerText;
   const lastName = row.cells[2].innerText;
   const email = row.cells[3].innerText;
+  const phoneNumber = row.cells[4].innerText;
 
   // Convert cells to input fields for editing
   row.cells[1].innerHTML = `<input type="text" value="${firstName}">`;
   row.cells[2].innerHTML = `<input type="text" value="${lastName}">`;
   row.cells[3].innerHTML = `<input type="email" value="${email}">`;
+  row.cells[4].innerHTML = `<input type="text" value="${phoneNumber}">`;
 
   // Change the edit button to a save button
   const saveBtn = row.querySelector(".fa-pen-to-square");
