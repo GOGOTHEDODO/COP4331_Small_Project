@@ -29,10 +29,10 @@ function addContact(event) {
     <td>${email}</td>
     <td>${phoneNumber}</td>
     <td class="button-table" data-contact-id="temp-id">
-      <button class="btn">
+      <button class="btn edit-btn">
         <i class="fa-solid fa-pen-to-square"></i>
       </button>
-      <button class="btn">
+      <button class="btn delete-btn">
         <i class="fa-solid fa-trash"></i>
       </button>
     </td>
@@ -42,17 +42,17 @@ function addContact(event) {
   document.getElementById("addContactForm").reset();
 
   // Backend section
-  let tmp = {
+  const tmp = {
     first_name: firstName,
     last_name: lastName,
     email: email,
     phone_number: phoneNumber,
     user_id: userId,
   };
-  let jsonPayload = JSON.stringify(tmp);
-  let url = urlBase + "/addContact." + extension;
+  const jsonPayload = JSON.stringify(tmp);
+  const url = `${urlBase}/addContact.${extension}`;
 
-  let xhr = new XMLHttpRequest();
+  const xhr = new XMLHttpRequest();
   xhr.open("POST", url, true);
   xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
   try {
@@ -76,22 +76,32 @@ function addContact(event) {
 }
 
 function attachEventListeners(row) {
+  // Attach edit and delete button event listeners
   row
-    .querySelector(".fa-pen-to-square")
-    .closest("button")
+    .querySelector(".edit-btn")
     .addEventListener("click", () => editContact(row));
-
   row
-    .querySelector(".fa-trash")
-    .closest("button")
+    .querySelector(".delete-btn")
     .addEventListener("click", () => deleteContact(row));
 }
 
-function editContact(row) {
-  const contactId = row
-    .querySelector(".button-table")
-    .getAttribute("data-contact-id");
+function replaceButton(row, isEditMode) {
+  const buttonTable = row.querySelector(".button-table");
+  const buttonHTML = isEditMode
+    ? `<button class="btn save-btn"><i class="fa-solid fa-save"></i></button>`
+    : `<button class="btn edit-btn"><i class="fa-solid fa-pen-to-square"></i></button>`;
 
+  buttonTable.innerHTML = buttonHTML;
+
+  const newButton = buttonTable.querySelector("button");
+  if (isEditMode) {
+    newButton.addEventListener("click", () => saveContact(row));
+  } else {
+    newButton.addEventListener("click", () => editContact(row));
+  }
+}
+
+function editContact(row) {
   // Get current values from the row
   const firstName = row.cells[1].innerText;
   const lastName = row.cells[2].innerText;
@@ -104,20 +114,15 @@ function editContact(row) {
   row.cells[3].innerHTML = `<input type="email" value="${email}">`;
   row.cells[4].innerHTML = `<input type="text" value="${phoneNumber}">`;
 
-  // Change the edit button to a save button
-  const buttonTable = row.querySelector(".button-table");
-  const editBtn = buttonTable.querySelector(".fa-pen-to-square");
-  editBtn.classList.add("fa-save");
-  editBtn.classList.remove("fa-pen-to-square");
-
-  const saveButton = editBtn.closest("button");
-
-  // Remove previous event listener
-  saveButton.removeEventListener("click", () => editContact(row));
-  saveButton.addEventListener("click", () => saveContact(row, contactId));
+  // Replace the edit button with a save button
+  replaceButton(row, true);
 }
 
-function saveContact(row, contactId) {
+function saveContact(row) {
+  const contactId = row
+    .querySelector(".button-table")
+    .getAttribute("data-contact-id");
+
   const updatedFirstName = row.cells[1].querySelector("input").value;
   const updatedLastName = row.cells[2].querySelector("input").value;
   const updatedEmail = row.cells[3].querySelector("input").value;
@@ -129,18 +134,8 @@ function saveContact(row, contactId) {
   row.cells[3].innerText = updatedEmail;
   row.cells[4].innerText = updatedPhoneNumber;
 
-  const buttonTable = row.querySelector(".button-table");
-  const saveBtn = buttonTable.querySelector(".fa-save");
-
-  // Convert the save button back to edit mode
-  saveBtn.classList.add("fa-pen-to-square");
-  saveBtn.classList.remove("fa-save");
-
-  const editButton = saveBtn.closest("button");
-
-  // Remove previous event listener
-  editButton.removeEventListener("click", () => saveContact(row, contactId));
-  editButton.addEventListener("click", () => editContact(row));
+  // Replace the save button with an edit button
+  replaceButton(row, false);
 
   // Make an AJAX call to update the contact on the server
   const tmp = {
@@ -182,11 +177,11 @@ function deleteContact(row) {
 
     // Backend part
     const userId = userOps.getUserId();
-    let tmp = { contact_id: contactId, user_id: userId };
-    let jsonPayload = JSON.stringify(tmp);
-    let url = urlBase + "/deleteContact." + extension;
+    const tmp = { contact_id: contactId, user_id: userId };
+    const jsonPayload = JSON.stringify(tmp);
+    const url = `${urlBase}/deleteContact.${extension}`;
 
-    let xhr = new XMLHttpRequest();
+    const xhr = new XMLHttpRequest();
     xhr.open("POST", url, true);
     xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
     try {
@@ -205,21 +200,21 @@ function deleteContact(row) {
 function retrieveContacts(searchTerm = "") {
   const userId = userOps.getUserId();
 
-  let tmp = {
+  const tmp = {
     user_id: userId,
     search_term: searchTerm,
   };
-  let jsonPayload = JSON.stringify(tmp);
-  let url = urlBase + "/retrieveContacts." + extension;
+  const jsonPayload = JSON.stringify(tmp);
+  const url = `${urlBase}/retrieveContacts.${extension}`;
 
-  let xhr = new XMLHttpRequest();
+  const xhr = new XMLHttpRequest();
   xhr.open("POST", url, true);
   xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
 
   xhr.onreadystatechange = function () {
     if (this.readyState === 4) {
       if (this.status === 200) {
-        let jsonObject = JSON.parse(this.responseText);
+        const jsonObject = JSON.parse(this.responseText);
         if (Array.isArray(jsonObject.data)) {
           updateContactTable(jsonObject.data);
         } else {
@@ -246,7 +241,7 @@ function updateContactTable(contacts) {
   if (contacts.length === 0) {
     const row = table.insertRow();
     const cell = row.insertCell();
-    cell.colSpan = 5; // Adjust this value based on the number of columns in your table
+    cell.colSpan = 6; // Adjust this value based on the number of columns in your table
     cell.textContent = "No contacts found";
     cell.style.textAlign = "center";
     return;
@@ -258,29 +253,25 @@ function updateContactTable(contacts) {
       <td>${contact.first_name}</td>
       <td>${contact.last_name}</td>
       <td>${contact.email}</td>
-      <td>${contact.phone}</td>
+      <td>${contact.phone_number}</td>
       <td class="button-table" data-contact-id="${contact.contact_id}">
-        <button class="btn">
+        <button class="btn edit-btn">
           <i class="fa-solid fa-pen-to-square"></i>
         </button>
-        <button class="btn">
+        <button class="btn delete-btn">
           <i class="fa-solid fa-trash"></i>
         </button>
       </td>
     `;
-
-    // Attach event listeners for the row
     attachEventListeners(row);
   });
 }
 
 function reindexTable() {
   const table = document.querySelector(".table tbody");
-  const rows = table.getElementsByTagName("tr");
-
-  for (let i = 0; i < rows.length; i++) {
-    rows[i].cells[0].innerText = i + 1;
-  }
+  Array.from(table.rows).forEach((row, index) => {
+    row.cells[0].innerText = index + 1;
+  });
 }
 
 const contactOps = {
