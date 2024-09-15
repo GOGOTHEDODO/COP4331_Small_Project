@@ -97,20 +97,16 @@ function editContact(row) {
 
   const saveButton = editBtn.closest("button");
 
-  // Define named functions
-  function handleEditContactClick() {
-    editContact(row);
-  }
-
-  function handleSaveContactClick() {
-    saveContact(row, contactId);
-  }
-
-  // Remove previous event listeners
+  // Ensure that any previously attached event listeners are removed
   saveButton.removeEventListener("click", handleEditContactClick);
 
   // Add new event listener
-  saveButton.addEventListener("click", handleSaveContactClick);
+  saveButton.addEventListener("click", () => saveContact(row, contactId));
+
+  // Local function to handle edit click
+  function handleEditContactClick() {
+    editContact(row);
+  }
 }
 function saveContact(row, contactId) {
   const updatedFirstName = row.cells[1].querySelector("input").value;
@@ -131,23 +127,13 @@ function saveContact(row, contactId) {
   saveBtn.classList.add("fa-pen-to-square");
   saveBtn.classList.remove("fa-save");
 
-  // Get the edit button element
   const editButton = saveBtn.closest("button");
 
-  // Define named functions
-  function handleSaveContactClick() {
-    saveContact(row, contactId);
-  }
-
-  function handleEditContactClick() {
-    editContact(row);
-  }
-
-  // Remove existing event listeners
+  // Ensure that any previously attached event listeners are removed
   editButton.removeEventListener("click", handleSaveContactClick);
 
   // Add event listener for the edit button
-  editButton.addEventListener("click", handleEditContactClick);
+  editButton.addEventListener("click", () => editContact(row));
 
   // Make an AJAX call to update the contact on the server
   const tmp = {
