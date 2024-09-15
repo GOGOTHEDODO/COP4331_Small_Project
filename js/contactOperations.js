@@ -98,6 +98,10 @@ function editContact(row) {
 
   console.log("After change:", editBtn.classList);
   // Log the updated class list
+  // Update event listener for the save button
+  const saveButton = editBtn.closest("button");
+  saveButton.removeEventListener("click", () => editContact(row));
+  saveButton.addEventListener("click", () => saveContact(row, contactId));
 }
 function saveContact(row, contactId) {
   const updatedFirstName = row.cells[1].querySelector("input").value;
@@ -111,19 +115,24 @@ function saveContact(row, contactId) {
   row.cells[3].innerText = updatedEmail;
   row.cells[4].innerText = updatedPhoneNumber;
 
-  // Revert save button back to edit button
-  const saveBtn = row.querySelector(".fa-save");
-  if (saveBtn) {
-    saveBtn.classList.remove("fa-save");
-    saveBtn.classList.add("fa-pen-to-square");
+  const buttonTable = row.querySelector(".button-table");
+  const saveBtn = buttonTable.querySelector(".fa-save");
+  console.log("Before change:", saveBtn.classList);
 
-    // Ensure button click listener is correctly managed
-    const button = saveBtn.closest("button");
-    button.removeEventListener("click", () => editContact(row));
-    button.addEventListener("click", () => editContact(row));
-  } else {
-    console.error("Save button not found.");
-  }
+  // Convert the save button back to edit mode
+  saveBtn.classList.add("fa-pen-to-square");
+  saveBtn.classList.remove("fa-save");
+
+  console.log("After change:", saveBtn.classList);
+
+  // Get the edit button element
+  const editButton = saveBtn.closest("button");
+
+  // Remove existing event listeners to avoid duplicates
+  editButton.removeEventListener("click", () => saveContact(row, contactId));
+
+  // Add event listener for the edit button
+  editButton.addEventListener("click", () => editContact(row));
 
   // Make an AJAX call to update the contact on the server
   const tmp = {
