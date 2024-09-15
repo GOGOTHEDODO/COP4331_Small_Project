@@ -30,10 +30,10 @@ function addContact(event) {
         <td>${email}</td>
         <td>${phoneNumber}</td>
         <td class="button-table">
-          <button class="btn" onclick="editContact(this)">
+          <button class="btn">
             <i class="fa-solid fa-pen-to-square"></i>
           </button>
-          <button class="btn" onclick="deleteContact(this)">
+          <button class="btn">
             <i class="fa-solid fa-trash"></i>
           </button>
         </td>
@@ -67,18 +67,16 @@ function addContact(event) {
     console.error("Error adding contact to backend:", err);
   }
 }
-function deleteContact(button) {
-  const row = button.closest("tr");
+function deleteContact(row) {
+  // const row = button.closest("tr");
   const contactId = row.cells[0].innerText; // Assuming contact ID is in the first cell
 
   const confirmDelete = confirm(
     "Are you sure you want to delete this contact?"
   );
   if (confirmDelete) {
-    // Remove the row from the table
     row.remove();
 
-    // Reindex the rows after deletion
     reindexTable();
     // Backend part
     const userId = userOps.getUserId();
@@ -117,8 +115,8 @@ function editContact(button) {
   row.cells[3].innerHTML = `<input type="email" value="${email}">`;
 
   // Change edit button to save button
-  button.innerHTML = `<i class="fa-solid fa-save"></i>`;
-  button.setAttribute("onclick", "saveContact(this, " + contactId + ")");
+  button.removeEventListener("click", () => editContact(row));
+  button.addEventListener("click", () => saveContact(row, contactId));
 }
 
 function saveContact(button, contactId) {
@@ -222,15 +220,22 @@ function updateContactTable(contacts) {
         <td>${contact.first_name}</td>
         <td>${contact.last_name}</td>
         <td>${contact.email}</td>
+        <td>${contact.phone_number}
         <td class="button-table">
-          <button class="btn" onclick="editContact(this)">
+          <button class="btn">
             <i class="fa-solid fa-pen-to-square"></i>
           </button>
-          <button class="btn" onclick="deleteContact(this)">
+          <button class="btn">
             <i class="fa-solid fa-trash"></i>
           </button>
         </td>
       `;
+    row
+      .querySelector(".edit-btn")
+      .addEventListener("click", () => editContact(row));
+    row
+      .querySelector(".delete-btn")
+      .addEventListener("click", () => deleteContact(row));
   });
 }
 

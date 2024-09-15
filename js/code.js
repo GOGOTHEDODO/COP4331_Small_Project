@@ -32,17 +32,4 @@ document.addEventListener("DOMContentLoaded", () => {
   if (logoutButton) {
     logoutButton.addEventListener("click", userOps.doLogout);
   }
-
-  const buttons = document.querySelectorAll(".table-container .btn");
-  if (buttons.length > 0) {
-    buttons.forEach((button) => {
-      if (button.querySelector(".fa-pen-to-square")) {
-        button.addEventListener("click", () => contactOps.editContact(button));
-      } else if (button.querySelector(".fa-trash")) {
-        button.addEventListener("click", () =>
-          contactOps.deleteContact(button)
-        );
-      }
-    });
-  }
 });
