@@ -87,11 +87,14 @@ function attachEventListeners(row) {
 
 function replaceButton(row, isEditMode) {
   const buttonTable = row.querySelector(".button-table");
-  const buttonHTML = isEditMode
-    ? `<button class="btn save-btn"><i class="fa-solid fa-save"></i></button>`
-    : `<button class="btn edit-btn"><i class="fa-solid fa-pen-to-square"></i></button>`;
+  const editButtonHTML = `<button class="btn edit-btn"><i class="fa-solid fa-pen-to-square"></i></button>`;
+  const saveButtonHTML = `<button class="btn save-btn"><i class="fa-solid fa-save"></i></button>`;
 
-  buttonTable.innerHTML = buttonHTML;
+  // Keep the delete button and only replace the edit button
+  const deleteButtonHTML = buttonTable.querySelector(".delete-btn").outerHTML;
+  const buttonHTML = isEditMode ? saveButtonHTML : editButtonHTML;
+
+  buttonTable.innerHTML = buttonHTML + deleteButtonHTML;
 
   const newButton = buttonTable.querySelector("button");
   if (isEditMode) {
@@ -127,6 +130,7 @@ function saveContact(row) {
   const updatedLastName = row.cells[2].querySelector("input").value;
   const updatedEmail = row.cells[3].querySelector("input").value;
   const updatedPhoneNumber = row.cells[4].querySelector("input").value;
+  const userId = userOps.getUserId(); // Ensure user_id is included
 
   // Update the row with new values
   row.cells[1].innerText = updatedFirstName;
@@ -144,6 +148,7 @@ function saveContact(row) {
     last_name: updatedLastName,
     email: updatedEmail,
     phone_number: updatedPhoneNumber,
+    user_id: userId, // Add user_id here
   };
   const jsonPayload = JSON.stringify(tmp);
   const url = `${urlBase}/editContact.${extension}`;
