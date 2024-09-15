@@ -25,14 +25,14 @@ if ($conn->connect_error) {
     if ($userCheckResult->num_rows > 0) {
         // User is valid, proceed with updating the contact
         // Verify the contact belongs to the user
-        $contactCheckStmt = $conn->prepare("SELECT contact_id FROM contacts WHERE contact_id = ? AND user_id = ?");
+        $contactCheckStmt = $conn->prepare("SELECT contact_id FROM Contacts WHERE contact_id = ? AND user_id = ?");
         $contactCheckStmt->bind_param("ii", $contactId, $user_id);
         $contactCheckStmt->execute();
         $contactCheckResult = $contactCheckStmt->get_result();
 
         if ($contactCheckResult->num_rows > 0) {
             // Contact exists for this user, proceed with updating
-            $stmt = $conn->prepare("UPDATE contacts SET first_name = ?, last_name = ?, email = ?, phone = ? WHERE contact_id = ? AND user_id = ?");
+            $stmt = $conn->prepare("UPDATE Contacts SET first_name = ?, last_name = ?, email = ?, phone = ? WHERE contact_id = ? AND user_id = ?");
             $stmt->bind_param("ssssii", $firstName, $lastName, $email, $phoneNumber, $contactId, $user_id);
             
             if ($stmt->execute()) {

@@ -27,7 +27,7 @@ if ($conn->connect_error) {
 
         if ($contactCheckResult->num_rows > 0) {
             // Contact is valid, proceed with deletion
-            $stmt = $conn->prepare("DELETE FROM contacts WHERE ID = ? AND user_id = ?");
+            $stmt = $conn->prepare("DELETE FROM Contacts WHERE ID = ? AND user_id = ?");
             $stmt->bind_param("ii", $contactId, $userId);
             
             if ($stmt->execute()) {
