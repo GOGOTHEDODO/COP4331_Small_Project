@@ -14,6 +14,10 @@ document.addEventListener("DOMContentLoaded", () => {
   if (signUpButton) {
     signUpButton.addEventListener("click", userOps.doSignup);
   }
+  const logoutButton = document.getElementById("logoutButton");
+  if (logoutButton) {
+    logoutButton.addEventListener("click", userOps.doLogout);
+  }
 
   // Contact page functions
   const searchInput = document.getElementById("searchInput");
@@ -27,9 +31,6 @@ document.addEventListener("DOMContentLoaded", () => {
   if (addContactForm) {
     addContactForm.addEventListener("submit", contactOps.addContact);
   }
-
-  const logoutButton = document.getElementById("logoutButton");
-  if (logoutButton) {
-    logoutButton.addEventListener("click", userOps.doLogout);
-  }
 });
+
+export const { addContact, retrieveContacts } = contactOps;
