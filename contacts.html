@@ -79,7 +79,9 @@
             <input
               type="tel"
               id="phoneNumber"
-              placeholder="+1 (XXX) XXX-XXXX"
+              placeholder="(XXX) XXX-XXXX"
+              pattern="[0-9]{3} [0-9]{3}-[0-9]{4}"
+              required
             />
           </div>
           <button type="submit">Add Contact</button>
