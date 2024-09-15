@@ -89,18 +89,10 @@ function editContact(row) {
   row.cells[4].innerHTML = `<input type="text" value="${phoneNumber}">`;
 
   // Change the edit button to a save button
-  const editBtn = row.querySelector(".fa-pen-to-square");
-  if (editBtn) {
-    editBtn.classList.remove("fa-pen-to-square");
-    editBtn.classList.add("fa-save");
-
-    // Ensure button click listener is correctly managed
-    const button = editBtn.closest("button");
-    button.removeEventListener("click", () => saveContact(row, contactId));
-    button.addEventListener("click", () => saveContact(row, contactId));
-  } else {
-    console.error("Edit button not found.");
-  }
+  // Change the edit button to a save button
+  const buttonTable = row.querySelector(".button-table");
+  const editBtn = buttonTable.querySelector(".fa-pen-to-square");
+  console.log(editBtn.classList);
 }
 function saveContact(row, contactId) {
   const updatedFirstName = row.cells[1].querySelector("input").value;
