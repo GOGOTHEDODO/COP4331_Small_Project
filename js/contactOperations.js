@@ -71,7 +71,6 @@ function addContact(event) {
     console.error("Error adding contact to backend:", err);
   }
 }
-
 function editContact(row) {
   const contactId = row
     .querySelector(".button-table")
@@ -90,12 +89,70 @@ function editContact(row) {
   row.cells[4].innerHTML = `<input type="text" value="${phoneNumber}">`;
 
   // Change the edit button to a save button
-  const saveBtn = row.querySelector(".fa-pen-to-square");
-  saveBtn.classList.remove("fa-pen-to-square");
-  saveBtn.classList.add("fa-save");
-  saveBtn
-    .closest("button")
-    .addEventListener("click", () => saveContact(row, contactId));
+  const editBtn = row.querySelector(".fa-pen-to-square");
+  if (editBtn) {
+    editBtn.classList.remove("fa-pen-to-square");
+    editBtn.classList.add("fa-save");
+
+    // Ensure button click listener is correctly managed
+    const button = editBtn.closest("button");
+    button.removeEventListener("click", editContactHandler);
+    button.addEventListener("click", () => saveContact(row, contactId));
+  } else {
+    console.error("Edit button not found.");
+  }
+}
+function saveContact(row, contactId) {
+  // Retrieve updated values from input fields
+  const updatedFirstName = row.cells[1].querySelector("input").value;
+  const updatedLastName = row.cells[2].querySelector("input").value;
+  const updatedEmail = row.cells[3].querySelector("input").value;
+  const updatedPhoneNumber = row.cells[4].querySelector("input").value;
+
+  // Update the row with new values
+  row.cells[1].innerText = updatedFirstName;
+  row.cells[2].innerText = updatedLastName;
+  row.cells[3].innerText = updatedEmail;
+  row.cells[4].innerText = updatedPhoneNumber;
+
+  // Revert save button back to edit button
+  const saveBtn = row.querySelector(".fa-save");
+  if (saveBtn) {
+    saveBtn.classList.remove("fa-save");
+    saveBtn.classList.add("fa-pen-to-square");
+
+    // Ensure button click listener is correctly managed
+    const button = saveBtn.closest("button");
+    button.removeEventListener("click", saveContactHandler);
+    button.addEventListener("click", () => editContact(row));
+  } else {
+    console.error("Save button not found.");
+  }
+
+  // Make an AJAX call to update the contact on the server
+  const tmp = {
+    contact_id: contactId,
+    first_name: updatedFirstName,
+    last_name: updatedLastName,
+    email: updatedEmail,
+    phone_number: updatedPhoneNumber,
+  };
+  const jsonPayload = JSON.stringify(tmp);
+  const url = `${urlBase}/editContact.${extension}`;
+
+  const xhr = new XMLHttpRequest();
+  xhr.open("POST", url, true);
+  xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+  xhr.onreadystatechange = function () {
+    if (this.readyState == 4 && this.status == 200) {
+      console.log("Contact updated successfully");
+    }
+  };
+  try {
+    xhr.send(jsonPayload);
+  } catch (err) {
+    console.error("Error updating contact:", err);
+  }
 }
 
 function deleteContact(row) {
@@ -129,50 +186,6 @@ function deleteContact(row) {
     } catch (err) {
       console.error("Error deleting contact:", err);
     }
-  }
-}
-
-function saveContact(row, contactId) {
-  const updatedFirstName = row.cells[1].querySelector("input").value;
-  const updatedLastName = row.cells[2].querySelector("input").value;
-  const updatedEmail = row.cells[3].querySelector("input").value;
-  const updatedPhoneNumber = row.cells[4].querySelector("input").value;
-
-  // Update the row with new values
-  row.cells[1].innerText = updatedFirstName;
-  row.cells[2].innerText = updatedLastName;
-  row.cells[3].innerText = updatedEmail;
-  row.cells[4].innerText = updatedPhoneNumber;
-
-  // Revert save button back to edit button
-  const editBtn = row.querySelector(".fa-save");
-  editBtn.classList.remove("fa-save");
-  editBtn.classList.add("fa-pen-to-square");
-  editBtn.closest("button").setAttribute("onclick", "editContact(this)");
-
-  // Make an AJAX call to update the contact on the server
-  let tmp = {
-    contact_id: contactId,
-    first_name: updatedFirstName,
-    last_name: updatedLastName,
-    email: updatedEmail,
-    phone_number: updatedPhoneNumber,
-  };
-  let jsonPayload = JSON.stringify(tmp);
-  let url = urlBase + "/editContact." + extension;
-
-  let xhr = new XMLHttpRequest();
-  xhr.open("POST", url, true);
-  xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
-  try {
-    xhr.onreadystatechange = function () {
-      if (this.readyState == 4 && this.status == 200) {
-        console.log("Contact updated successfully");
-      }
-    };
-    xhr.send(jsonPayload);
-  } catch (err) {
-    console.error("Error updating contact:", err);
   }
 }
 
