@@ -93,6 +93,11 @@ function editContact(row) {
   const buttonTable = row.querySelector(".button-table");
   const editBtn = buttonTable.querySelector(".fa-pen-to-square");
   console.log(editBtn.classList);
+  editBtn.classList.add("fa-save");
+  editBtn.classList.remove("fa-pen-to-square");
+
+  console.log("After change:", editBtn.classList);
+  // Log the updated class list
 }
 function saveContact(row, contactId) {
   const updatedFirstName = row.cells[1].querySelector("input").value;
