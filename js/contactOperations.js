@@ -64,6 +64,9 @@ function addContact(event) {
           .querySelector(".button-table")
           .setAttribute("data-contact-id", response.contact_id);
         console.log("Contact added to backend successfully");
+
+        // Attach event listeners for the new row
+        attachEventListeners(newRow);
       }
     };
     xhr.send(jsonPayload);
@@ -71,6 +74,19 @@ function addContact(event) {
     console.error("Error adding contact to backend:", err);
   }
 }
+
+function attachEventListeners(row) {
+  row
+    .querySelector(".fa-pen-to-square")
+    .closest("button")
+    .addEventListener("click", () => editContact(row));
+
+  row
+    .querySelector(".fa-trash")
+    .closest("button")
+    .addEventListener("click", () => deleteContact(row));
+}
+
 function editContact(row) {
   const contactId = row
     .querySelector(".button-table")
@@ -89,7 +105,6 @@ function editContact(row) {
   row.cells[4].innerHTML = `<input type="text" value="${phoneNumber}">`;
 
   // Change the edit button to a save button
-  // Change the edit button to a save button
   const buttonTable = row.querySelector(".button-table");
   const editBtn = buttonTable.querySelector(".fa-pen-to-square");
   editBtn.classList.add("fa-save");
@@ -97,9 +112,11 @@ function editContact(row) {
 
   const saveButton = editBtn.closest("button");
 
-  saveButton.removeEventListener("click", handleEditContactClick);
-  saveButton.addEventListener("click", handleSaveContactClick);
+  // Remove previous event listener
+  saveButton.removeEventListener("click", () => editContact(row));
+  saveButton.addEventListener("click", () => saveContact(row, contactId));
 }
+
 function saveContact(row, contactId) {
   const updatedFirstName = row.cells[1].querySelector("input").value;
   const updatedLastName = row.cells[2].querySelector("input").value;
@@ -120,8 +137,11 @@ function saveContact(row, contactId) {
   saveBtn.classList.remove("fa-save");
 
   const editButton = saveBtn.closest("button");
-  editButton.removeEventListener("click", handleSaveContactClick);
-  editButton.addEventListener("click", handleEditContactClick);
+
+  // Remove previous event listener
+  editButton.removeEventListener("click", () => saveContact(row, contactId));
+  editButton.addEventListener("click", () => editContact(row));
+
   // Make an AJAX call to update the contact on the server
   const tmp = {
     contact_id: contactId,
@@ -219,6 +239,7 @@ function retrieveContacts(searchTerm = "") {
     console.error("Error sending request:", err);
   }
 }
+
 function updateContactTable(contacts) {
   const table = document.querySelector(".table tbody");
   table.innerHTML = "";
@@ -247,14 +268,9 @@ function updateContactTable(contacts) {
         </button>
       </td>
     `;
-    row
-      .querySelector(".fa-pen-to-square")
-      .closest("button")
-      .addEventListener("click", handleEditContactClick);
-    row
-      .querySelector(".fa-trash")
-      .closest("button")
-      .addEventListener("click", () => deleteContact(row));
+
+    // Attach event listeners for the row
+    attachEventListeners(row);
   });
 }
 
@@ -265,15 +281,6 @@ function reindexTable() {
   for (let i = 0; i < rows.length; i++) {
     rows[i].cells[0].innerText = i + 1;
   }
-}
-
-// Define your functions outside of other functions to maintain a consistent reference
-function handleEditContactClick(row) {
-  editContact(row);
-}
-
-function handleSaveContactClick(row, contactId) {
-  saveContact(row, contactId);
 }
 
 const contactOps = {
