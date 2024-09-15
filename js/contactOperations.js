@@ -21,14 +21,14 @@ function addContact(event) {
   // Create a new row and insert it into the table
   const newRow = table.insertRow();
 
-  // Insert cells into the row
+  // Insert cells into the row, including a hidden ID in a data attribute
   newRow.innerHTML = `
     <th scope="row">${rowCount}</th>
     <td>${firstName}</td>
     <td>${lastName}</td>
     <td>${email}</td>
     <td>${phoneNumber}</td>
-    <td class="button-table">
+    <td class="button-table" data-contact-id="temp-id">
       <button class="btn">
         <i class="fa-solid fa-pen-to-square"></i>
       </button>
@@ -58,6 +58,11 @@ function addContact(event) {
   try {
     xhr.onreadystatechange = function () {
       if (this.readyState == 4 && this.status == 200) {
+        const response = JSON.parse(this.responseText);
+        // Update the row with the actual contact ID from the response
+        newRow
+          .querySelector(".button-table")
+          .setAttribute("data-contact-id", response.contact_id);
         console.log("Contact added to backend successfully");
       }
     };
@@ -67,8 +72,32 @@ function addContact(event) {
   }
 }
 
+function editContact(row) {
+  const contactId = row.cells[0].innerText; // Assuming the contact ID is in the first cell
+
+  // Get current values from the row
+  const firstName = row.cells[1].innerText;
+  const lastName = row.cells[2].innerText;
+  const email = row.cells[3].innerText;
+
+  // Convert cells to input fields for editing
+  row.cells[1].innerHTML = `<input type="text" value="${firstName}">`;
+  row.cells[2].innerHTML = `<input type="text" value="${lastName}">`;
+  row.cells[3].innerHTML = `<input type="email" value="${email}">`;
+
+  // Change the edit button to a save button
+  const saveBtn = row.querySelector(".fa-pen-to-square");
+  saveBtn.classList.remove("fa-pen-to-square");
+  saveBtn.classList.add("fa-save");
+  saveBtn
+    .closest("button")
+    .addEventListener("click", () => saveContact(row, contactId));
+}
+
 function deleteContact(row) {
-  const contactId = row.cells[0].innerText; // Assuming contact ID is in the first cell
+  const contactId = row
+    .querySelector(".button-table")
+    .getAttribute("data-contact-id");
 
   const confirmDelete = confirm(
     "Are you sure you want to delete this contact?"
@@ -97,28 +126,6 @@ function deleteContact(row) {
       console.error("Error deleting contact:", err);
     }
   }
-}
-
-function editContact(row) {
-  const contactId = row.cells[0].innerText; // Assuming the contact ID is in the first cell
-
-  // Get current values from the row
-  const firstName = row.cells[1].innerText;
-  const lastName = row.cells[2].innerText;
-  const email = row.cells[3].innerText;
-
-  // Convert cells to input fields for editing
-  row.cells[1].innerHTML = `<input type="text" value="${firstName}">`;
-  row.cells[2].innerHTML = `<input type="text" value="${lastName}">`;
-  row.cells[3].innerHTML = `<input type="email" value="${email}">`;
-
-  // Change the edit button to a save button
-  const saveBtn = row.querySelector(".fa-pen-to-square");
-  saveBtn.classList.remove("fa-pen-to-square");
-  saveBtn.classList.add("fa-save");
-  saveBtn
-    .closest("button")
-    .addEventListener("click", () => saveContact(row, contactId));
 }
 
 function saveContact(row, contactId) {
@@ -202,7 +209,6 @@ function retrieveContacts(searchTerm = "") {
     console.error("Error sending request:", err);
   }
 }
-
 function updateContactTable(contacts) {
   const table = document.querySelector(".table tbody");
   table.innerHTML = "";
@@ -222,7 +228,7 @@ function updateContactTable(contacts) {
       <td>${contact.last_name}</td>
       <td>${contact.email}</td>
       <td>${contact.phone}</td>
-      <td class="button-table">
+      <td class="button-table" data-contact-id="${contact.contact_id}">
         <button class="btn">
           <i class="fa-solid fa-pen-to-square"></i>
         </button>
