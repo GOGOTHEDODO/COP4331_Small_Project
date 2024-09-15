@@ -92,16 +92,25 @@ function editContact(row) {
   // Change the edit button to a save button
   const buttonTable = row.querySelector(".button-table");
   const editBtn = buttonTable.querySelector(".fa-pen-to-square");
-  console.log(editBtn.classList);
   editBtn.classList.add("fa-save");
   editBtn.classList.remove("fa-pen-to-square");
 
-  console.log("After change:", editBtn.classList);
-  // Log the updated class list
-  // Update event listener for the save button
   const saveButton = editBtn.closest("button");
-  saveButton.removeEventListener("click", () => editContact(row));
-  saveButton.addEventListener("click", () => saveContact(row, contactId));
+
+  // Define named functions
+  function handleEditContactClick() {
+    editContact(row);
+  }
+
+  function handleSaveContactClick() {
+    saveContact(row, contactId);
+  }
+
+  // Remove previous event listeners
+  saveButton.removeEventListener("click", handleEditContactClick);
+
+  // Add new event listener
+  saveButton.addEventListener("click", handleSaveContactClick);
 }
 function saveContact(row, contactId) {
   const updatedFirstName = row.cells[1].querySelector("input").value;
@@ -117,22 +126,28 @@ function saveContact(row, contactId) {
 
   const buttonTable = row.querySelector(".button-table");
   const saveBtn = buttonTable.querySelector(".fa-save");
-  console.log("Before change:", saveBtn.classList);
 
   // Convert the save button back to edit mode
   saveBtn.classList.add("fa-pen-to-square");
   saveBtn.classList.remove("fa-save");
 
-  console.log("After change:", saveBtn.classList);
-
   // Get the edit button element
   const editButton = saveBtn.closest("button");
 
-  // Remove existing event listeners to avoid duplicates
-  editButton.removeEventListener("click", () => saveContact(row, contactId));
+  // Define named functions
+  function handleSaveContactClick() {
+    saveContact(row, contactId);
+  }
+
+  function handleEditContactClick() {
+    editContact(row);
+  }
+
+  // Remove existing event listeners
+  editButton.removeEventListener("click", handleSaveContactClick);
 
   // Add event listener for the edit button
-  editButton.addEventListener("click", () => editContact(row));
+  editButton.addEventListener("click", handleEditContactClick);
 
   // Make an AJAX call to update the contact on the server
   const tmp = {
