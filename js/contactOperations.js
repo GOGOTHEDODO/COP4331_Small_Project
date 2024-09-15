@@ -96,14 +96,13 @@ function editContact(row) {
 
     // Ensure button click listener is correctly managed
     const button = editBtn.closest("button");
-    button.removeEventListener("click", editContactHandler);
+    button.removeEventListener("click", () => saveContact(row, contactId));
     button.addEventListener("click", () => saveContact(row, contactId));
   } else {
     console.error("Edit button not found.");
   }
 }
 function saveContact(row, contactId) {
-  // Retrieve updated values from input fields
   const updatedFirstName = row.cells[1].querySelector("input").value;
   const updatedLastName = row.cells[2].querySelector("input").value;
   const updatedEmail = row.cells[3].querySelector("input").value;
@@ -123,7 +122,7 @@ function saveContact(row, contactId) {
 
     // Ensure button click listener is correctly managed
     const button = saveBtn.closest("button");
-    button.removeEventListener("click", saveContactHandler);
+    button.removeEventListener("click", () => editContact(row));
     button.addEventListener("click", () => editContact(row));
   } else {
     console.error("Save button not found.");
