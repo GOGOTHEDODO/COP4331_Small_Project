@@ -89,9 +89,17 @@ h3 {
 }
 
 .error-msg {
-  display: block;
-  position: relative;
+  display: flex;
+  align-items: center;
   padding-left: 25px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.error-msg .fa-exclamation-triangle {
+  margin-right: 8px;
+  color: lightcoral;
 }
 
 /* Contacts Styling */
