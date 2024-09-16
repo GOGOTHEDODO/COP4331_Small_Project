@@ -67,10 +67,12 @@ function validateUserInput(firstName, lastName, email, phoneNumber) {
     if (!result.valid) {
       input.style.borderColor = "red";
       xmarkIcon.classList.add("invalid");
+      checkIcon.classList.remove("valid");
       errorSpan.innerHTML += `<p>${result.message}</p>`;
     } else {
       input.style.borderColor = "green";
       checkIcon.classList.add("valid");
+      xmarkIcon.classList.remove("invalid");
     }
   });
 
