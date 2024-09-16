@@ -135,10 +135,9 @@ h3 {
   top: 50%;
   right: 10px;
   color: lightgreen;
+  transform: translateY(-50%);
   opacity: 0;
   z-index: 1;
-  transform: translateY(-50%);
-  transition: opacity 0.3s ease;
 }
 
 .divider.valid .fa-check {
@@ -147,8 +146,8 @@ h3 {
 }
 
 .divider.valid .fa-xmark {
-  opacity: 1;
-  z-index: 3;
+  opacity: 0;
+  z-index: 1;
 }
 
 .contacts-form input:valid {
