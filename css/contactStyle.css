@@ -81,8 +81,7 @@ h3 {
 
 .error-container {
   grid-area: contact;
-  margin-left: 25px;
-  margin-bottom: 10px;
+  margin-bottom: 5px;
   color: lightcoral;
   font-size: 0.9rem;
   font-family: "SUSE", sans-serif;
@@ -91,7 +90,6 @@ h3 {
 .error-msg {
   display: flex;
   align-items: center;
-  padding-left: 25px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
