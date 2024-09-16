@@ -23,8 +23,9 @@ if ($conn === null) {
         http_response_code(400);
         returnWithError("Username already exists");
     } else {
+        $hashedPassword = password_hash($password, PASSWORD_BCRYPT);
         $stmt = $conn->prepare("INSERT INTO Users (user_name, password, first_name, last_name) VALUES (?, ?, ?, ?)");
-        $stmt->bind_param("ssss", $username, $password, $firstName, $lastName);
+        $stmt->bind_param("ssss", $username, $hashedPassword, $firstName, $lastName);
         if ($stmt->execute()) {
             $id = $stmt->insert_id;
             http_response_code(200);
