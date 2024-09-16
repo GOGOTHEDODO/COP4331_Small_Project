@@ -132,7 +132,6 @@ h3 {
 }
 .contacts-form .fa-check {
   position: absolute;
-  top: 50%;
   right: 10px;
   color: lightgreen;
   transform: translateY(-50%);
