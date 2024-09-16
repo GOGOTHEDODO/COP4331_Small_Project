@@ -130,21 +130,7 @@ function doSignup() {
 }
 
 function doLogout() {
-  fetch("logout.php", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-  })
-    .then((response) => response.json())
-    .then((data) => {
-      if (data.message === "Logout successful") {
-        clearCookie();
-      }
-    })
-    .catch((error) => {
-      console.error("Error during logout:", error);
-    });
+  clearCookie();
 }
 
 function saveCookie() {
