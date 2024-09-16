@@ -12,9 +12,7 @@ function validateUserInput(firstName, lastName, email, phoneNumber) {
   errorSpan.innerHTML = "";
   document.querySelectorAll(".divider input").forEach((input) => {
     input.style.borderColor = "";
-    const icons = input.nextElementSibling
-      ? [input.nextElementSibling, input.nextElementSibling.nextElementSibling]
-      : [];
+    const icons = input.parentElement.querySelectorAll("i");
     icons.forEach((icon) => {
       icon.classList.remove("valid", "invalid");
     });
@@ -57,9 +55,7 @@ function validateUserInput(firstName, lastName, email, phoneNumber) {
   Object.keys(validationResults).forEach((key) => {
     const result = validationResults[key];
     const input = document.getElementById(key);
-    const icons = input
-      ? [input.nextElementSibling, input.nextElementSibling.nextElementSibling]
-      : [];
+    const icons = input.parentElement.querySelectorAll("i");
 
     if (input) {
       if (!result.valid) {
