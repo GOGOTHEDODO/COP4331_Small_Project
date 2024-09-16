@@ -134,7 +134,7 @@ h3 {
   background-color: #eee;
   height: 35px;
   border: transparent;
-  border-bottom: 3px solid #339989;
+  border-bottom: 6px solid lightcoral;
   border-radius: 15px;
   width: 100%;
   outline: none;
@@ -172,13 +172,13 @@ h3 {
   z-index: 1;
 }
 
-.contacts-form input:valid {
+/* .contacts-form input:valid {
   border-bottom: 6px solid palegreen;
-}
+} 
 
-.contacts-form input:invalid {
+ .contacts-form input:invalid {
   border-bottom: 6px solid lightcoral;
-}
+}  */
 
 .contacts-form input:hover,
 .contacts-form input:focus {
