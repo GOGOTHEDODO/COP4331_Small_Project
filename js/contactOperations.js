@@ -2,81 +2,6 @@ import userOps from "./userOperations.js";
 const urlBase = "http://www.smallproject14.pro/API";
 const extension = "php";
 
-function validateUserInput(formId, firstName, lastName, email, phoneNumber) {
-  const namePattern = /^[A-Za-z]+$/;
-  const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-  const phonePattern = /^[0-9]{10,12}$/;
-  const errorContainer = document.getElementById(formId + "-errorMessages");
-
-  // Clear previous errors
-  errorContainer.innerHTML = "";
-
-  const validationResults = {
-    firstName: { valid: true, message: "" },
-    lastName: { valid: true, message: "" },
-    email: { valid: true, message: "" },
-    phoneNumber: { valid: true, message: "" },
-  };
-
-  if (!namePattern.test(firstName)) {
-    validationResults.firstName = {
-      valid: false,
-      message: "First name should contain only alphabetic characters.",
-    };
-  }
-  if (!namePattern.test(lastName)) {
-    validationResults.lastName = {
-      valid: false,
-      message: "Last name should contain only alphabetic characters.",
-    };
-  }
-  if (!emailPattern.test(email)) {
-    validationResults.email = {
-      valid: false,
-      message: "Please enter a valid email address.",
-    };
-  }
-  if (!phonePattern.test(phoneNumber)) {
-    validationResults.phoneNumber = {
-      valid: false,
-      message: "Please enter a valid phone number (10-12 digits).",
-    };
-  }
-
-  Object.keys(validationResults).forEach((key) => {
-    const result = validationResults[key];
-    const input = document.getElementById(key);
-    const divider = input.parentElement;
-    const checkIcon = divider.querySelector(".fa-check");
-    const xmarkIcon = divider.querySelector(".fa-xmark");
-
-    if (input) {
-      if (!result.valid) {
-        input.style.borderColor = "lightcoral";
-        xmarkIcon.classList.add("invalid");
-        xmarkIcon.style.opacity = "1";
-        checkIcon.classList.remove("valid");
-        checkIcon.style.opacity = "0";
-
-        const errorMsg = document.createElement("div");
-        errorMsg.className = "error-msg";
-        errorMsg.innerHTML = `
-          <span class="fa fa-exclamation-triangle"></span> ${result.message}
-        `;
-        errorContainer.appendChild(errorMsg);
-      } else {
-        input.style.borderColor = "palegreen";
-        checkIcon.classList.add("valid");
-        checkIcon.style.opacity = "1";
-        xmarkIcon.classList.remove("invalid");
-        xmarkIcon.style.opacity = "0";
-      }
-    }
-  });
-
-  return Object.values(validationResults).every((result) => result.valid);
-}
-
 function addContact(event) {
   event.preventDefault(); // Prevent form from submitting and refreshing the page
 
@@ -151,35 +76,6 @@ function addContact(event) {
     xhr.send(jsonPayload);
   } catch (err) {
     console.error("Error adding contact to backend:", err);
-  }
-}
-
-function attachEventListeners(row) {
-  // Attach edit and delete button event listeners
-  row
-    .querySelector(".edit-btn")
-    .addEventListener("click", () => editContact(row));
-  row
-    .querySelector(".delete-btn")
-    .addEventListener("click", () => deleteContact(row));
-}
-
-function replaceButton(row, isEditMode) {
-  const buttonTable = row.querySelector(".button-table");
-  const editButtonHTML = `<button class="btn edit-btn"><i class="fa-solid fa-pen-to-square"></i></button>`;
-  const saveButtonHTML = `<button class="btn save-btn"><i class="fa-solid fa-save"></i></button>`;
-
-  // Keep the delete button and only replace the edit button
-  const deleteButtonHTML = buttonTable.querySelector(".delete-btn").outerHTML;
-  const buttonHTML = isEditMode ? saveButtonHTML : editButtonHTML;
-
-  buttonTable.innerHTML = buttonHTML + deleteButtonHTML;
-
-  const newButton = buttonTable.querySelector("button");
-  if (isEditMode) {
-    newButton.addEventListener("click", () => saveContact(row));
-  } else {
-    newButton.addEventListener("click", () => editContact(row));
   }
 }
 
@@ -319,6 +215,7 @@ function retrieveContacts(searchTerm = "") {
   }
 }
 
+// helper functions
 function updateContactTable(contacts) {
   const table = document.querySelector(".table tbody");
   table.innerHTML = "";
@@ -358,6 +255,109 @@ function reindexTable() {
   });
 }
 
+function validateUserInput(formId, firstName, lastName, email, phoneNumber) {
+  const namePattern = /^[A-Za-z]+$/;
+  const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+  const phonePattern = /^[0-9]{10,12}$/;
+  const errorContainer = document.getElementById(formId + "-errorMessages");
+
+  // Clear previous errors
+  errorContainer.innerHTML = "";
+
+  const validationResults = {
+    firstName: { valid: true, message: "" },
+    lastName: { valid: true, message: "" },
+    email: { valid: true, message: "" },
+    phoneNumber: { valid: true, message: "" },
+  };
+
+  if (!namePattern.test(firstName)) {
+    validationResults.firstName = {
+      valid: false,
+      message: "First name should contain only alphabetic characters.",
+    };
+  }
+  if (!namePattern.test(lastName)) {
+    validationResults.lastName = {
+      valid: false,
+      message: "Last name should contain only alphabetic characters.",
+    };
+  }
+  if (!emailPattern.test(email)) {
+    validationResults.email = {
+      valid: false,
+      message: "Please enter a valid email address.",
+    };
+  }
+  if (!phonePattern.test(phoneNumber)) {
+    validationResults.phoneNumber = {
+      valid: false,
+      message: "Please enter a valid phone number (10-12 digits).",
+    };
+  }
+
+  Object.keys(validationResults).forEach((key) => {
+    const result = validationResults[key];
+    const input = document.getElementById(key);
+    const divider = input.parentElement;
+    const checkIcon = divider.querySelector(".fa-check");
+    const xmarkIcon = divider.querySelector(".fa-xmark");
+
+    if (input) {
+      if (!result.valid) {
+        input.style.borderColor = "lightcoral";
+        xmarkIcon.classList.add("invalid");
+        xmarkIcon.style.opacity = "1";
+        checkIcon.classList.remove("valid");
+        checkIcon.style.opacity = "0";
+
+        const errorMsg = document.createElement("div");
+        errorMsg.className = "error-msg";
+        errorMsg.innerHTML = `
+          <span class="fa fa-exclamation-triangle"></span> ${result.message}
+        `;
+        errorContainer.appendChild(errorMsg);
+      } else {
+        input.style.borderColor = "palegreen";
+        checkIcon.classList.add("valid");
+        checkIcon.style.opacity = "1";
+        xmarkIcon.classList.remove("invalid");
+        xmarkIcon.style.opacity = "0";
+      }
+    }
+  });
+
+  return Object.values(validationResults).every((result) => result.valid);
+}
+
+function attachEventListeners(row) {
+  // Attach edit and delete button event listeners
+  row
+    .querySelector(".edit-btn")
+    .addEventListener("click", () => editContact(row));
+  row
+    .querySelector(".delete-btn")
+    .addEventListener("click", () => deleteContact(row));
+}
+
+function replaceButton(row, isEditMode) {
+  const buttonTable = row.querySelector(".button-table");
+  const editButtonHTML = `<button class="btn edit-btn"><i class="fa-solid fa-pen-to-square"></i></button>`;
+  const saveButtonHTML = `<button class="btn save-btn"><i class="fa-solid fa-save"></i></button>`;
+
+  // Keep the delete button and only replace the edit button
+  const deleteButtonHTML = buttonTable.querySelector(".delete-btn").outerHTML;
+  const buttonHTML = isEditMode ? saveButtonHTML : editButtonHTML;
+
+  buttonTable.innerHTML = buttonHTML + deleteButtonHTML;
+
+  const newButton = buttonTable.querySelector("button");
+  if (isEditMode) {
+    newButton.addEventListener("click", () => saveContact(row));
+  } else {
+    newButton.addEventListener("click", () => editContact(row));
+  }
+}
 const contactOps = {
   addContact,
   retrieveContacts,

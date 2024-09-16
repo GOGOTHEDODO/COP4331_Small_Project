@@ -22,6 +22,7 @@ document.addEventListener("DOMContentLoaded", () => {
   // Contact page functions
   const searchInput = document.getElementById("searchInput");
   if (searchInput) {
+    userOps.readCookie();
     contactOps.retrieveContacts();
     searchInput.addEventListener("keyup", function () {
       contactOps.retrieveContacts(searchInput.value);
