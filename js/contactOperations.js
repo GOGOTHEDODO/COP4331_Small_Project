@@ -6,7 +6,7 @@ function validateUserInput(firstName, lastName, email, phoneNumber) {
   const namePattern = /^[A-Za-z]+$/;
   const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
   const phonePattern = /^[0-9]{10,12}$/;
-  const errorSpan = document.getElementById("invalidInput");
+  const errorSpan = document.getElementsByClassName("error-msg");
 
   errorSpan.innerHTML = "";
   document.querySelectorAll(".divider").forEach((divider) => {
