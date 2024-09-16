@@ -79,6 +79,26 @@ h3 {
   letter-spacing: 1.5px;
 }
 
+.error-msg {
+  position: relative;
+  padding-left: 25px; /* Adjust space for the triangle */
+  color: lightcoral;
+  font-size: 0.9rem;
+  margin-bottom: 5px;
+}
+
+.error-msg::before {
+  content: "\f071"; /* FontAwesome triangle exclamation icon */
+  font-family: "Font Awesome 6 Free";
+  font-weight: 900;
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  color: lightcoral;
+  font-size: 1rem; /* Adjust size as needed */
+}
+
 /* Contacts Styling */
 .header {
   grid-area: header;

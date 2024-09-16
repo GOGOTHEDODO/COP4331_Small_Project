@@ -8,7 +8,6 @@ function validateUserInput(firstName, lastName, email, phoneNumber) {
   const phonePattern = /^[0-9]{10,12}$/;
   const errorSpan = document.getElementById("invalidInput");
 
-  // Reset previous indicators
   errorSpan.innerHTML = "";
   document.querySelectorAll(".divider").forEach((divider) => {
     const input = divider.querySelector("input");
@@ -52,7 +51,6 @@ function validateUserInput(firstName, lastName, email, phoneNumber) {
     };
   }
 
-  // Update UI based on validation results
   Object.keys(validationResults).forEach((key) => {
     const result = validationResults[key];
     const input = document.getElementById(key);
@@ -67,7 +65,14 @@ function validateUserInput(firstName, lastName, email, phoneNumber) {
         xmarkIcon.style.opacity = "1";
         checkIcon.classList.remove("valid");
         checkIcon.style.opacity = "0";
-        errorSpan.innerHTML += `<p>${result.message}</p>`;
+
+        // Create error message span
+        const errorMsg = document.createElement("span");
+        errorMsg.className = "error-msg";
+        errorMsg.textContent = result.message;
+
+        // Append to error span
+        errorSpan.appendChild(errorMsg);
       } else {
         input.style.borderColor = "palegreen";
         checkIcon.classList.add("valid");
@@ -77,9 +82,6 @@ function validateUserInput(firstName, lastName, email, phoneNumber) {
       }
     }
   });
-
-  // Return true if all fields are valid, otherwise false
-  return Object.values(validationResults).every((result) => result.valid);
 }
 
 function addContact(event) {
