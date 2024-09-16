@@ -58,8 +58,11 @@ function validateUserInput(formId, firstName, lastName, email, phoneNumber) {
         checkIcon.classList.remove("valid");
         checkIcon.style.opacity = "0";
 
-        // Append error message to container
-        errorContainer.appendChild(createErrorMessage(result.message));
+        const errorMsg = document.createElement("div");
+        errorMsg.className = "error-msg";
+        errorMsg.innerHTML = `
+          <span class="fa fa-exclamation-triangle"></span> ${message}
+        `;
       } else {
         input.style.borderColor = "palegreen";
         checkIcon.classList.add("valid");
