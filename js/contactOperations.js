@@ -8,12 +8,12 @@ function validateUserInput(firstName, lastName, email, phoneNumber) {
   const phonePattern = /^[0-9]{10,12}$/;
   const errorSpan = document.getElementById("invalidInput");
 
-  // Reset error message and clear previous indicators
+  // Reset previous indicators
   errorSpan.innerHTML = "";
-  document.querySelectorAll(".divider input").forEach((input) => {
+  document.querySelectorAll(".divider").forEach((divider) => {
+    const input = divider.querySelector("input");
     input.style.borderColor = "";
-    const icons = input.parentElement.querySelectorAll("i");
-    icons.forEach((icon) => {
+    divider.querySelectorAll(".fa-check, .fa-xmark").forEach((icon) => {
       icon.classList.remove("valid", "invalid");
     });
   });
@@ -47,7 +47,7 @@ function validateUserInput(firstName, lastName, email, phoneNumber) {
   if (!phonePattern.test(phoneNumber)) {
     validationResults.phoneNumber = {
       valid: false,
-      message: "Please enter a valid phone number (up to 12 digits).",
+      message: "Please enter a valid phone number (10-12 digits).",
     };
   }
 
@@ -55,18 +55,20 @@ function validateUserInput(firstName, lastName, email, phoneNumber) {
   Object.keys(validationResults).forEach((key) => {
     const result = validationResults[key];
     const input = document.getElementById(key);
-    const icons = input.parentElement.querySelectorAll("i");
+    const divider = input.parentElement;
+    const checkIcon = divider.querySelector(".fa-check");
+    const xmarkIcon = divider.querySelector(".fa-xmark");
 
     if (input) {
       if (!result.valid) {
         input.style.borderColor = "red";
-        icons[1]?.classList.add("invalid");
-        icons[0]?.classList.remove("valid");
+        xmarkIcon.classList.add("invalid");
+        checkIcon.classList.remove("valid");
         errorSpan.innerHTML += `<p>${result.message}</p>`;
       } else {
         input.style.borderColor = "green";
-        icons[0]?.classList.add("valid");
-        icons[1]?.classList.remove("invalid");
+        checkIcon.classList.add("valid");
+        xmarkIcon.classList.remove("invalid");
       }
     }
   });
