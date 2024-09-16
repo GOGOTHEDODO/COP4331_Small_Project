@@ -16,33 +16,7 @@ function addContact(event) {
   ) {
     return;
   }
-  // Get the table body
-  const table = document.querySelector(".table tbody");
 
-  // Get the current number of rows to calculate the new contact's number
-  const rowCount = table.rows.length + 1;
-
-  // Create a new row and insert it into the table
-  const newRow = table.insertRow();
-
-  // Insert cells into the row, including a hidden ID in a data attribute
-  newRow.innerHTML = `
-    <th scope="row">${rowCount}</th>
-    <td>${firstName}</td>
-    <td>${lastName}</td>
-    <td>${email}</td>
-    <td>${phoneNumber}</td>
-    <td class="button-table" data-contact-id="temp-id">
-      <button class="btn edit-btn">
-        <i class="fa-solid fa-pen-to-square"></i>
-      </button>
-      <button class="btn delete-btn">
-        <i class="fa-solid fa-trash"></i>
-      </button>
-    </td>
-  `;
-
-  // Clear the form fields after adding the contact
   document.getElementById("addContactForm").reset();
 
   // Backend section
@@ -63,14 +37,8 @@ function addContact(event) {
     xhr.onreadystatechange = function () {
       if (this.readyState == 4 && this.status == 200) {
         const response = JSON.parse(this.responseText);
-        // Update the row with the actual contact ID from the response
-        newRow
-          .querySelector(".button-table")
-          .setAttribute("data-contact-id", response.contact_id);
+        retrieveContacts();
         console.log("Contact added to backend successfully");
-
-        // Attach event listeners for the new row
-        attachEventListeners(newRow);
       }
     };
     xhr.send(jsonPayload);
