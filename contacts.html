@@ -53,13 +53,12 @@
       <div class="contacts-form">
         <form id="addContactForm">
           <div class="divider" id="fdiv">
-            <span id = "invalidInput"> </span>
+            <span id="invalidInput"> </span>
             <h3>First</h3>
             <input
               type="text"
               id="firstName"
               placeholder="first name"
-              pattern="+[A-Za-z]"
               required
             />
             <i class="fa-solid fa-check"></i>
@@ -67,15 +66,9 @@
           </div>
           <div class="divider" id="ldiv">
             <h3>Last</h3>
-            <input
-              type="text"
-              id="lastName"
-              placeholder="last name"
-              pattern="+[A-Za-z]"
-              required
-            />
-            <i class="fa-solid fa-check valid"></i>
-            <i class="fa-solid fa-xmark invalid""></i>
+            <input type="text" id="lastName" placeholder="last name" required />
+            <i class="fa-solid fa-check"></i>
+            <i class="fa-solid fa-xmark"></i>
           </div>
           <div class="divider" id="ediv">
             <h3>Email</h3>
@@ -85,7 +78,7 @@
               placeholder="email@address.com"
               required
             />
-            <i class="fa-solid fa-check valid"></i>
+            <i class="fa-solid fa-check"></i>
             <i class="fa-solid fa-xmark"></i>
           </div>
           <div class="divider" id="pdiv">
@@ -93,10 +86,10 @@
             <input
               type="tel"
               id="phoneNumber"
-              placeholder="(XXX) XXX-XXXX"
+              placeholder="123456790"
               required
             />
-            <i class="fa-solid fa-check valid"></i>
+            <i class="fa-solid fa-check"></i>
             <i class="fa-solid fa-xmark"></i>
           </div>
           <button type="submit">Add Contact</button>
