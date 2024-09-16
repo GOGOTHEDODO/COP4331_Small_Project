@@ -134,6 +134,7 @@ h3 {
   position: absolute;
   right: 10px;
   color: lightgreen;
+  top: 50%;
   transform: translateY(-50%);
   opacity: 0;
   z-index: 1;
