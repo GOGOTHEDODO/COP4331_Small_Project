@@ -31,7 +31,6 @@ h3 {
 .grid-container {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
-  /* grid-template-rows: 0.3fr 0.3fr 1fr; */
   grid-template-areas:
     "search search search"
     "header header header"
@@ -52,15 +51,12 @@ h3 {
   width: 75%;
   padding: 12px 24px;
   background-color: transparent;
-  transition: transform 250ms ease-in-out;
   font-size: 14px;
   line-height: 18px;
   color: #fffafb;
   border-radius: 50px;
   border: 1px solid #fffafb;
   transition: all 250ms ease-in-out;
-  backface-visibility: hidden;
-  transform-style: preserve-3d;
 }
 
 .search-input:hover,
@@ -70,7 +66,6 @@ h3 {
   border: 1px solid transparent;
   border-bottom: 1px solid #339989;
   border-radius: 0;
-  background-position: 100% center;
 }
 
 .search-input::placeholder {
@@ -109,81 +104,7 @@ h3 {
   padding-bottom: 10px;
 }
 
-.contacts-form input {
-  background-color: #eee;
-  height: 35px;
-  border: transparent;
-  border-bottom: 3px solid #339989;
-  border-radius: 15px;
-  width: 100%;
-  outline: none;
-  padding-left: 15px;
-  font-size: 15px;
-  transition: all 0.3s ease;
-  box-shadow: #575756;
-}
-
-.contacts-form .fa-xmark {
-  position: absolute;
-  top: 55px;
-  right: 10px;
-  color: lightcoral;
-  z-index: 2;
-}
-.contacts-form .fa-check {
-  position: absolute;
-  top: 50%;
-  right: 10px;
-  color: lightgreen;
-  transform: translateY(-50%);
-  opacity: 0;
-  z-index: 1;
-}
-
-.divider.valid .fa-check {
-  opacity: 1;
-  z-index: 3;
-}
-
-.divider.valid .fa-xmark {
-  opacity: 0;
-  z-index: 1;
-}
-
-.contacts-form input:valid {
-  border-bottom: 6px solid palegreen;
-}
-
-.contacts-form input:invalid {
-  border-bottom: 6px solid lightcoral;
-}
-
-.contacts-form input:hover,
-.contacts-form input:focus {
-  border-radius: 5px;
-  box-shadow: 2.1px 5.2px 5.2px hsl(0deg 0% 0% / 0.37);
-}
-
-.contacts-form button {
-  padding: 6px 10px 6px 10px;
-  margin-top: 10px;
-  background-color: #339989;
-  border-radius: 15px;
-  height: 35px;
-  border: 1px solid #eee;
-  cursor: pointer;
-  font-size: 15px;
-  font-weight: 600;
-  color: #dfe4e3;
-}
-
-.contacts-form button:hover,
-.contacts-form button:focus {
-  background-color: #7de2d1;
-  box-shadow: 2.1px 5.2px 5.2px hsl(0deg 0% 0% / 0.37);
-  border: transparent;
-  color: #575756;
-}
+/* Removed input styles */
 
 /* Styles for the table */
 .table-container {
