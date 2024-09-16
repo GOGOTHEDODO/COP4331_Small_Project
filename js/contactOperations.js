@@ -15,6 +15,7 @@ function validateUserInput(firstName, lastName, email, phoneNumber) {
     input.style.borderColor = "";
     divider.querySelectorAll(".fa-check, .fa-xmark").forEach((icon) => {
       icon.classList.remove("valid", "invalid");
+      icon.style.opacity = "0"; // Ensure icons are hidden initially
     });
   });
 
@@ -61,14 +62,18 @@ function validateUserInput(firstName, lastName, email, phoneNumber) {
 
     if (input) {
       if (!result.valid) {
-        input.style.borderColor = "red";
+        input.style.borderColor = "lightcoral";
         xmarkIcon.classList.add("invalid");
+        xmarkIcon.style.opacity = "1";
         checkIcon.classList.remove("valid");
+        checkIcon.style.opacity = "0";
         errorSpan.innerHTML += `<p>${result.message}</p>`;
       } else {
-        input.style.borderColor = "green";
+        input.style.borderColor = "palegreen";
         checkIcon.classList.add("valid");
+        checkIcon.style.opacity = "1";
         xmarkIcon.classList.remove("invalid");
+        xmarkIcon.style.opacity = "0";
       }
     }
   });
