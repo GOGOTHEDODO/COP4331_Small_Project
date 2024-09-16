@@ -94,18 +94,6 @@ h3 {
   padding-left: 25px;
 }
 
-.error-msg::before {
-  content: "\f071"; /* FontAwesome triangle exclamation icon */
-  font-family: "Font Awesome 6 Free";
-  font-weight: 900;
-  position: absolute;
-  left: 0;
-  top: 50%;
-  transform: translateY(-50%);
-  color: lightcoral;
-  font-size: 1rem;
-}
-
 /* Contacts Styling */
 .header {
   grid-area: header;
