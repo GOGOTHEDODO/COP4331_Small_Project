@@ -8,65 +8,74 @@ function validateUserInput(firstName, lastName, email, phoneNumber) {
   const phonePattern = /^[0-9]{10,12}$/;
   const errorSpan = document.getElementById("invalidInput");
 
-  // Reset error message and clear the previous list
+  // Reset error message and clear previous indicators
   errorSpan.innerHTML = "";
+  document.querySelectorAll(".divider input").forEach((input) => {
+    input.style.borderColor = "";
+    const checkIcon = input.nextElementSibling;
+    const xmarkIcon = checkIcon.nextElementSibling;
+    checkIcon.classList.remove("valid");
+    xmarkIcon.classList.remove("invalid");
+  });
 
-  let isValid = true;
-  let errorMessages = [];
+  let validationResults = {
+    firstName: { valid: true, message: "" },
+    lastName: { valid: true, message: "" },
+    email: { valid: true, message: "" },
+    phoneNumber: { valid: true, message: "" },
+  };
 
   // Validate first name
   if (!namePattern.test(firstName)) {
-    errorMessages.push(
-      "First name should contain only characters of the alphabet."
-    );
-    document.getElementById("firstName").style.borderColor = "red";
-    isValid = false;
-  } else {
-    document.getElementById("firstName").style.borderColor = "green";
+    validationResults.firstName = {
+      valid: false,
+      message: "First name should contain only alphabetic characters.",
+    };
   }
 
   // Validate last name
   if (!namePattern.test(lastName)) {
-    errorMessages.push(
-      "Last name should contain only characters of the alphabet."
-    );
-    document.getElementById("lastName").style.borderColor = "red";
-    isValid = false;
-  } else {
-    document.getElementById("lastName").style.borderColor = "green";
+    validationResults.lastName = {
+      valid: false,
+      message: "Last name should contain only alphabetic characters.",
+    };
   }
 
   // Validate email
   if (!emailPattern.test(email)) {
-    errorMessages.push("Please enter a valid email address.");
-    document.getElementById("email").style.borderColor = "red";
-    isValid = false;
-  } else {
-    document.getElementById("email").style.borderColor = "green";
+    validationResults.email = {
+      valid: false,
+      message: "Please enter a valid email address.",
+    };
   }
 
+  // Validate phone number
   if (!phonePattern.test(phoneNumber)) {
-    errorMessages.push(
-      "Please enter a valid phone number in the format XXX XXX-XXXX."
-    );
-    document.getElementById("phoneNumber").style.borderColor = "red";
-    isValid = false;
-  } else {
-    document.getElementById("phoneNumber").style.borderColor = "green";
+    validationResults.phoneNumber = {
+      valid: false,
+      message: "Please enter a valid phone number (up to 12 digits).",
+    };
   }
 
-  if (errorMessages.length > 0) {
-    const ul = document.createElement("ul");
-    errorMessages.forEach((msg) => {
-      const li = document.createElement("li");
-      li.textContent = msg;
-      ul.appendChild(li);
-    });
-    errorSpan.appendChild(ul);
-    errorSpan.style.color = "red";
-  }
+  // Update UI based on validation results
+  Object.keys(validationResults).forEach((key) => {
+    const result = validationResults[key];
+    const input = document.getElementById(key);
+    const checkIcon = input.nextElementSibling;
+    const xmarkIcon = checkIcon.nextElementSibling;
 
-  return isValid;
+    if (!result.valid) {
+      input.style.borderColor = "red";
+      xmarkIcon.classList.add("invalid");
+      errorSpan.innerHTML += `<p>${result.message}</p>`;
+    } else {
+      input.style.borderColor = "green";
+      checkIcon.classList.add("valid");
+    }
+  });
+
+  // Return true if all fields are valid, otherwise false
+  return Object.values(validationResults).every((result) => result.valid);
 }
 
 function addContact(event) {
