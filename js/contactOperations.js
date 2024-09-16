@@ -61,8 +61,9 @@ function validateUserInput(formId, firstName, lastName, email, phoneNumber) {
         const errorMsg = document.createElement("div");
         errorMsg.className = "error-msg";
         errorMsg.innerHTML = `
-          <span class="fa fa-exclamation-triangle"></span> ${message}
+          <span class="fa fa-exclamation-triangle"></span> ${result.message}
         `;
+        errorContainer.appendChild(errorMsg);
       } else {
         input.style.borderColor = "palegreen";
         checkIcon.classList.add("valid");
