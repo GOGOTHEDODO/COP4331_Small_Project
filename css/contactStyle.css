@@ -79,12 +79,19 @@ h3 {
   letter-spacing: 1.5px;
 }
 
-.error-msg {
-  position: relative;
-  padding-left: 25px; /* Adjust space for the triangle */
+.error-container {
+  grid-area: contact;
+  margin-left: 25px;
+  margin-bottom: 10px;
   color: lightcoral;
   font-size: 0.9rem;
-  margin-bottom: 5px;
+  font-family: "SUSE", sans-serif;
+}
+
+.error-msg {
+  display: block;
+  position: relative;
+  padding-left: 25px;
 }
 
 .error-msg::before {
@@ -96,7 +103,7 @@ h3 {
   top: 50%;
   transform: translateY(-50%);
   color: lightcoral;
-  font-size: 1rem; /* Adjust size as needed */
+  font-size: 1rem;
 }
 
 /* Contacts Styling */

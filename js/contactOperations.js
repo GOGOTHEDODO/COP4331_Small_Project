@@ -2,30 +2,22 @@ import userOps from "./userOperations.js";
 const urlBase = "http://www.smallproject14.pro/API";
 const extension = "php";
 
-function validateUserInput(firstName, lastName, email, phoneNumber) {
+function validateUserInput(formId, firstName, lastName, email, phoneNumber) {
   const namePattern = /^[A-Za-z]+$/;
   const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
   const phonePattern = /^[0-9]{10,12}$/;
-  const errorSpan = document.getElementsByClassName("error-msg");
+  const errorContainer = document.getElementById(formId + "-errorMessages");
 
-  errorSpan.innerHTML = "";
-  document.querySelectorAll(".divider").forEach((divider) => {
-    const input = divider.querySelector("input");
-    input.style.borderColor = "";
-    divider.querySelectorAll(".fa-check, .fa-xmark").forEach((icon) => {
-      icon.classList.remove("valid", "invalid");
-      icon.style.opacity = "0"; // Ensure icons are hidden initially
-    });
-  });
+  // Clear previous errors
+  errorContainer.innerHTML = "";
 
-  let validationResults = {
+  const validationResults = {
     firstName: { valid: true, message: "" },
     lastName: { valid: true, message: "" },
     email: { valid: true, message: "" },
     phoneNumber: { valid: true, message: "" },
   };
 
-  // Validate fields
   if (!namePattern.test(firstName)) {
     validationResults.firstName = {
       valid: false,
@@ -66,13 +58,8 @@ function validateUserInput(firstName, lastName, email, phoneNumber) {
         checkIcon.classList.remove("valid");
         checkIcon.style.opacity = "0";
 
-        // Create error message span
-        const errorMsg = document.createElement("span");
-        errorMsg.className = "error-msg";
-        errorMsg.textContent = result.message;
-
-        // Append to error span
-        errorSpan.appendChild(errorMsg);
+        // Append error message to container
+        errorContainer.appendChild(createErrorMessage(result.message));
       } else {
         input.style.borderColor = "palegreen";
         checkIcon.classList.add("valid");
@@ -82,6 +69,8 @@ function validateUserInput(firstName, lastName, email, phoneNumber) {
       }
     }
   });
+
+  return Object.values(validationResults).every((result) => result.valid);
 }
 
 function addContact(event) {
@@ -93,7 +82,9 @@ function addContact(event) {
   const email = document.getElementById("email").value;
   const phoneNumber = document.getElementById("phoneNumber").value;
   const userId = userOps.getUserId();
-  if (!validateUserInput(firstName, lastName, email, phoneNumber)) {
+  if (
+    !validateUserInput("addContact", firstName, lastName, email, phoneNumber)
+  ) {
     return;
   }
   // Get the table body
