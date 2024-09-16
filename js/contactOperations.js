@@ -12,14 +12,12 @@ function validateUserInput(firstName, lastName, email, phoneNumber) {
   errorSpan.innerHTML = "";
   document.querySelectorAll(".divider input").forEach((input) => {
     input.style.borderColor = "";
-    const checkIcon = input.nextElementSibling;
-    const xmarkIcon = checkIcon ? checkIcon.nextElementSibling : null;
-    if (checkIcon) {
-      checkIcon.classList.remove("valid");
-    }
-    if (xmarkIcon) {
-      xmarkIcon.classList.remove("invalid");
-    }
+    const icons = input.nextElementSibling
+      ? [input.nextElementSibling, input.nextElementSibling.nextElementSibling]
+      : [];
+    icons.forEach((icon) => {
+      icon.classList.remove("valid", "invalid");
+    });
   });
 
   let validationResults = {
@@ -29,31 +27,25 @@ function validateUserInput(firstName, lastName, email, phoneNumber) {
     phoneNumber: { valid: true, message: "" },
   };
 
-  // Validate first name
+  // Validate fields
   if (!namePattern.test(firstName)) {
     validationResults.firstName = {
       valid: false,
       message: "First name should contain only alphabetic characters.",
     };
   }
-
-  // Validate last name
   if (!namePattern.test(lastName)) {
     validationResults.lastName = {
       valid: false,
       message: "Last name should contain only alphabetic characters.",
     };
   }
-
-  // Validate email
   if (!emailPattern.test(email)) {
     validationResults.email = {
       valid: false,
       message: "Please enter a valid email address.",
     };
   }
-
-  // Validate phone number
   if (!phonePattern.test(phoneNumber)) {
     validationResults.phoneNumber = {
       valid: false,
@@ -65,27 +57,20 @@ function validateUserInput(firstName, lastName, email, phoneNumber) {
   Object.keys(validationResults).forEach((key) => {
     const result = validationResults[key];
     const input = document.getElementById(key);
-    const checkIcon = input ? input.nextElementSibling : null;
-    const xmarkIcon = checkIcon ? checkIcon.nextElementSibling : null;
+    const icons = input
+      ? [input.nextElementSibling, input.nextElementSibling.nextElementSibling]
+      : [];
 
     if (input) {
       if (!result.valid) {
         input.style.borderColor = "red";
-        if (xmarkIcon) {
-          xmarkIcon.classList.add("invalid");
-        }
-        if (checkIcon) {
-          checkIcon.classList.remove("valid");
-        }
+        icons[1]?.classList.add("invalid");
+        icons[0]?.classList.remove("valid");
         errorSpan.innerHTML += `<p>${result.message}</p>`;
       } else {
         input.style.borderColor = "green";
-        if (checkIcon) {
-          checkIcon.classList.add("valid");
-        }
-        if (xmarkIcon) {
-          xmarkIcon.classList.remove("invalid");
-        }
+        icons[0]?.classList.add("valid");
+        icons[1]?.classList.remove("invalid");
       }
     }
   });
