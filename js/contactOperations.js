@@ -13,9 +13,13 @@ function validateUserInput(firstName, lastName, email, phoneNumber) {
   document.querySelectorAll(".divider input").forEach((input) => {
     input.style.borderColor = "";
     const checkIcon = input.nextElementSibling;
-    const xmarkIcon = checkIcon.nextElementSibling;
-    checkIcon.classList.remove("valid");
-    xmarkIcon.classList.remove("invalid");
+    const xmarkIcon = checkIcon ? checkIcon.nextElementSibling : null;
+    if (checkIcon) {
+      checkIcon.classList.remove("valid");
+    }
+    if (xmarkIcon) {
+      xmarkIcon.classList.remove("invalid");
+    }
   });
 
   let validationResults = {
@@ -61,18 +65,28 @@ function validateUserInput(firstName, lastName, email, phoneNumber) {
   Object.keys(validationResults).forEach((key) => {
     const result = validationResults[key];
     const input = document.getElementById(key);
-    const checkIcon = input.nextElementSibling;
-    const xmarkIcon = checkIcon.nextElementSibling;
+    const checkIcon = input ? input.nextElementSibling : null;
+    const xmarkIcon = checkIcon ? checkIcon.nextElementSibling : null;
 
-    if (!result.valid) {
-      input.style.borderColor = "red";
-      xmarkIcon.classList.add("invalid");
-      checkIcon.classList.remove("valid");
-      errorSpan.innerHTML += `<p>${result.message}</p>`;
-    } else {
-      input.style.borderColor = "green";
-      checkIcon.classList.add("valid");
-      xmarkIcon.classList.remove("invalid");
+    if (input) {
+      if (!result.valid) {
+        input.style.borderColor = "red";
+        if (xmarkIcon) {
+          xmarkIcon.classList.add("invalid");
+        }
+        if (checkIcon) {
+          checkIcon.classList.remove("valid");
+        }
+        errorSpan.innerHTML += `<p>${result.message}</p>`;
+      } else {
+        input.style.borderColor = "green";
+        if (checkIcon) {
+          checkIcon.classList.add("valid");
+        }
+        if (xmarkIcon) {
+          xmarkIcon.classList.remove("invalid");
+        }
+      }
     }
   });
 
