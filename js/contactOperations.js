@@ -2,6 +2,73 @@ import userOps from "./userOperations.js";
 const urlBase = "http://www.smallproject14.pro/API";
 const extension = "php";
 
+function validateUserInput(firstName, lastName, email, phoneNumber) {
+  const namePattern = /^[A-Za-z]+$/;
+  const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+  const phonePattern = /^[0-9]{10,12}$/;
+  const errorSpan = document.getElementById("invalidInput");
+
+  // Reset error message and clear the previous list
+  errorSpan.innerHTML = "";
+
+  let isValid = true;
+  let errorMessages = [];
+
+  // Validate first name
+  if (!namePattern.test(firstName)) {
+    errorMessages.push(
+      "First name should contain only characters of the alphabet."
+    );
+    document.getElementById("firstName").style.borderColor = "red";
+    isValid = false;
+  } else {
+    document.getElementById("firstName").style.borderColor = "green";
+  }
+
+  // Validate last name
+  if (!namePattern.test(lastName)) {
+    errorMessages.push(
+      "Last name should contain only characters of the alphabet."
+    );
+    document.getElementById("lastName").style.borderColor = "red";
+    isValid = false;
+  } else {
+    document.getElementById("lastName").style.borderColor = "green";
+  }
+
+  // Validate email
+  if (!emailPattern.test(email)) {
+    errorMessages.push("Please enter a valid email address.");
+    document.getElementById("email").style.borderColor = "red";
+    isValid = false;
+  } else {
+    document.getElementById("email").style.borderColor = "green";
+  }
+
+  if (!phonePattern.test(phoneNumber)) {
+    errorMessages.push(
+      "Please enter a valid phone number in the format XXX XXX-XXXX."
+    );
+    document.getElementById("phoneNumber").style.borderColor = "red";
+    isValid = false;
+  } else {
+    document.getElementById("phoneNumber").style.borderColor = "green";
+  }
+
+  if (errorMessages.length > 0) {
+    const ul = document.createElement("ul");
+    errorMessages.forEach((msg) => {
+      const li = document.createElement("li");
+      li.textContent = msg;
+      ul.appendChild(li);
+    });
+    errorSpan.appendChild(ul);
+    errorSpan.style.color = "red";
+  }
+
+  return isValid;
+}
+
 function addContact(event) {
   event.preventDefault(); // Prevent form from submitting and refreshing the page
 
@@ -11,7 +78,9 @@ function addContact(event) {
   const email = document.getElementById("email").value;
   const phoneNumber = document.getElementById("phoneNumber").value;
   const userId = userOps.getUserId();
-
+  if (!validateUserInput(firstName, lastName, email, phoneNumber)) {
+    return;
+  }
   // Get the table body
   const table = document.querySelector(".table tbody");
 

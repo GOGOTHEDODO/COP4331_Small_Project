@@ -53,6 +53,7 @@
       <div class="contacts-form">
         <form id="addContactForm">
           <div class="divider" id="fdiv">
+            <span id = "invalidInput"> </span>
             <h3>First</h3>
             <input
               type="text"
@@ -93,7 +94,6 @@
               type="tel"
               id="phoneNumber"
               placeholder="(XXX) XXX-XXXX"
-              pattern="[0-9]{3} [0-9]{3}-[0-9]{4}"
               required
             />
             <i class="fa-solid fa-check valid"></i>
