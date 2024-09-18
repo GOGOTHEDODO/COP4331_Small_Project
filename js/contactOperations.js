@@ -285,13 +285,14 @@ function validateUserInput(formId, firstName, lastName, email, phoneNumber) {
           <span class="fa fa-exclamation-triangle"></span> ${result.message}
         `;
         errorContainer.appendChild(errorMsg);
-      } else {
-        input.style.borderColor = "palegreen";
-        checkIcon.classList.add("valid");
-        checkIcon.style.opacity = "1";
-        xmarkIcon.classList.remove("invalid");
-        xmarkIcon.style.opacity = "0";
-      }
+      } 
+      // else {
+      //   input.style.borderColor = "palegreen";
+      //   checkIcon.classList.add("valid");
+      //   checkIcon.style.opacity = "1";
+      //   xmarkIcon.classList.remove("invalid");
+      //   xmarkIcon.style.opacity = "0";
+      // }
     }
   });
 
