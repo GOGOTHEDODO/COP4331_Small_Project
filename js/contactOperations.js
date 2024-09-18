@@ -287,11 +287,11 @@ function validateUserInput(formId, firstName, lastName, email, phoneNumber) {
         errorContainer.appendChild(errorMsg);
       } 
       else {
-        input.style.borderColor = "lightcoral";
-        checkIcon.classList.add("invalid");
-        checkIcon.style.opacity = "0";
-        xmarkIcon.classList.remove("valid");
-        xmarkIcon.style.opacity = "1";
+        input.style.borderColor = "palegreen";
+        checkIcon.classList.add("valid");
+        checkIcon.style.opacity = "1";
+        xmarkIcon.classList.remove("invalid");
+        xmarkIcon.style.opacity = "0";
       }
     }
   });
