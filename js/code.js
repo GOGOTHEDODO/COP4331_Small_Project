@@ -33,3 +33,5 @@ document.addEventListener("DOMContentLoaded", () => {
     addContactForm.addEventListener("submit", contactOps.addContact);
   }
 });
+
+console.log("THIS IS A TEST");
