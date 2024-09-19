@@ -80,6 +80,14 @@ function saveContact(row) {
   const updatedPhoneNumber = row.cells[4].querySelector("input").value;
   const userId = userOps.getUserId(); // Ensure user_id is included
 
+  // Check if edited field meets requirements
+  if (
+    !validateUserInput("addContact", firstName, lastName, email, phoneNumber)
+  ) {
+    divider.classList.remove("valid");
+    return;
+  }
+
   // Update the row with new values
   row.cells[1].innerText = updatedFirstName;
   row.cells[2].innerText = updatedLastName;
