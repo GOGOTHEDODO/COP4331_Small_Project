@@ -11,9 +11,14 @@ function addContact(event) {
   const email = document.getElementById("email").value;
   const phoneNumber = document.getElementById("phoneNumber").value;
   const userId = userOps.getUserId();
+
+  // test
+  const divider = document.getElementsByClassName("divider");
+
   if (
     !validateUserInput("addContact", firstName, lastName, email, phoneNumber)
   ) {
+    divider.classList.remove("valid");
     return;
   }
 
@@ -294,7 +299,7 @@ function validateUserInput(formId, firstName, lastName, email, phoneNumber) {
         // checkIcon.style.opacity = "1";
         // xmarkIcon.classList.remove("invalid");
         // xmarkIcon.style.opacity = "0";
-        
+
         divider.classList.add("valid");
       }
     }
