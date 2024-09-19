@@ -28,9 +28,23 @@ document.addEventListener("DOMContentLoaded", () => {
       contactOps.retrieveContacts(searchInput.value);
     });
   }
+
   const addContactForm = document.getElementById("addContactForm");
+  const notificationBox = document.getElementById("notificationBox");
+
   if (addContactForm) {
-    addContactForm.addEventListener("submit", contactOps.addContact);
+    addContactForm.addEventListener("submit", (event) => {
+      event.preventDefault();
+      contactOps.addContact();
+      showNotification();
+    });
+  }
+
+  function showNotification() {
+    notificationBox.style.display = "block";
+    setTimeout(() => {
+      notificationBox.style.display = "none";
+    }, 3000); // Hide after 3 seconds
   }
 });
 
