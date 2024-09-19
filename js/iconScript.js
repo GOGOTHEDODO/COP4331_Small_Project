@@ -1,55 +1,24 @@
-// each divider needs to have a different id name for it to work :(
-const fdivider = document.getElementById('fdiv');
-const ldivider = document.getElementById('ldiv');
-const edivider = document.getElementById('ediv');
-const pdivider = document.getElementById('pdiv');
+const divs = document.querySelectorAll('input');
 
-// input id name
-const firstName = document.getElementById('firstName');
-const lastName = document.getElementById('lastName');
-const email = document.getElementById('email');
-const phoneNumber = document.getElementById('phoneNumber');
+const patterns = {
+    firstName: /^[A-Za-z]+$/,
+    lastName: /^[A-Za-z]+$/,
+    email: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
+    phoneNumber: /^[0-9]{10,12}$/
+};
 
-firstName.addEventListener("input", (e) => {
-    const firstNameValue = e.currentTarget.value; 
-    if(/[A-Za-z]/.test(firstNameValue) == true) {
-        fdivider.classList.add("valid");
-        firstName.style.borderBottom = "6px solid palegreen";
-    }
-    else {
-        fdivider.classList.remove("valid");
-    }
-})
+divs.forEach(div => {
+    div.addEventListener("input", (e) => {
+        const tgt = e.currentTarget;
+        const parent = tgt.parentNode;
+        const inputId = tgt.id;
 
-lastName.addEventListener("input", (e) => {
-    const lastNameValue = e.currentTarget.value; 
-    if(/[A-Za-z]/.test(lastNameValue) == true) {
-        ldivider.classList.add("valid");
-        lastName.style.borderBottom = "6px solid palegreen";
-    }
-    else {
-        ldivider.classList.remove("valid");
-    }
-})
-
-email.addEventListener("input", (e) => {
-    const emailValue = e.currentTarget.value; 
-    if(/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]/.test(emailValue) == true) {
-        edivider.classList.add("valid");
-        email.style.borderBottom = "6px solid palegreen";
-    }
-    else {
-        edivider.classList.remove("valid");
-    }
-})
-
-phoneNumber.addEventListener("input", (e) => {
-    const phoneNumberValue = e.currentTarget.value; 
-    if(/[0-9]{10,12}/.test(phoneNumberValue) == true) {
-        pdivider.classList.add("valid");
-        phoneNumber.style.borderBottom = "6px solid palegreen";
-    }
-    else {
-        pdivider.classList.remove("valid");
-    }
-})
+        if (patterns[inputId]) {
+            if (patterns[inputId].test(tgt.value)) {
+                parent.classList.add("valid");
+            } else {
+                parent.classList.remove("valid");
+            }
+        }
+    });
+});

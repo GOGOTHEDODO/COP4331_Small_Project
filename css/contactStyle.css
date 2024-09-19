@@ -18,7 +18,7 @@ body {
 h1 {
   padding-left: 10px;
   color: #fffafb;
-  letter-spacing: 1.7px;
+  letter-spacing: 1.8px;
 }
 
 h3 {
@@ -34,7 +34,7 @@ h3 {
   /* grid-template-rows: 0.3fr 0.3fr 1fr; */
   grid-template-areas:
     "search search search"
-    "header header header"
+    "header welcome welcome"
     "contact table table";
   grid-gap: 1rem;
 }
@@ -79,6 +79,28 @@ h3 {
   letter-spacing: 1.5px;
 }
 
+
+/* Contacts Styling */
+.header {
+  grid-area: header;
+  display: flex;
+  justify-content: flex-start;
+  padding-left: 25px;
+}
+
+.welcome {
+  width: 200%;
+  display: flex;
+  justify-content: center;
+}
+
+.fa-phone {
+  color: #339989;
+  font-size: 35px;
+  line-height: 40px;
+}
+
+/* Styles for the add form */
 .error-container {
   grid-area: contact;
   margin-bottom: 5px;
@@ -100,21 +122,6 @@ h3 {
   color: lightcoral;
 }
 
-/* Contacts Styling */
-.header {
-  grid-area: header;
-  display: flex;
-  justify-content: flex-start;
-  padding-left: 25px;
-}
-
-.fa-phone {
-  color: #339989;
-  font-size: 35px;
-  line-height: 40px;
-}
-
-/* Styles for the add form */
 .contacts-form {
   grid-area: contact;
   background-color: #fffafb;
@@ -152,6 +159,7 @@ h3 {
   color: lightcoral;
   z-index: 2;
 }
+
 .contacts-form .fa-check {
   position: absolute;
   right: 10px;
@@ -160,6 +168,10 @@ h3 {
   transform: translateY(50%);
   opacity: 0;
   z-index: 1;
+}
+
+.divider.valid input {
+  border-bottom: 6px solid lightgreen;
 }
 
 .divider.valid .fa-check {
@@ -171,14 +183,6 @@ h3 {
   opacity: 0;
   z-index: 1;
 }
-
-/* .contacts-form input:valid {
-  border-bottom: 6px solid palegreen;
-} 
-
- .contacts-form input:invalid {
-  border-bottom: 6px solid lightcoral;
-}  */
 
 .contacts-form input:hover,
 .contacts-form input:focus {
@@ -265,13 +269,20 @@ h3 {
   body {
     background: #0f2027;
   }
+  .welcome {
+    width: 100%;
+  }
+  .header {
+    opacity: 0;
+  }
   .grid-container {
     grid-template-columns: 1fr;
-    grid-template-rows: 0.2fr 0.1fr 1.2fr 1.2fr;
+    grid-template-rows: 0.1fr 0.1fr 1.2fr 1.2fr;
     grid-template-areas:
       "search"
-      "header"
+      "welcome"
       "contact"
-      "table";
+      "table"
+      "header";
   }
 }
