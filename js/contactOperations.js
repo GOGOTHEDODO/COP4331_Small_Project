@@ -347,7 +347,7 @@ function replaceButton(row, isEditMode) {
 
 // testing 
 function sort() {
-    const currentIcon = document.querySelector('.toggle-sort i');
+    const currentIcon = document.querySelector('.toggle-sort');
     if (currentIcon.classList.contains('fa-sort')) {
       currentIcon.classList.remove('fa-sort');
       currentIcon.classList.add('fa-sort-up');
