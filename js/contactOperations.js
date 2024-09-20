@@ -347,9 +347,12 @@ function replaceButton(row, isEditMode) {
 
 // testing 
 function sort() {
-  document.querySelector('.toggle-sort').addEventListener('click', function() {
-    console.log('Button clicked!');
-  });
+  const sortButton = document.querySelector('.toggle-sort');
+  if (sortButton) {
+    console.log('Sort button exists!');
+  } else {
+    console.log('Sort button does not exist.');
+  }
 }
 
 const contactOps = {
