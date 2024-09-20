@@ -347,12 +347,17 @@ function replaceButton(row, isEditMode) {
 
 // testing 
 function sort() {
-  const sortButton = document.querySelector('.toggle-sort');
-  if (sortButton) {
-    console.log('Sort button exists!');
-  } else {
-    console.log('Sort button does not exist.');
-  }
+    const currentIcon = document.querySelector('.toggle-sort i');
+    if (currentIcon.classList.contains('fa-sort')) {
+      currentIcon.classList.remove('fa-sort');
+      currentIcon.classList.add('fa-sort-up');
+    } else if (currentIcon.classList.contains('fa-sort-up')) {
+      currentIcon.classList.remove('fa-sort-up');
+      currentIcon.classList.add('fa-sort-down');
+    } else {
+      currentIcon.classList.remove('fa-sort-down');
+      currentIcon.classList.add('fa-sort');
+    }
 }
 
 const contactOps = {
