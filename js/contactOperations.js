@@ -347,14 +347,14 @@ function replaceButton(row, isEditMode) {
 
 // testing 
 function sort() {
-    const currentIcon = document.querySelector('.toggle-sort');
-    if (currentIcon.classList.contains('fa-sort')) {
-      currentIcon.classList.remove('fa-sort');
+    const currentIcon = document.querySelector('.toggle-sort i');
+    if (currentIcon.classList.contains('fa-sort')) { // if defualt icon change to ascending icon
+      currentIcon.classList.remove('fa-sort'); 
       currentIcon.classList.add('fa-sort-up');
-    } else if (currentIcon.classList.contains('fa-sort-up')) {
+    } else if (currentIcon.classList.contains('fa-sort-up')) { // else if ascending icon change to descending icon
       currentIcon.classList.remove('fa-sort-up');
       currentIcon.classList.add('fa-sort-down');
-    } else {
+    } else { // else descending icon change to defualt icon
       currentIcon.classList.remove('fa-sort-down');
       currentIcon.classList.add('fa-sort');
     }

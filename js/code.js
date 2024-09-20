@@ -27,7 +27,11 @@ document.addEventListener("DOMContentLoaded", () => {
     searchInput.addEventListener("keyup", function () {
       contactOps.retrieveContacts(searchInput.value);
     });
-    contactOps.sort();
+  }
+
+  const sortButton = document.querySelector('.toggle-sort');
+  if (sortButton) {
+    sortButton.addEventListener('click', contactOps.sort);
   }
 
   const addContactForm = document.getElementById("addContactForm");
