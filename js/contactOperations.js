@@ -82,7 +82,7 @@ function saveContact(row) {
 
   // Check if edited field meets requirements
   if (
-    !validateUserInput("addContact", firstName, lastName, email, phoneNumber)
+    !validateUserInput("addContact", updatedFirstName, updatedLastName, updatedEmail, updatedPhoneNumber)
   ) {
     divider.classList.remove("valid");
     return;
