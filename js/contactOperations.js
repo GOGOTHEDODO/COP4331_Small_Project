@@ -344,8 +344,17 @@ function replaceButton(row, isEditMode) {
     newButton.addEventListener("click", () => editContact(row));
   }
 }
+
+// testing 
+function sort() {
+  document.querySelector('.toggle-sort').addEventListener('click', function() {
+    console.log('Button clicked!');
+  });
+}
+
 const contactOps = {
   addContact,
   retrieveContacts,
+  sort,
 };
 export default contactOps;

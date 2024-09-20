@@ -238,6 +238,26 @@ h3 {
   color: #7de2d1;
 }
 
+/* buttons for sorting */
+.toggle-sort {
+  border: none;
+  background: none;
+  cursor: pointer;
+  margin-left: 4pt;
+  color: #339989;
+  transition: color 0.3s ease;
+}
+
+.toggle-sort:hover {
+  color: #7de2d1;
+}
+
+.toggle-sort:focus {
+  outline: none;
+}
+
+/* end of sort buttons */
+
 .log-out {
   display: flex;
   justify-content: end;

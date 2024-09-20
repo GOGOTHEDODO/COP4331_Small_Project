@@ -47,5 +47,3 @@ document.addEventListener("DOMContentLoaded", () => {
     }, 3000); // Hide after 3 seconds
   }
 });
-
-console.log("THIS IS A TEST");
