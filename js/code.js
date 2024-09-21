@@ -29,10 +29,11 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  const sortButton = document.querySelector('.toggle-sort');
-  if (sortButton) {
-    sortButton.addEventListener('click', contactOps.sort);
-  }
+  // sort buttons on contact list
+  const sortButtons = document.querySelectorAll('.toggle-sort');
+  sortButtons.forEach(button => {
+      button.addEventListener('click', sort);
+  });
 
   const addContactForm = document.getElementById("addContactForm");
   const notificationBox = document.getElementById("notificationBox");
