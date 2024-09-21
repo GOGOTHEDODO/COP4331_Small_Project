@@ -352,7 +352,7 @@ function sort(e) {
   const currentIcon = currentButton.querySelector('i');
   console.log(currentIcon);
 
-  sortButtons.forEach(button => {
+  window.contactOps.sortButtons.forEach(button => {
     const icon = button.querySelector('i');
     icon.classList.remove('fa-sort-up', 'fa-sort-down');
     icon.classList.add('fa-sort');
