@@ -29,10 +29,10 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
+  // Sort buttons for contact list
   const sortButtons = document.querySelectorAll('.toggle-sort-first, .toggle-sort-last, .toggle-sort-email, .toggle-sort-phone');
-  
+
   sortButtons.forEach(button => {
-      console.log("Found button:", button); // Debugging line
       button.addEventListener('click', (e) => contactOps.sort(e));
   });
 
