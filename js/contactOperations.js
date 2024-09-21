@@ -345,20 +345,62 @@ function replaceButton(row, isEditMode) {
   }
 }
 
-// testing 
+// testing chat gpt complete this function by actually sorting the table since i got icons to work
 function sort(e) {
   const currentButton = e.currentTarget;
   const currentIcon = currentButton.querySelector('i');
+  const columnName = currentButton.dataset.column; // Assuming buttons have a data-column attribute
 
-  if (currentIcon.classList.contains('fa-sort')) { // Default icon to ascending icon
+  let sortOrder = 'asc'; // Default to ascending
+  if (currentIcon.classList.contains('fa-sort')) {
       currentIcon.classList.remove('fa-sort'); 
       currentIcon.classList.add('fa-sort-up');
-  } else if (currentIcon.classList.contains('fa-sort-up')) { // Ascending icon to descending icon
+  } else if (currentIcon.classList.contains('fa-sort-up')) {
       currentIcon.classList.remove('fa-sort-up');
       currentIcon.classList.add('fa-sort-down');
-  } else { // Descending icon to default icon
+      sortOrder = 'desc'; // Set to descending
+  } else {
       currentIcon.classList.remove('fa-sort-down');
       currentIcon.classList.add('fa-sort');
+      return; // No sorting applied
+  }
+
+  const tableBody = document.querySelector(".table tbody");
+  const rows = Array.from(tableBody.rows);
+  
+  // Remove header row if present
+  const headerRow = rows.shift();
+
+  rows.sort((rowA, rowB) => {
+    const cellA = rowA.querySelector(`td:nth-child(${getColumnIndex(columnName)})`).innerText;
+    const cellB = rowB.querySelector(`td:nth-child(${getColumnIndex(columnName)})`).innerText;
+
+    if (sortOrder === 'asc') {
+      return cellA.localeCompare(cellB);
+    } else {
+      return cellB.localeCompare(cellA);
+    }
+  });
+
+  // Clear the table and append the sorted rows
+  tableBody.innerHTML = '';
+  tableBody.appendChild(headerRow); // Re-add header row
+  rows.forEach(row => tableBody.appendChild(row));
+}
+
+// Helper function to get column index based on column name
+function getColumnIndex(columnName) {
+  switch (columnName) {
+    case 'first':
+      return 2; // Assuming first name is in the second column
+    case 'last':
+      return 3; // Assuming last name is in the third column
+    case 'email':
+      return 4; // Assuming email is in the fourth column
+    case 'phone':
+      return 5; // Assuming phone number is in the fifth column
+    default:
+      return 1; // Default to first column if not found
   }
 }
 
