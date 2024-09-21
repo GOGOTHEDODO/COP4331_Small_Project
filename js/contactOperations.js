@@ -346,18 +346,20 @@ function replaceButton(row, isEditMode) {
 }
 
 // testing 
-function sort() {
-    const currentIcon = document.querySelector('.toggle-sort i');
-    if (currentIcon.classList.contains('fa-sort')) { // if defualt icon change to ascending icon
+function sort(e) {
+  const currentButton = e.currentTarget;
+  const currentIcon = currentButton.querySelector('i');
+
+  if (currentIcon.classList.contains('fa-sort')) { // Default icon to ascending icon
       currentIcon.classList.remove('fa-sort'); 
       currentIcon.classList.add('fa-sort-up');
-    } else if (currentIcon.classList.contains('fa-sort-up')) { // else if ascending icon change to descending icon
+  } else if (currentIcon.classList.contains('fa-sort-up')) { // Ascending icon to descending icon
       currentIcon.classList.remove('fa-sort-up');
       currentIcon.classList.add('fa-sort-down');
-    } else { // else descending icon change to defualt icon
+  } else { // Descending icon to default icon
       currentIcon.classList.remove('fa-sort-down');
       currentIcon.classList.add('fa-sort');
-    }
+  }
 }
 
 const contactOps = {

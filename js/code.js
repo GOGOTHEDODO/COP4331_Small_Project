@@ -29,22 +29,11 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  const sortButtonFirst = document.querySelector('.toggle-sort-first');
-  const sortButtonLast = document.querySelector('.toggle-sort-last');
-  const sortButtonEmail = document.querySelector('.toggle-sort-email');
-  const sortButtonPhone = document.querySelector('.toggle-sort-phone');
-  if (sortButtonFirst) {
-    sortButtonFirst.addEventListener('click', contactOps.sort);
-  }
-  if (sortButtonLast) {
-    sortButtonLast.addEventListener('click', contactOps.sort);
-  }
-  if (sortButtonEmail) {
-    sortButtonEmail.addEventListener('click', contactOps.sort);
-  }
-  if (sortButtonPhone) {
-    sortButtonPhone.addEventListener('click', contactOps.sort);
-  }
+  const sortButtons = document.querySelectorAll('.toggle-sort-first, .toggle-sort-last, .toggle-sort-email, .toggle-sort-phone');
+
+  sortButtons.forEach(button => {
+      button.addEventListener('click', sort);
+  });
 
   const addContactForm = document.getElementById("addContactForm");
   const notificationBox = document.getElementById("notificationBox");
