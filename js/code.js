@@ -30,9 +30,10 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   const sortButtons = document.querySelectorAll('.toggle-sort-first, .toggle-sort-last, .toggle-sort-email, .toggle-sort-phone');
+  
   sortButtons.forEach(button => {
-    console.log("Found button:", button); // Debugging line
-    button.addEventListener('click', sort);
+      console.log("Found button:", button); // Debugging line
+      button.addEventListener('click', (e) => contactOps.sort(e));
   });
 
   const addContactForm = document.getElementById("addContactForm");
@@ -53,3 +54,4 @@ document.addEventListener("DOMContentLoaded", () => {
     }, 3000); // Hide after 3 seconds
   }
 });
+
