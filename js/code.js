@@ -33,7 +33,8 @@ document.addEventListener("DOMContentLoaded", () => {
   const sortButtons = document.querySelectorAll('.toggle-sort-first, .toggle-sort-last, .toggle-sort-email, .toggle-sort-phone');
 
   sortButtons.forEach(button => {
-    button.addEventListener('click', contactOps.sort);
+    console.log("Adding event listener to:", button);
+    button.addEventListener('click', sort);
   });
 
   const addContactForm = document.getElementById("addContactForm");
