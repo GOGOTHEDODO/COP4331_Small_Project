@@ -350,6 +350,12 @@ function sort(e) {
   const currentButton = e.currentTarget;
   const currentIcon = currentButton.querySelector('i');
 
+  sortButtons.forEach(button => {
+    const icon = button.querySelector('i');
+    icon.classList.remove('fa-sort-up', 'fa-sort-down');
+    icon.classList.add('fa-sort');
+  });
+
   if (currentIcon.classList.contains('fa-sort')) {
       currentIcon.classList.remove('fa-sort'); 
       currentIcon.classList.add('fa-sort-up');
