@@ -348,13 +348,9 @@ function replaceButton(row, isEditMode) {
 // testing
 function sort(e) {
   const currentButton = e.currentTarget;
+  console.log(currentButton);
   const currentIcon = currentButton.querySelector('i');
-
-  sortButtons.forEach(button => {
-    const icon = button.querySelector('i');
-    icon.classList.remove('fa-sort-up', 'fa-sort-down');
-    icon.classList.add('fa-sort');
-  });
+  console.log(currentIcon);
 
   if (currentIcon.classList.contains('fa-sort')) {
       currentIcon.classList.remove('fa-sort'); 
