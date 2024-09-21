@@ -352,7 +352,7 @@ function sort(e) {
   const columnName = currentButton.dataset.column; // Assuming buttons have a data-column attribute
 
   let sortOrder = 'asc'; // Default to ascending
-  if (currentIcon.classList.contains('fa-sort')) {
+  if (currentIcon.classList.contains('fa-sort')) { 
       currentIcon.classList.remove('fa-sort'); 
       currentIcon.classList.add('fa-sort-up');
   } else if (currentIcon.classList.contains('fa-sort-up')) {
@@ -367,18 +367,22 @@ function sort(e) {
 
   const tableBody = document.querySelector(".table tbody");
   const rows = Array.from(tableBody.rows);
-  
+
   // Remove header row if present
-  const headerRow = rows.shift();
+  const headerRow = rows.shift(); 
 
   rows.sort((rowA, rowB) => {
     const cellA = rowA.querySelector(`td:nth-child(${getColumnIndex(columnName)})`).innerText;
     const cellB = rowB.querySelector(`td:nth-child(${getColumnIndex(columnName)})`).innerText;
 
+    // Convert to a format suitable for comparison
+    const compareA = isNaN(cellA) ? cellA : Number(cellA);
+    const compareB = isNaN(cellB) ? cellB : Number(cellB);
+
     if (sortOrder === 'asc') {
-      return cellA.localeCompare(cellB);
+      return compareA > compareB ? 1 : -1; // Ascending
     } else {
-      return cellB.localeCompare(cellA);
+      return compareA < compareB ? 1 : -1; // Descending
     }
   });
 
@@ -392,13 +396,13 @@ function sort(e) {
 function getColumnIndex(columnName) {
   switch (columnName) {
     case 'first':
-      return 2; // Assuming first name is in the second column
+      return 2; // Adjust if necessary
     case 'last':
-      return 3; // Assuming last name is in the third column
+      return 3; // Adjust if necessary
     case 'email':
-      return 4; // Assuming email is in the fourth column
+      return 4; // Adjust if necessary
     case 'phone':
-      return 5; // Assuming phone number is in the fifth column
+      return 5; // Adjust if necessary
     default:
       return 1; // Default to first column if not found
   }
