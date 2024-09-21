@@ -5,6 +5,7 @@ import contactOps from "./contactOperations.js";
 
 // Landing page functions for login and signup
 document.addEventListener("DOMContentLoaded", () => {
+  console.log("loaded");
   const loginButton = document.getElementById("loginButton");
   if (loginButton) {
     loginButton.addEventListener("click", userOps.doLogin);
@@ -34,7 +35,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   sortButtons.forEach(button => {
     console.log("Adding event listener to:", button);
-    button.addEventListener('click', sort);
+    button.addEventListener('click', contactOps.sort);
   });
 
   const addContactForm = document.getElementById("addContactForm");
