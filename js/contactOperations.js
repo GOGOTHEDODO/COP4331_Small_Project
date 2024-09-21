@@ -345,66 +345,20 @@ function replaceButton(row, isEditMode) {
   }
 }
 
-// testing chat gpt complete this function by actually sorting the table since i got icons to work
+// testing
 function sort(e) {
   const currentButton = e.currentTarget;
   const currentIcon = currentButton.querySelector('i');
-  const columnName = currentButton.dataset.column; // Assuming buttons have a data-column attribute
 
-  let sortOrder = 'asc'; // Default to ascending
-  if (currentIcon.classList.contains('fa-sort')) { 
+  if (currentIcon.classList.contains('fa-sort')) {
       currentIcon.classList.remove('fa-sort'); 
       currentIcon.classList.add('fa-sort-up');
   } else if (currentIcon.classList.contains('fa-sort-up')) {
       currentIcon.classList.remove('fa-sort-up');
       currentIcon.classList.add('fa-sort-down');
-      sortOrder = 'desc'; // Set to descending
   } else {
       currentIcon.classList.remove('fa-sort-down');
       currentIcon.classList.add('fa-sort');
-      return; // No sorting applied
-  }
-
-  const tableBody = document.querySelector(".table tbody");
-  const rows = Array.from(tableBody.rows);
-
-  // Remove header row if present
-  const headerRow = rows.shift(); 
-
-  rows.sort((rowA, rowB) => {
-    const cellA = rowA.querySelector(`td:nth-child(${getColumnIndex(columnName)})`).innerText;
-    const cellB = rowB.querySelector(`td:nth-child(${getColumnIndex(columnName)})`).innerText;
-
-    // Convert to a format suitable for comparison
-    const compareA = isNaN(cellA) ? cellA : Number(cellA);
-    const compareB = isNaN(cellB) ? cellB : Number(cellB);
-
-    if (sortOrder === 'asc') {
-      return compareA > compareB ? 1 : -1; // Ascending
-    } else {
-      return compareA < compareB ? 1 : -1; // Descending
-    }
-  });
-
-  // Clear the table and append the sorted rows
-  tableBody.innerHTML = '';
-  tableBody.appendChild(headerRow); // Re-add header row
-  rows.forEach(row => tableBody.appendChild(row));
-}
-
-// Helper function to get column index based on column name
-function getColumnIndex(columnName) {
-  switch (columnName) {
-    case 'first':
-      return 2; // Adjust if necessary
-    case 'last':
-      return 3; // Adjust if necessary
-    case 'email':
-      return 4; // Adjust if necessary
-    case 'phone':
-      return 5; // Adjust if necessary
-    default:
-      return 1; // Default to first column if not found
   }
 }
 
