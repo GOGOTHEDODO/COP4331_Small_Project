@@ -21,6 +21,11 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   // Contact page functions
+  window.addEventListener('userLoggedIn', function(event) {
+    const username = event.detail.username;
+    console.log("Logged in as:", username);
+  });
+
   const searchInput = document.getElementById("searchInput");
   if (searchInput) {
     userOps.readCookie();
@@ -33,7 +38,7 @@ document.addEventListener("DOMContentLoaded", () => {
   // Sort buttons for contact list
   const sortButtons = document.querySelectorAll('.toggle-sort-first, .toggle-sort-last, .toggle-sort-email, .toggle-sort-phone');
 
-  window.contactOps = {
+  window.contactOps = { // Because we use sortButtons to check for buttons in sort function
     sortButtons: sortButtons
   };
 

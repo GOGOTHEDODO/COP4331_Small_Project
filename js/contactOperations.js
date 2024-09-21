@@ -348,25 +348,23 @@ function replaceButton(row, isEditMode) {
 // testing
 function sort(e) {
   const currentButton = e.currentTarget;
-  console.log(currentButton);
   const currentIcon = currentButton.querySelector('i');
-  console.log(currentIcon);
 
-  window.contactOps.sortButtons.forEach(button => {
-    if (button != currentButton) {
+  window.contactOps.sortButtons.forEach(button => { // gets sortButtons from code.js
+    if (button != currentButton) { // checks for all buttons except for the one pressed 
       const icon = button.querySelector('i');
-      icon.classList.remove('fa-sort-up', 'fa-sort-down');
-      icon.classList.add('fa-sort');
+      icon.classList.remove('fa-sort-up', 'fa-sort-down'); // resets all other buttons to 
+      icon.classList.add('fa-sort');                       // defualt sort for user simplicity
     }
   });
 
-  if (currentIcon.classList.contains('fa-sort')) {
+  if (currentIcon.classList.contains('fa-sort')) {            // defualt sort to ascending sort
       currentIcon.classList.remove('fa-sort'); 
       currentIcon.classList.add('fa-sort-up');
-  } else if (currentIcon.classList.contains('fa-sort-up')) {
+  } else if (currentIcon.classList.contains('fa-sort-up')) {  // ascending sort to descending
       currentIcon.classList.remove('fa-sort-up');
       currentIcon.classList.add('fa-sort-down');
-  } else {
+  } else {                                                    // descending sort to defualt sort
       currentIcon.classList.remove('fa-sort-down');
       currentIcon.classList.add('fa-sort');
   }

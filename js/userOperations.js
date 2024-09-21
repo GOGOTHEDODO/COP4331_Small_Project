@@ -44,6 +44,11 @@ function doLogin() {
             lastName = userData.last_name;
             saveCookie();
 
+            const loginEvent = new CustomEvent('userLoggedIn', {
+              detail: { username: userData.username }
+            });
+            window.dispatchEvent(loginEvent);
+
             window.location.href = "contacts.html";
           } else {
             // Handle server-side error
