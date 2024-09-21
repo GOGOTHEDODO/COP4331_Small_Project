@@ -33,14 +33,14 @@ document.addEventListener("DOMContentLoaded", () => {
   // Sort buttons for contact list
   const sortButtons = document.querySelectorAll('.toggle-sort-first, .toggle-sort-last, .toggle-sort-email, .toggle-sort-phone');
 
+  window.contactOps = {
+    sortButtons: sortButtons
+  };
+
   sortButtons.forEach(button => {
     console.log("Adding event listener to:", button);
     button.addEventListener('click', contactOps.sort);
   });
-
-  window.contactOps = {
-    sortButtons: sortButtons
-  };
 
   const addContactForm = document.getElementById("addContactForm");
   const notificationBox = document.getElementById("notificationBox");
