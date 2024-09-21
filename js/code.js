@@ -38,6 +38,10 @@ document.addEventListener("DOMContentLoaded", () => {
     button.addEventListener('click', contactOps.sort);
   });
 
+  window.contactOps = {
+    sortButtons: sortButtons
+  };
+
   const addContactForm = document.getElementById("addContactForm");
   const notificationBox = document.getElementById("notificationBox");
 
