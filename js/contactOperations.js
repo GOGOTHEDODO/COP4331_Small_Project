@@ -353,9 +353,11 @@ function sort(e) {
   console.log(currentIcon);
 
   window.contactOps.sortButtons.forEach(button => {
-    const icon = button.querySelector('i');
-    icon.classList.remove('fa-sort-up', 'fa-sort-down');
-    icon.classList.add('fa-sort');
+    if (button != currentButton) {
+      const icon = button.querySelector('i');
+      icon.classList.remove('fa-sort-up', 'fa-sort-down');
+      icon.classList.add('fa-sort');
+    }
   });
 
   if (currentIcon.classList.contains('fa-sort')) {
