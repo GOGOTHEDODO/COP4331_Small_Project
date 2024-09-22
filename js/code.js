@@ -13,9 +13,12 @@ document.addEventListener("DOMContentLoaded", () => {
   window.addEventListener('userLoggedIn', function(event) {
     const loggedInUsername = event.detail.username;
     console.log("Logged in as:", loggedInUsername);
-    document.getElementById("userName").innerHTML = `Welcome ${loggedInUsername}!`;
+    const userNameElement = document.getElementById("userName");
+    if (userNameElement) {
+      userNameElement.innerHTML = `Welcome ${loggedInUsername}!`;
+    }
   });
-  
+
   const signUpButton = document.getElementById("signUpButton");
   if (signUpButton) {
     signUpButton.addEventListener("click", userOps.doSignup);
