@@ -5,7 +5,6 @@ import contactOps from "./contactOperations.js";
 
 // Landing page functions for login and signup
 document.addEventListener("DOMContentLoaded", () => {
-  console.log("loaded");
   const loginButton = document.getElementById("loginButton");
   if (loginButton) {
     loginButton.addEventListener("click", userOps.doLogin);
@@ -15,6 +14,7 @@ document.addEventListener("DOMContentLoaded", () => {
   if (signUpButton) {
     signUpButton.addEventListener("click", userOps.doSignup);
   }
+
   const logoutButton = document.getElementById("logoutButton");
   if (logoutButton) {
     logoutButton.addEventListener("click", userOps.doLogout);
@@ -22,8 +22,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Contact page functions
   window.addEventListener('userLoggedIn', function(event) {
-    const username = event.detail.username;
-    console.log("Logged in as:", username);
+    const loggedInUsername = event.detail.username;
+    console.log("Logged in as:", loggedInUsername);
+    document.getElementById("userName").innerHTML = `Welcome ${loggedInUsername}!`;
   });
 
   const searchInput = document.getElementById("searchInput");
