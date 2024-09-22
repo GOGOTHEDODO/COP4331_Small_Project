@@ -21,7 +21,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   // Contact page functions
-  console.log(userOps.getUsername());
+  console.log(userOps.getUsername);
 
   const searchInput = document.getElementById("searchInput");
   if (searchInput) {
