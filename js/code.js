@@ -53,9 +53,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   if (addContactForm) {
     addContactForm.addEventListener("submit", (event) => {
-      // event.preventDefault();
-      contactOps.addContact();
-      showNotification();
+      addContactForm.addEventListener("submit", contactOps.addContact);
     });
   }
 
