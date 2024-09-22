@@ -1,4 +1,6 @@
 const divs = document.querySelectorAll('input');
+const notification = document.getElementById('notificationBox');
+const button = document.getElementById('add-contact');
 
 const patterns = {
     firstName: /^[A-Za-z]+$/,
@@ -22,3 +24,10 @@ divs.forEach(div => {
         }
     });
 });
+
+button.addEventListener("click", () => {
+    notification.style.display = "block";
+    setTimeout(() => {
+      notification.style.display = "none";
+    }, 3000); // Hide after 3 seconds
+})
