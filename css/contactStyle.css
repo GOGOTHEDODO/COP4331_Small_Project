@@ -330,6 +330,7 @@ h3 {
 
 .notification-box .notification-content {
   display: flex;
+  justify-content: center;
   align-items: center;
   padding-left: 0;
 }

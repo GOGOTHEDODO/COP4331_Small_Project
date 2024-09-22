@@ -1,6 +1,8 @@
 const divs = document.querySelectorAll('input');
 const notification = document.getElementById('notificationBox');
-const button = document.getElementById('add-contact');
+const buttons = document.querySelectorAll('button');
+const text = document.getElementById('text');
+
 
 const patterns = {
     firstName: /^[A-Za-z]+$/,
@@ -25,9 +27,41 @@ divs.forEach(div => {
     });
 });
 
-button.addEventListener("click", () => {
-    notification.style.display = "block";
-    setTimeout(() => {
-      notification.style.display = "none";
-    }, 3000); // Hide after 3 seconds
-})
+buttons.forEach(button => {
+    button.addEventListener('click', (e) => {
+        const buttonID = e.currentTarget.id;
+        if(buttonID == 'edit') {
+            console.log("log out clicked")
+            notification.style.display = "block";
+            text.innerHTML = "Contact Updated!";
+            setTimeout(() => {
+              notification.style.display = "none";
+            }, 3000); // Hide after 3 seconds
+        }
+        if(buttonID == 'delete') {
+            console.log("log out clicked")
+            notification.style.display = "block";
+            text.innerHTML = "Contact Deleted!";
+            setTimeout(() => {
+              notification.style.display = "none";
+            }, 3000); // Hide after 3 seconds
+        }
+        if(buttonID == 'addContact') {
+            console.log("log out clicked")
+            notification.style.display = "block";
+            text.innerHTML = "Contact Added!";
+            setTimeout(() => {
+              notification.style.display = "none";
+            }, 3000); // Hide after 3 seconds
+        }
+    });
+});
+
+
+// button.addEventListener("click", () => {
+//     notification.style.display = "block";
+//     text.innerHTML = "Contact Updated!";
+//     setTimeout(() => {
+//       notification.style.display = "none";
+//     }, 3000); // Hide after 3 seconds
+// })

@@ -217,10 +217,10 @@ function updateContactTable(contacts) {
       <td>${contact.email}</td>
       <td>${contact.phone}</td>
       <td class="button-table" data-contact-id="${contact.contact_id}">
-        <button class="btn edit-btn">
+        <button class="btn edit-btn" id="edit">
           <i class="fa-solid fa-pen-to-square"></i>
         </button>
-        <button class="btn delete-btn">
+        <button class="btn delete-btn" id="delete">
           <i class="fa-solid fa-trash"></i>
         </button>
       </td>

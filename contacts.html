@@ -77,7 +77,7 @@
             <i class="fa-solid fa-check"></i>
             <i class="fa-solid fa-xmark"></i>
           </div>
-          <button type="submit" id="add-contact">Add Contact</button>
+          <button type="submit" id="addContact">Add Contact</button>
         </form>
       </div>
       <!-- End of form column -->
@@ -93,6 +93,7 @@
                 <button
                   class="toggle-sort toggle-sort-first"
                   data-column="first"
+                  id="sort"
                 >
                   <i class="fa-solid fa-sort"></i>
                 </button>
@@ -139,7 +140,7 @@
     <div id="notificationBox" class="notification-box">
       <div class="notification-content">
         <i class="fas fa-solid fa-check check"></i>
-        <span class="text">Contact updated!</span>
+        <span class="text" id="text"></span>
       </div>
     </div>
 
