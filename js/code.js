@@ -15,7 +15,7 @@ document.addEventListener("DOMContentLoaded", () => {
     console.log("Logged in as:", loggedInUsername);
     document.getElementById("userName").innerHTML = `Welcome ${loggedInUsername}!`;
   });
-
+  
   const signUpButton = document.getElementById("signUpButton");
   if (signUpButton) {
     signUpButton.addEventListener("click", userOps.doSignup);

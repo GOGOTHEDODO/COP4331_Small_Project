@@ -42,6 +42,7 @@ function doLogin() {
             userId = userData.user_id;
             firstName = userData.first_name;
             lastName = userData.last_name;
+            username = userData.username;
             saveCookie();
 
             const loginEvent = new CustomEvent('userLoggedIn', {
