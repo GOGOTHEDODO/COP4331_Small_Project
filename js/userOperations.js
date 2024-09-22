@@ -42,14 +42,10 @@ function doLogin() {
             userId = userData.user_id;
             firstName = userData.first_name;
             lastName = userData.last_name;
-            username = userData.username;
+            const test = userData.username;
+            console.log("test");
             saveCookie();
-
-            const loginEvent = new CustomEvent('userLoggedIn', {
-              detail: { username: userData.username }
-            });
-            window.dispatchEvent(loginEvent);
-
+            
             window.location.href = "contacts.html";
           } else {
             // Handle server-side error
