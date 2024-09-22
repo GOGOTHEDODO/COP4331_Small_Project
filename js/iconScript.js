@@ -11,7 +11,7 @@ const patterns = {
 };
 
 const btns = {
-    edit: "Contact Updated!",
+    save: "Contact Updated!",
     delete: "Contact Deleted!",
     addContact: "Contact Added!"
 }
