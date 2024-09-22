@@ -21,8 +21,6 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   // Contact page functions
-  console.log(userOps.getUsername);
-
   const searchInput = document.getElementById("searchInput");
   if (searchInput) {
     userOps.readCookie();
@@ -43,6 +41,8 @@ document.addEventListener("DOMContentLoaded", () => {
     console.log("Adding event listener to:", button);
     button.addEventListener('click', contactOps.sort);
   });
+
+  console.log(userOps.getUsername);
 
   const addContactForm = document.getElementById("addContactForm");
   const notificationBox = document.getElementById("notificationBox");
