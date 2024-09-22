@@ -10,6 +10,12 @@ document.addEventListener("DOMContentLoaded", () => {
     loginButton.addEventListener("click", userOps.doLogin);
   }
 
+  window.addEventListener('userLoggedIn', function(event) {
+    const loggedInUsername = event.detail.username;
+    console.log("Logged in as:", loggedInUsername);
+    document.getElementById("userName").innerHTML = `Welcome ${loggedInUsername}!`;
+  });
+
   const signUpButton = document.getElementById("signUpButton");
   if (signUpButton) {
     signUpButton.addEventListener("click", userOps.doSignup);
@@ -21,12 +27,6 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   // Contact page functions
-  window.addEventListener('userLoggedIn', function(event) {
-    const loggedInUsername = event.detail.username;
-    console.log("Logged in as:", loggedInUsername);
-    document.getElementById("userName").innerHTML = `Welcome ${loggedInUsername}!`;
-  });
-
   const searchInput = document.getElementById("searchInput");
   if (searchInput) {
     userOps.readCookie();
