@@ -10,6 +10,11 @@ let username = "";
 function getUserId() {
   return userId;
 }
+
+function getUsername() {
+  return userData.username;
+}
+
 function doLogin() {
   let username = document.getElementById("loginUsername").value;
   let password = document.getElementById("loginPassword").value;
@@ -42,6 +47,7 @@ function doLogin() {
             userId = userData.user_id;
             firstName = userData.first_name;
             lastName = userData.last_name;
+            username = userData.username;
 
             getUsername();
             
@@ -193,10 +199,6 @@ function clearCookie() {
   document.cookie = "lastName=;expires=Thu, 01 Jan 1970 00:00:00 GMT;path=/";
   document.cookie = "userId=;expires=Thu, 01 Jan 1970 00:00:00 GMT;path=/";
   window.location.href = "index.html";
-}
-
-function getUsername() {
-  return userData.username;
 }
 
 const userOps = {
