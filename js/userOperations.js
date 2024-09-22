@@ -42,8 +42,9 @@ function doLogin() {
             userId = userData.user_id;
             firstName = userData.first_name;
             lastName = userData.last_name;
-            const test = userData.username;
-            console.log("test");
+
+            getUsername();
+            
             saveCookie();
             
             window.location.href = "contacts.html";
@@ -194,11 +195,16 @@ function clearCookie() {
   window.location.href = "index.html";
 }
 
+function getUsername() {
+  return userData.username;
+}
+
 const userOps = {
   getUserId,
   doLogin,
   doSignup,
   doLogout,
   readCookie,
+  getUsername,
 };
 export default userOps;
