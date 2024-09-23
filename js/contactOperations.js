@@ -12,18 +12,9 @@ function addContact(event) {
   const phoneNumber = document.getElementById("phoneNumber").value;
   const userId = userOps.getUserId();
 
-  // test
-  const divider = document.getElementsByClassName("divider");
-  if (divider.length > 0) {
-    divider[0].classList.remove("valid");
-  }
-
   if (
     !validateUserInput("addContact", firstName, lastName, email, phoneNumber)
   ) {
-    if (divider.length > 0) {
-      divider[0].classList.remove("valid");
-    }
     return;
   }
 
@@ -309,13 +300,7 @@ function validateUserInput(formId, firstName, lastName, email, phoneNumber) {
 
     if (input) {
       if (!result.valid) {
-        // input.style.borderColor = "lightcoral";
-        // xmarkIcon.classList.add("invalid");
-        // xmarkIcon.style.opacity = "1";
-        // checkIcon.classList.remove("valid");
-        // checkIcon.style.opacity = "0";
-
-        divider.classList.remove("valid");
+       divider.classList.remove("valid");
 
         const errorMsg = document.createElement("div");
         errorMsg.className = "error-msg";
@@ -325,13 +310,7 @@ function validateUserInput(formId, firstName, lastName, email, phoneNumber) {
         errorContainer.appendChild(errorMsg);
       } 
       else {
-        // input.style.borderColor = "palegreen";
-        // checkIcon.classList.add("valid");
-        // checkIcon.style.opacity = "1";
-        // xmarkIcon.classList.remove("invalid");
-        // xmarkIcon.style.opacity = "0";
-
-        divider.classList.add("valid");
+        divider.classList.remove("valid");
       }
     }
   });
