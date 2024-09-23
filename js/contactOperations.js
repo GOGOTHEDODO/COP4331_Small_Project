@@ -78,7 +78,7 @@ function saveContact(row) {
 
   // Check if edited field meets requirements
   if (
-    !validateUserInput("addContact", updatedFirstName, updatedLastName, updatedEmail, updatedPhoneNumber)
+    !validateUserInputEdit(row, updatedFirstName, updatedLastName, updatedEmail, updatedPhoneNumber)
   ) {
     divider.classList.remove("valid");
     return;
@@ -370,6 +370,67 @@ function sort(e) {
       currentIcon.classList.remove('fa-sort-down');
       currentIcon.classList.add('fa-sort');
   }
+}
+
+// testing
+function validateUserInputEdit(row, firstName, lastName, email, phoneNumber) {
+  const namePattern = /^[A-Za-z]+$/;
+  const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+  const phonePattern = /^[0-9]{10,12}$/;
+
+  // Clear previous errors in the row
+  const errorContainer = row.querySelector('.error-messages');
+  if (errorContainer) {
+    errorContainer.innerHTML = '';
+  } else {
+    const newErrorContainer = document.createElement('div');
+    newErrorContainer.className = 'error-messages';
+    row.insertBefore(newErrorContainer, row.firstChild); // Insert above the row
+  }
+
+  const validationResults = {
+    firstName: { valid: true, message: "" },
+    lastName: { valid: true, message: "" },
+    email: { valid: true, message: "" },
+    phoneNumber: { valid: true, message: "" },
+  };
+
+  if (!namePattern.test(firstName)) {
+    validationResults.firstName = {
+      valid: false,
+      message: "First name should contain only alphabetic characters.",
+    };
+  }
+  if (!namePattern.test(lastName)) {
+    validationResults.lastName = {
+      valid: false,
+      message: "Last name should contain only alphabetic characters.",
+    };
+  }
+  if (!emailPattern.test(email)) {
+    validationResults.email = {
+      valid: false,
+      message: "Please enter a valid email address.",
+    };
+  }
+  if (!phonePattern.test(phoneNumber)) {
+    validationResults.phoneNumber = {
+      valid: false,
+      message: "Please enter a valid phone number (10-12 digits).",
+    };
+  }
+
+  Object.keys(validationResults).forEach((key) => {
+    const result = validationResults[key];
+    if (!result.valid) {
+      const errorMsg = document.createElement("div");
+      errorMsg.className = "error-msg";
+      errorMsg.innerHTML = `<span class="fa fa-exclamation-triangle"></span> ${result.message}`;
+      errorContainer.appendChild(errorMsg);
+    }
+  });
+
+  return Object.values(validationResults).every((result) => result.valid);
 }
 
 const contactOps = {
