@@ -46,9 +46,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const notificationBox = document.getElementById("notificationBox");
 
   if (addContactForm) {
-    addContactForm.addEventListener("submit", (event) => {
-      addContactForm.addEventListener("submit", contactOps.addContact);
-    });
+    addContactForm.addEventListener("submit", contactOps.addContact);
   }
 
   function showNotification() {
