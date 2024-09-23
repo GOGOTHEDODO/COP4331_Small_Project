@@ -420,7 +420,7 @@ function validateUserInputEdit(row, firstName, lastName, email, phoneNumber) {
     };
   }
 
-  // Display error messages and increase row height if there are errors
+  // Display error messages
   let hasErrors = false; // Flag to check for any validation errors
   Object.keys(validationResults).forEach((key) => {
     const result = validationResults[key];
@@ -429,18 +429,11 @@ function validateUserInputEdit(row, firstName, lastName, email, phoneNumber) {
       const errorMsg = document.createElement("div");
       errorMsg.className = "error-msg-edit";
       errorMsg.innerHTML = `<span class="fa fa-exclamation-triangle"></span> ${result.message}`;
-      errorContainer.appendChild(errorMsg);
+      errorContainer.appendChild(errorMsg); // Append error message to the error container
     }
   });
 
-  // Increase the height of the row if there are validation errors
-  /*if (hasErrors) {
-    row.classList.add("error-row"); // Add a class to increase row height
-  } else {
-    row.classList.remove("error-row"); // Remove class if no errors
-  }*/
-
-  return Object.values(validationResults).every((result) => result.valid);
+  return Object.values(validationResults).every((result) => result.valid); // Return true if all validations pass
 }
 
 const contactOps = {
