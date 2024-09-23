@@ -207,6 +207,6 @@ const userOps = {
   doSignup,
   doLogout,
   readCookie,
-  getUsername,
+  // getUsername,
 };
 export default userOps;
