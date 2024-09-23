@@ -426,10 +426,10 @@ function validateUserInputEdit(row, firstName, lastName, email, phoneNumber) {
     const result = validationResults[key];
     if (!result.valid) {
       hasErrors = true; // Set the flag to true if there's an error
-      // const errorMsg = document.createElement("div");
-      // errorMsg.className = "error-msg-edit";
-      // errorMsg.innerHTML = `<span class="fa fa-exclamation-triangle"></span> ${result.message}`;
-      // errorContainer.appendChild(errorMsg);
+      const errorMsg = document.createElement("div");
+      errorMsg.className = "error-msg-edit";
+      errorMsg.innerHTML = `<span class="fa fa-exclamation-triangle"></span> ${result.message}`;
+      errorContainer.appendChild(errorMsg);
     }
   });
 
