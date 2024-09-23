@@ -434,11 +434,11 @@ function validateUserInputEdit(row, firstName, lastName, email, phoneNumber) {
   });
 
   // Increase the height of the row if there are validation errors
-  if (hasErrors) {
+  /*if (hasErrors) {
     row.classList.add("error-row"); // Add a class to increase row height
   } else {
     row.classList.remove("error-row"); // Remove class if no errors
-  }
+  }*/
 
   return Object.values(validationResults).every((result) => result.valid);
 }
