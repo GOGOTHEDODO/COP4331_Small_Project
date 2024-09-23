@@ -145,6 +145,9 @@ h3 {
   color: lightcoral; /* Set the icon color */
 }
 
+.error-row {
+  height: 70px; /* Set your desired height */
+}
 
 .contacts-form {
   grid-area: contact;
