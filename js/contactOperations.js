@@ -119,6 +119,7 @@ function saveContact(row) {
   xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
   xhr.onreadystatechange = function () {
     if (this.readyState == 4 && this.status == 200) {
+      showNotificationMessage("Contact Updated!")
       console.log("Contact updated successfully");
     }
   };
@@ -153,6 +154,7 @@ function deleteContact(row) {
     try {
       xhr.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
+          showNotificationMessage("Contact Deleted!")
           console.log("Contact deleted successfully");
         }
       };
@@ -161,6 +163,22 @@ function deleteContact(row) {
       console.error("Error deleting contact:", err);
     }
   }
+}
+
+// test for notification box
+function showNotificationMessage(message) {
+  var notification = document.getElementById('notificationBox');
+  notification.textContent = message;
+  notification.style.display = 'block'; 
+  notification.style.opacity = '1'; 
+
+  setTimeout(function() {
+      notification.style.opacity = '0'; 
+     scrollX
+      setTimeout(function() {
+          notification.style.display = 'none';
+      }, 500); 
+  }, 5000);
 }
 
 function retrieveContacts(searchTerm = "") {

@@ -48,12 +48,5 @@ document.addEventListener("DOMContentLoaded", () => {
   if (addContactForm) {
     addContactForm.addEventListener("submit", contactOps.addContact);
   }
-
-  function showNotification() {
-    notificationBox.style.display = "block";
-    setTimeout(() => {
-      notificationBox.style.display = "none";
-    }, 3000); // Hide after 3 seconds
-  }
 });
 
