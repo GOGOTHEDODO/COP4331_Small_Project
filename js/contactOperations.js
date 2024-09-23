@@ -429,7 +429,7 @@ function validateUserInputEdit(row, firstName, lastName, email, phoneNumber) {
       const errorMsg = document.createElement("div");
       errorMsg.className = "error-msg-edit";
       errorMsg.innerHTML = `<span class="fa fa-exclamation-triangle"></span> ${result.message}`;
-      errorContainer.appendChild(errorMsg); // Append error message to the error container
+      // errorContainer.appendChild(errorMsg); // Append error message to the error container
     }
   });
 
