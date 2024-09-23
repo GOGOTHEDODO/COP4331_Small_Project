@@ -381,7 +381,7 @@ function validateUserInputEdit(row, firstName, lastName, email, phoneNumber) {
   // Clear previous errors in the row
   const errorContainer = row.querySelector('.error-messages');
   if (errorContainer) {
-    errorContainer.innerHTML = '';
+    errorContainer.innerHTML = ''; // Clear existing messages
   } else {
     const newErrorContainer = document.createElement('div');
     newErrorContainer.className = 'error-messages';
@@ -426,6 +426,7 @@ function validateUserInputEdit(row, firstName, lastName, email, phoneNumber) {
       const errorMsg = document.createElement("div");
       errorMsg.className = "error-msg-edit";
       errorMsg.innerHTML = `<span class="fa fa-exclamation-triangle"></span> ${result.message}`;
+      // Append error message to the errorContainer
       errorContainer.appendChild(errorMsg);
     }
   });
