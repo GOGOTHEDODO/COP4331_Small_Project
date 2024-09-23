@@ -22,7 +22,7 @@ function addContact(event) {
     return;
   }
 
-  document.getElementById("addContactForm").reset();
+  // document.getElementById("addContactForm").reset();
 
   // Backend section
   const tmp = {
