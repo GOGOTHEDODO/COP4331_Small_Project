@@ -122,10 +122,16 @@ h3 {
   color: lightcoral;
 }
 
+.error-messages {
+  margin-bottom: 8px; /* Space between the error messages and the row below */
+  color: lightcoral;  /* Set the text color for error messages */
+}
+
 .error-msg-edit {
   display: flex; /* Flexbox to align items in a row */
   align-items: center; /* Center items vertically */
   white-space: nowrap; /* Prevent text from wrapping */
+  margin-top: 8px; /* Space above each error message */
 }
 
 .error-msg-edit .fa-exclamation-triangle {
