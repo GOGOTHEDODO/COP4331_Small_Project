@@ -378,14 +378,14 @@ function validateUserInputEdit(row, firstName, lastName, email, phoneNumber) {
   const phonePattern = /^[0-9]{10,12}$/;
 
   // Create or get the error container
-  let errorContainer = row.querySelector('.error-messages');
+  /*let errorContainer = row.querySelector('.error-messages');
   if (!errorContainer) {
     errorContainer = document.createElement('div');
     errorContainer.className = 'error-messages';
     row.insertBefore(errorContainer, row.firstChild); // Insert above the row
   } else {
     errorContainer.innerHTML = ''; // Clear previous messages
-  }
+  }*/
 
   const validationResults = {
     firstName: { valid: true, message: "" },
