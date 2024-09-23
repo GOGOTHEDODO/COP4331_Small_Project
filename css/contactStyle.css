@@ -122,6 +122,12 @@ h3 {
   color: lightcoral;
 }
 
+.error-messages {
+  height: 20px; /* Adjust this height as needed */
+  overflow: hidden; /* Hide overflowing content */
+  transition: height 0.2s ease; /* Optional: for smooth transitions */
+}
+
 .error-msg-edit {
   display: flex;
   align-items: center;
