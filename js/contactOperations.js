@@ -382,7 +382,7 @@ function validateUserInputEdit(row, firstName, lastName, email, phoneNumber) {
   if (!errorContainer) {
     errorContainer = document.createElement('div');
     errorContainer.className = 'error-messages';
-    row.insertBefore(errorContainer, row.firstChild); // Insert above the row
+    row.parentNode.insertBefore(errorContainer, row.nextSibling); // Insert below the row
   } else {
     errorContainer.innerHTML = ''; // Clear previous messages
   }
