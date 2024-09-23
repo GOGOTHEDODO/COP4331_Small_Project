@@ -46,7 +46,7 @@
       </div>
 
       <div class="welcome">
-        <h1 id="userName">Welcome (username)!</h1>
+        <h1 id="userName"></h1>
       </div>
 
       <!-- First column that contains the form -->
@@ -77,13 +77,9 @@
             <i class="fa-solid fa-check"></i>
             <i class="fa-solid fa-xmark"></i>
           </div>
-          <button type="submit">Add Contact</button>
+          <button type="submit" id="addContact">Add Contact</button>
         </form>
       </div>
-
-      <!-- Notification Box -->
-      <div id="notificationBox" class="notification-box">Contact updated!</div>
-
       <!-- End of form column -->
 
       <!-- Second column that contains contacts table -->
@@ -94,29 +90,41 @@
               <th scope="col">#</th>
               <th scope="col">
                 First
-                <button class="toggle-sort toggle-sort-first" data-column="first">
-                  <i class="fa-solid fa-sort"></i> 
+                <button
+                  class="toggle-sort toggle-sort-first"
+                  data-column="first"
+                  id="sort"
+                >
+                  <i class="fa-solid fa-sort"></i>
                 </button>
               </th>
               <th scope="col">
                 Last
                 <button class="toggle-sort toggle-sort-last" data-column="last">
-                  <i class="fa-solid fa-sort"></i> 
+                  <i class="fa-solid fa-sort"></i>
                 </button>
               </th>
               <th scope="col">
                 Email
-                <button class="toggle-sort toggle-sort-email" data-column="email">
-                  <i class="fa-solid fa-sort"></i> 
+                <button
+                  class="toggle-sort toggle-sort-email"
+                  data-column="email"
+                >
+                  <i class="fa-solid fa-sort"></i>
                 </button>
               </th>
               <th scope="col">
                 Phone
-                <button class="toggle-sort toggle-sort-phone" data-column="phone">
-                  <i class="fa-solid fa-sort"></i> 
+                <button
+                  class="toggle-sort toggle-sort-phone"
+                  data-column="phone"
+                >
+                  <i class="fa-solid fa-sort"></i>
                 </button>
               </th>
+            </tr>
           </thead>
+
           <tbody></tbody>
         </table>
         <div class="log-out">
@@ -127,6 +135,15 @@
       </div>
       <!-- End of table container -->
     </div>
+
+    <!-- Notification Box -->
+    <div id="notificationBox" class="notification-box">
+      <div class="notification-content">
+        <i class="fas fa-solid fa-check check"></i>
+        <span class="text" id="text"></span>
+      </div>
+    </div>
+
     <script src="js/iconScript.js"></script>
   </body>
 </html>

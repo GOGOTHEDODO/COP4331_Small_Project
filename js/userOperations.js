@@ -49,7 +49,7 @@ function doLogin() {
             lastName = userData.last_name;
             username = userData.username;
 
-            getUsername();
+            // getUsername();
             
             saveCookie();
             
@@ -186,7 +186,7 @@ function readCookie() {
   if (userId < 0) {
     window.location.href = "index.html";
   } else {
-    // document.getElementById("userName").innerHTML = `Logged in as ${firstName} ${lastName}`;
+    document.getElementById("userName").innerHTML = `Welcome ${firstName} ${lastName}`;
   }
 }
 

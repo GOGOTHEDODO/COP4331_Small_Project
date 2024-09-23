@@ -220,7 +220,7 @@ function updateContactTable(contacts) {
         <button class="btn edit-btn">
           <i class="fa-solid fa-pen-to-square"></i>
         </button>
-        <button class="btn delete-btn">
+        <button class="btn delete-btn" id="delete">
           <i class="fa-solid fa-trash"></i>
         </button>
       </td>
@@ -329,7 +329,7 @@ function attachEventListeners(row) {
 function replaceButton(row, isEditMode) {
   const buttonTable = row.querySelector(".button-table");
   const editButtonHTML = `<button class="btn edit-btn"><i class="fa-solid fa-pen-to-square"></i></button>`;
-  const saveButtonHTML = `<button class="btn save-btn"><i class="fa-solid fa-save"></i></button>`;
+  const saveButtonHTML = `<button class="btn save-btn" id="save"><i class="fa-solid fa-save"></i></button>`;
 
   // Keep the delete button and only replace the edit button
   const deleteButtonHTML = buttonTable.querySelector(".delete-btn").outerHTML;
