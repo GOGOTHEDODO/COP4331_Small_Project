@@ -378,14 +378,14 @@ function validateUserInputEdit(row, firstName, lastName, email, phoneNumber) {
   const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
   const phonePattern = /^[0-9]{10,12}$/;
 
-  // Clear previous errors in the row
-  const errorContainer = row.querySelector('.error-messages');
-  if (errorContainer) {
-    errorContainer.innerHTML = ''; // Clear existing messages
+  // Create or get the error container
+  let errorContainer = row.querySelector('.error-messages');
+  if (!errorContainer) {
+    errorContainer = document.createElement('div');
+    errorContainer.className = 'error-messages';
+    row.insertBefore(errorContainer, row.firstChild); // Insert above the row
   } else {
-    const newErrorContainer = document.createElement('div');
-    newErrorContainer.className = 'error-messages';
-    row.insertBefore(newErrorContainer, row.firstChild); // Insert above the row
+    errorContainer.innerHTML = ''; // Clear previous messages
   }
 
   const validationResults = {
@@ -395,6 +395,7 @@ function validateUserInputEdit(row, firstName, lastName, email, phoneNumber) {
     phoneNumber: { valid: true, message: "" },
   };
 
+  // Validate inputs
   if (!namePattern.test(firstName)) {
     validationResults.firstName = {
       valid: false,
@@ -420,13 +421,13 @@ function validateUserInputEdit(row, firstName, lastName, email, phoneNumber) {
     };
   }
 
+  // Display error messages
   Object.keys(validationResults).forEach((key) => {
     const result = validationResults[key];
     if (!result.valid) {
       const errorMsg = document.createElement("div");
       errorMsg.className = "error-msg-edit";
       errorMsg.innerHTML = `<span class="fa fa-exclamation-triangle"></span> ${result.message}`;
-      // Append error message to the errorContainer
       errorContainer.appendChild(errorMsg);
     }
   });
