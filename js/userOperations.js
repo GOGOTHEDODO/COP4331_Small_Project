@@ -11,9 +11,9 @@ function getUserId() {
   return userId;
 }
 
-function getUsername() {
+/*function getUsername() {
   return userData.username;
-}
+}*/
 
 function doLogin() {
   let username = document.getElementById("loginUsername").value;
@@ -47,7 +47,7 @@ function doLogin() {
             userId = userData.user_id;
             firstName = userData.first_name;
             lastName = userData.last_name;
-            username = userData.username;
+            //username = userData.username;
 
             // getUsername();
             
