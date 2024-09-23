@@ -14,15 +14,20 @@ function addContact(event) {
 
   // test
   const divider = document.getElementsByClassName("divider");
+  if (divider.length > 0) {
+    divider[0].classList.remove("valid");
+  }
 
   if (
     !validateUserInput("addContact", firstName, lastName, email, phoneNumber)
   ) {
-    divider.classList.remove("valid");
+    if (divider.length > 0) {
+      divider[0].classList.remove("valid");
+    }
     return;
   }
 
-  // document.getElementById("addContactForm").reset();
+  document.getElementById("addContactForm").reset();
 
   // Backend section
   const tmp = {
