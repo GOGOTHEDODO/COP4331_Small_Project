@@ -122,32 +122,17 @@ h3 {
   color: lightcoral;
 }
 
-.error-messages {
-  position: relative; /* Ensure this is set on the row or parent container */
-  margin-bottom: 5px; /* Optional spacing below error messages */
-  color: lightcoral;
-  font-size: 0.9rem;
-  font-family: "SUSE", sans-serif;
-}
-
 .error-msg-edit {
-  /* display: flex; /* Flexbox to align items in a row */
-  /* align-items: center; /* Center items vertically */
-  /* white-space: nowrap; /* Prevent text from wrapping */
-  /* position: absolute; /* Position absolutely */
-  top: -25px; /* Adjust this value to move the message above the row */
-  /* left: 0; /* Align to the left */
-  /* width: 100%; /* Make it span the full width */
+  display: flex;
+  align-items: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .error-msg-edit .fa-exclamation-triangle {
   margin-right: 8px; /* Space between icon and message */
   color: lightcoral; /* Set the icon color */
-}
-
-.error-row {
-  height: 70px;
-  position: relative;
 }
 
 .contacts-form {
