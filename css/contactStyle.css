@@ -136,7 +136,6 @@ h3 {
   white-space: nowrap; /* Prevent text from wrapping */
   position: absolute; /* Position absolutely */
   top: -25px; /* Adjust this value to move the message above the row */
-  left: 0; /* Align to the left */
   width: 100%; /* Make it span the full width */
 }
 
