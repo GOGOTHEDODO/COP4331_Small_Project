@@ -11,10 +11,6 @@ function getUserId() {
   return userId;
 }
 
-/*function getUsername() {
-  return userData.username;
-}*/
-
 function doLogin() {
   let username = document.getElementById("loginUsername").value;
   let password = document.getElementById("loginPassword").value;
@@ -38,8 +34,8 @@ function doLogin() {
   xhr.onreadystatechange = function () {
     if (this.readyState === 4) {
       let jsonObject;
-
       try {
+
         jsonObject = JSON.parse(xhr.responseText);
         if (xhr.status === 200) {
           if (jsonObject.success) {
@@ -47,12 +43,9 @@ function doLogin() {
             userId = userData.user_id;
             firstName = userData.first_name;
             lastName = userData.last_name;
-            //username = userData.username;
 
-            // getUsername();
-            
             saveCookie();
-            
+
             window.location.href = "contacts.html";
           } else {
             // Handle server-side error
@@ -207,6 +200,5 @@ const userOps = {
   doSignup,
   doLogout,
   readCookie,
-  // getUsername,
 };
 export default userOps;
