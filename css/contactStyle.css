@@ -122,6 +122,17 @@ h3 {
   color: lightcoral;
 }
 
+.error-msg-edit {
+  display: flex; /* Flexbox to align items in a row */
+  align-items: center; /* Center items vertically */
+  white-space: nowrap; /* Prevent text from wrapping */
+}
+
+.error-msg-edit .fa-exclamation-triangle {
+  margin-right: 8px; /* Space between icon and message */
+  color: lightcoral; /* Set the icon color */
+}
+
 .contacts-form {
   grid-area: contact;
   background-color: #fffafb;
