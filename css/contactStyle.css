@@ -146,7 +146,8 @@ h3 {
 }
 
 .error-row {
-  height: 70px; /* Set your desired height */
+  height: 70px;
+  position: relative;
 }
 
 .contacts-form {
