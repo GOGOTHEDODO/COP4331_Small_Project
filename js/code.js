@@ -42,8 +42,6 @@ document.addEventListener("DOMContentLoaded", () => {
     button.addEventListener('click', contactOps.sort);
   });
 
-  //console.log(userOps.getUsername);
-
   const addContactForm = document.getElementById("addContactForm");
   const notificationBox = document.getElementById("notificationBox");
 
