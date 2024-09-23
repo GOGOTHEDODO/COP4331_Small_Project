@@ -377,7 +377,7 @@ function validateUserInputEdit(row, firstName, lastName, email, phoneNumber) {
   const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
   const phonePattern = /^[0-9]{10,12}$/;
 
-  // Create or get the error container
+  // Create or get the error container specific to the row
   let errorContainer = row.querySelector('.error-messages');
   if (!errorContainer) {
     errorContainer = document.createElement('div');
@@ -435,6 +435,7 @@ function validateUserInputEdit(row, firstName, lastName, email, phoneNumber) {
 
   return Object.values(validationResults).every((result) => result.valid); // Return true if all validations pass
 }
+
 
 const contactOps = {
   addContact,
