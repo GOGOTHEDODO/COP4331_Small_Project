@@ -376,14 +376,12 @@ function validateUserInputEdit(row, firstName, lastName, email, phoneNumber) {
   const namePattern = /^[A-Za-z]+$/;
   const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
   const phonePattern = /^[0-9]{10,12}$/;
-  
   const validationResults = {
     firstName: { valid: true, message: "" },
     lastName: { valid: true, message: "" },
     email: { valid: true, message: "" },
     phoneNumber: { valid: true, message: "" },
   };
-
   if (!namePattern.test(firstName)) {
     validationResults.firstName = {
       valid: false,
@@ -408,26 +406,21 @@ function validateUserInputEdit(row, firstName, lastName, email, phoneNumber) {
       message: "Please enter a valid phone number (10-12 digits).",
     };
   }
-
-  // Remove any existing error rows
   if (row.nextElementSibling && row.nextElementSibling.classList.contains('error-row')) {
-    row.nextElementSibling.remove();
+    row.nextElementSibling.remove(); // remove error rows
   }
-
   let hasErrors = false;
   Object.keys(validationResults).forEach((key) => {
     const result = validationResults[key];
     if (!result.valid) {
-      hasErrors = true;
+      hasErrors = true; // get rows with errors
     }
   });
-
-  // If there are validation errors, create a new error row below the current row
   if (hasErrors) {
     const errorRow = document.createElement('tr');
-    errorRow.classList.add('error-row');
+    errorRow.classList.add('error-row'); // add error row and display error messages
     const errorCell = document.createElement('td');
-    errorCell.colSpan = row.children.length; // Span across all columns
+    errorCell.colSpan = row.children.length; // span across all columns
     errorCell.innerHTML = `
       ${!validationResults.firstName.valid ? '<span class="fa fa-exclamation-triangle icon-space"></span>' + validationResults.firstName.message + '<br>' : ''}
       ${!validationResults.lastName.valid ? '<span class="fa fa-exclamation-triangle icon-space"></span>' + validationResults.lastName.message + '<br>' : ''}
@@ -437,10 +430,8 @@ function validateUserInputEdit(row, firstName, lastName, email, phoneNumber) {
     errorRow.appendChild(errorCell);
     row.parentNode.insertBefore(errorRow, row.nextElementSibling);
   }
-
   return Object.values(validationResults).every((result) => result.valid);
 }
-
 
 const contactOps = {
   addContact,
