@@ -80,7 +80,7 @@ function saveContact(row) {
   if (
     !validateUserInputEdit(row, updatedFirstName, updatedLastName, updatedEmail, updatedPhoneNumber)
   ) {
-    const divider = row.querySelector(".divider"); // Adjust selector if necessary
+    const divider = row.querySelector(".divider"); 
     if (divider) {
       divider.classList.remove("valid");
     }
@@ -425,8 +425,12 @@ function validateUserInputEdit(row, firstName, lastName, email, phoneNumber) {
 
   Object.keys(validationResults).forEach((key) => {
     const result = validationResults[key];
+    const inputField = inputFields[`${key}Input`];
     if (!result.valid) {
       hasErrors = true;
+      inputField.classList.remove('error-border');
+    } else {
+      inputField.classList.add('error-border');
     }
   });
 
