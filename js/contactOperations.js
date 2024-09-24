@@ -175,44 +175,6 @@ function showNotificationMessage(message) {
   }, 5000);
 }
 
-/*function retrieveContacts(searchTerm = "") {
-  const userId = userOps.getUserId();
-
-  const tmp = {
-    user_id: userId,
-    search_term: searchTerm,
-  };
-  const jsonPayload = JSON.stringify(tmp);
-  const url = `${urlBase}/retrieveContacts.${extension}`;
-
-  const xhr = new XMLHttpRequest();
-  xhr.open("POST", url, true);
-  xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
-
-  xhr.onreadystatechange = function () {
-    if (this.readyState === 4) {
-      if (this.status === 200) {
-        const jsonObject = JSON.parse(this.responseText);
-        if (Array.isArray(jsonObject.data)) {
-          updateContactTable(jsonObject.data);
-        } else {
-          console.error("Unexpected response format:", jsonObject);
-          updateContactTable([]);
-        }
-      } else {
-        console.error("Error retrieving contacts:", this.responseText);
-        updateContactTable([]);
-      }
-    }
-  };
-
-  try {
-    xhr.send(jsonPayload);
-  } catch (err) {
-    console.error("Error sending request:", err);
-  }
-}*/
-
 function retrieveContacts(searchTerm = "") {
   const userId = userOps.getUserId();
 
@@ -232,8 +194,7 @@ function retrieveContacts(searchTerm = "") {
       if (this.status === 200) {
         const jsonObject = JSON.parse(this.responseText);
         if (Array.isArray(jsonObject.data)) {
-          const sortedContacts = sortContacts(jsonObject.data, 'first_name'); // Default sort by first name
-          updateContactTable(sortedContacts);
+          updateContactTable(jsonObject.data);
         } else {
           console.error("Unexpected response format:", jsonObject);
           updateContactTable([]);
@@ -389,8 +350,8 @@ function replaceButton(row, isEditMode) {
   }
 }
 
-// testing 
-/*function sort(e) {
+// testing
+function sort(e) {
   const currentButton = e.currentTarget;
   const currentIcon = currentButton.querySelector('i');
 
@@ -412,7 +373,7 @@ function replaceButton(row, isEditMode) {
       currentIcon.classList.remove('fa-sort-down');
       currentIcon.classList.add('fa-sort');
   }
-} */
+}
 
 function validateUserInputEdit(row, firstName, lastName, email, phoneNumber) {
   const namePattern = /^[A-Za-z]+$/;
@@ -465,12 +426,12 @@ function validateUserInputEdit(row, firstName, lastName, email, phoneNumber) {
   Object.keys(validationResults).forEach((key) => {
     const result = validationResults[key];
     const inputField = inputFields[`${key}Input`];
-    if (inputField) {
+    if (inputField) {  // Check if inputField is not null or undefined
       if (!result.valid) {
         hasErrors = true;
-        inputField.classList.add('error-border'); 
+        inputField.classList.add('error-border');  // Add the red border for invalid input
       } else {
-        inputField.classList.remove('error-border');
+        inputField.classList.remove('error-border');  // Remove the red border for valid input
       }
     } else {
       console.error(`Input field for ${key} is undefined.`);
@@ -493,93 +454,6 @@ function validateUserInputEdit(row, firstName, lastName, email, phoneNumber) {
   }
 
   return Object.values(validationResults).every((result) => result.valid);
-}
-
-function sort(e) {
-  const currentButton = e.currentTarget;
-  const currentIcon = currentButton.querySelector('i');
-  const category = currentButton.dataset.sortCategory; // Assuming buttons have a data attribute for category
-
-  // Reset other sort buttons
-  window.contactOps.sortButtons.forEach(button => {
-    if (button !== currentButton) {
-      const icon = button.querySelector('i');
-      icon.classList.remove('fa-sort-up', 'fa-sort-down');
-      icon.classList.add('fa-sort');
-    }
-  });
-
-  let direction = 'asc'; // Default to ascending
-
-  if (currentIcon.classList.contains('fa-sort')) { // Default sort to ascending sort
-    currentIcon.classList.remove('fa-sort');
-    currentIcon.classList.add('fa-sort-up');
-  } else if (currentIcon.classList.contains('fa-sort-up')) { // Ascending sort to descending
-    currentIcon.classList.remove('fa-sort-up');
-    currentIcon.classList.add('fa-sort-down');
-    direction = 'desc';
-  } else { // Descending sort to default sort
-    currentIcon.classList.remove('fa-sort-down');
-    currentIcon.classList.add('fa-sort');
-    return; // Exit function to not perform sorting
-  }
-
-  // Sorting logic
-  const contacts = window.contactOps.contacts; // Assuming contacts is an array of contact objects
-  contacts.sort((a, b) => {
-    let comparison = 0;
-    
-    // Determine the comparison based on the category
-    if (category === 'first') {
-      comparison = a.firstName.localeCompare(b.firstName);
-    } else if (category === 'last') {
-      comparison = a.lastName.localeCompare(b.lastName);
-    } else if (category === 'email') {
-      comparison = a.email.localeCompare(b.email);
-    } else if (category === 'phone') {
-      comparison = a.phone.localeCompare(b.phone);
-    }
-
-    // Adjust comparison based on direction
-    return direction === 'asc' ? comparison : -comparison;
-  });
-
-  // Update the display after sorting (assuming you have a function to render contacts)
-  renderContacts(contacts); // Replace with your actual render function
-}
-
-let sortState = {
-  first_name: 'original',
-  last_name: 'original',
-  email: 'original',
-  phone: 'original',
-};
-
-// Function to sort contacts by a given field
-function sortContacts(contacts, field) {
-  if (sortState[field] === 'original') {
-    return contacts; // Return in original order
-  }
-  
-  const order = sortState[field] === 'asc' ? 1 : -1;
-  return contacts.sort((a, b) => {
-    if (a[field] < b[field]) return -1 * order;
-    if (a[field] > b[field]) return 1 * order;
-    return 0;
-  });
-}
-
-// Function to toggle sort order and update the table
-function toggleSort(field) {
-  if (sortState[field] === 'original') {
-    sortState[field] = 'asc';
-  } else if (sortState[field] === 'asc') {
-    sortState[field] = 'desc';
-  } else {
-    sortState[field] = 'original';
-  }
-  
-  retrieveContacts(); // Re-fetch contacts to apply sorting
 }
 
 const contactOps = {
