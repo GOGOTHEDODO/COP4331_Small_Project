@@ -425,27 +425,15 @@ function validateUserInputEdit(row, firstName, lastName, email, phoneNumber) {
   // If there are validation errors, create a new error row below the current row
   if (hasErrors) {
     const errorRow = document.createElement('tr');
-    errorRow.classList.add('error-row');
+    errorRow.classList.add('error-msg');
     const errorCell = document.createElement('td');
     errorCell.colSpan = row.children.length; // Span across all columns
-    
-    // Create the error message container with the icon
-    let errorMsg = document.createElement('div');
-    errorMsg.className = "error-msg"; // Add the "error-msg" class
-
-    // Add the error messages with an icon for each field that has an error
-    Object.keys(validationResults).forEach((key) => {
-      const result = validationResults[key];
-      if (!result.valid) {
-        const messageSpan = document.createElement('div');
-        messageSpan.innerHTML = `
-          <span class="fa fa-exclamation-triangle"></span> ${result.message}
-        `;
-        errorMsg.appendChild(messageSpan);
-      }
-    });
-
-    errorCell.appendChild(errorMsg);
+    errorCell.innerHTML = `
+      ${!validationResults.firstName.valid ? validationResults.firstName.message + '<br>' : ''}
+      ${!validationResults.lastName.valid ? validationResults.lastName.message + '<br>' : ''}
+      ${!validationResults.email.valid ? validationResults.email.message + '<br>' : ''}
+      ${!validationResults.phoneNumber.valid ? validationResults.phoneNumber.message + '<br>' : ''}
+    `;
     errorRow.appendChild(errorCell);
     row.parentNode.insertBefore(errorRow, row.nextElementSibling);
   }
