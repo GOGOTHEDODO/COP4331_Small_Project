@@ -122,6 +122,11 @@ h3 {
   color: lightcoral;
 }
 
+.error-messages {
+  height: 20px; /* Fixed height */
+  overflow: hidden; /* Prevents the div from growing */
+}
+
 .error-msg-edit {
   display: flex;
   align-items: center;
