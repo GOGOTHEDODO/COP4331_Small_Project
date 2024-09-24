@@ -424,9 +424,6 @@ function validateUserInputEdit(row, firstName, lastName, email, phoneNumber) {
     const result = validationResults[key];
     if (!result.valid) {
       hasErrors = true;
-      inputFields[`${key}Input`].classList.add('error-border2');
-    } else {
-      inputFields[`${key}Input`].classList.remove('error-border2');
     }
   });
 

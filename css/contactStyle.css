@@ -147,10 +147,6 @@ table tr {
   padding: 10px;
 }
 
-.error-border2 {
-  border: 2px solid lightcoral;
-}
-
 .contacts-form {
   grid-area: contact;
   background-color: #fffafb;
