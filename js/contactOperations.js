@@ -429,10 +429,10 @@ function validateUserInputEdit(row, firstName, lastName, email, phoneNumber) {
     const errorCell = document.createElement('td');
     errorCell.colSpan = row.children.length; // Span across all columns
     errorCell.innerHTML = `
-      ${!validationResults.firstName.valid ? validationResults.firstName.message + '<br>' : ''}
-      ${!validationResults.lastName.valid ? validationResults.lastName.message + '<br>' : ''}
-      ${!validationResults.email.valid ? validationResults.email.message + '<br>' : ''}
-      ${!validationResults.phoneNumber.valid ? validationResults.phoneNumber.message + '<br>' : ''}
+      ${!validationResults.firstName.valid ? '<span class="fa fa-exclamation-triangle"></span> ' + validationResults.firstName.message + '<br>' : ''}
+      ${!validationResults.lastName.valid ? '<span class="fa fa-exclamation-triangle"></span> ' + validationResults.lastName.message + '<br>' : ''}
+      ${!validationResults.email.valid ? '<span class="fa fa-exclamation-triangle"></span> ' + validationResults.email.message + '<br>' : ''}
+      ${!validationResults.phoneNumber.valid ? '<span class="fa fa-exclamation-triangle"></span> ' + validationResults.phoneNumber.message + '<br>' : ''}
     `;
     errorRow.appendChild(errorCell);
     row.parentNode.insertBefore(errorRow, row.nextElementSibling);
