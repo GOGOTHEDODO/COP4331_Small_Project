@@ -80,7 +80,10 @@ function saveContact(row) {
   if (
     !validateUserInputEdit(row, updatedFirstName, updatedLastName, updatedEmail, updatedPhoneNumber)
   ) {
-    divider.classList.remove("valid");
+    const divider = row.querySelector(".divider"); // Adjust selector if necessary
+    if (divider) {
+      divider.classList.remove("valid");
+    }
     return;
   }
 
