@@ -122,19 +122,6 @@ h3 {
   color: lightcoral;
 }
 
-.error-msg-edit {
-  display: flex;
-  align-items: center;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.error-msg-edit .fa-exclamation-triangle {
-  margin-right: 8px; /* Space between icon and message */
-  color: lightcoral; /* Set the icon color */
-}
-
 .error-row {
   color: lightcoral;
   font-size: 0.9rem;
