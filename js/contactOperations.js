@@ -60,7 +60,7 @@ function editContact(row) {
   row.cells[2].innerHTML = `<input type="text" class="last-name-input" value="${lastName}">`;
   row.cells[3].innerHTML = `<input type="email" class="email-input" value="${email}">`;
   row.cells[4].innerHTML = `<input type="text" class="phone-input" value="${phoneNumber}">`;
-  
+
   // Replace the edit button with a save button
   replaceButton(row, true);
 }
@@ -424,9 +424,9 @@ function validateUserInputEdit(row, firstName, lastName, email, phoneNumber) {
     const result = validationResults[key];
     if (!result.valid) {
       hasErrors = true;
-      inputFields[`${key}Input`].classList.add('error-border');
+      // inputFields[`${key}Input`].classList.add('error-border');
     } else {
-      inputFields[`${key}Input`].classList.remove('error-border');
+      // inputFields[`${key}Input`].classList.remove('error-border');
     }
   });
 
