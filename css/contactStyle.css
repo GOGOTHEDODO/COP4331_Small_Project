@@ -122,11 +122,6 @@ h3 {
   color: lightcoral;
 }
 
-.error-messages {
-  height: 20px; /* Fixed height */
-  overflow: hidden; /* Prevents the div from growing */
-}
-
 .error-msg-edit {
   display: flex;
   align-items: center;
@@ -138,6 +133,13 @@ h3 {
 .error-msg-edit .fa-exclamation-triangle {
   margin-right: 8px; /* Space between icon and message */
   color: lightcoral; /* Set the icon color */
+}
+
+.error-row {
+  color: lightcoral;
+  font-size: 0.9rem;
+  font-family: "SUSE", sans-serif;
+  margin-bottom: 5px;
 }
 
 .contacts-form {
