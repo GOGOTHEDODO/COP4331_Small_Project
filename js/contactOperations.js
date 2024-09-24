@@ -426,11 +426,15 @@ function validateUserInputEdit(row, firstName, lastName, email, phoneNumber) {
   Object.keys(validationResults).forEach((key) => {
     const result = validationResults[key];
     const inputField = inputFields[`${key}Input`];
-    if (!result.valid) {
-      hasErrors = true;
-      inputField.classList.remove('error-border');
+    if (inputField) {  // Check if inputField is not null or undefined
+      if (!result.valid) {
+        hasErrors = true;
+        inputField.classList.add('error-border');  // Add the red border for invalid input
+      } else {
+        inputField.classList.remove('error-border');  // Remove the red border for valid input
+      }
     } else {
-      inputField.classList.add('error-border');
+      console.error(`Input field for ${key} is undefined.`);
     }
   });
 
