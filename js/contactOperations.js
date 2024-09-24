@@ -56,11 +56,11 @@ function editContact(row) {
   const phoneNumber = row.cells[4].innerText;
 
   // Convert cells to input fields for editing
-  row.cells[1].innerHTML = `<input type="text" value="${firstName}">`;
-  row.cells[2].innerHTML = `<input type="text" value="${lastName}">`;
-  row.cells[3].innerHTML = `<input type="email" value="${email}">`;
-  row.cells[4].innerHTML = `<input type="text" value="${phoneNumber}">`;
-
+  row.cells[1].innerHTML = `<input type="text" class="first-name-input" value="${firstName}">`;
+  row.cells[2].innerHTML = `<input type="text" class="last-name-input" value="${lastName}">`;
+  row.cells[3].innerHTML = `<input type="email" class="email-input" value="${email}">`;
+  row.cells[4].innerHTML = `<input type="text" class="phone-input" value="${phoneNumber}">`;
+  
   // Replace the edit button with a save button
   replaceButton(row, true);
 }
@@ -382,7 +382,7 @@ function validateUserInputEdit(row, firstName, lastName, email, phoneNumber) {
     email: { valid: true, message: "" },
     phoneNumber: { valid: true, message: "" },
   };
-  
+
   if (!namePattern.test(firstName)) {
     validationResults.firstName = {
       valid: false,
@@ -413,10 +413,20 @@ function validateUserInputEdit(row, firstName, lastName, email, phoneNumber) {
 
   let hasErrors = false;
 
+  const inputFields = {
+    firstNameInput: row.querySelector('.first-name-input'),
+    lastNameInput: row.querySelector('.last-name-input'),
+    emailInput: row.querySelector('.email-input'),
+    phoneInput: row.querySelector('.phone-input'),
+  };
+
   Object.keys(validationResults).forEach((key) => {
     const result = validationResults[key];
     if (!result.valid) {
-      hasErrors = true; // get rows with errors
+      hasErrors = true;
+      inputFields[`${key}Input`].classList.add('error-border');
+    } else {
+      inputFields[`${key}Input`].classList.remove('error-border');
     }
   });
 
