@@ -425,7 +425,7 @@ function validateUserInputEdit(row, firstName, lastName, email, phoneNumber) {
   // If there are validation errors, create a new error row below the current row
   if (hasErrors) {
     const errorRow = document.createElement('tr');
-    errorRow.classList.add('error-msg');
+    errorRow.classList.add('error-row');
     const errorCell = document.createElement('td');
     errorCell.colSpan = row.children.length; // Span across all columns
     errorCell.innerHTML = `
