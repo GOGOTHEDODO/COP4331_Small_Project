@@ -382,6 +382,7 @@ function validateUserInputEdit(row, firstName, lastName, email, phoneNumber) {
     email: { valid: true, message: "" },
     phoneNumber: { valid: true, message: "" },
   };
+  
   if (!namePattern.test(firstName)) {
     validationResults.firstName = {
       valid: false,
@@ -409,13 +410,16 @@ function validateUserInputEdit(row, firstName, lastName, email, phoneNumber) {
   if (row.nextElementSibling && row.nextElementSibling.classList.contains('error-row')) {
     row.nextElementSibling.remove(); // remove error rows
   }
+
   let hasErrors = false;
+
   Object.keys(validationResults).forEach((key) => {
     const result = validationResults[key];
     if (!result.valid) {
       hasErrors = true; // get rows with errors
     }
   });
+
   if (hasErrors) {
     const errorRow = document.createElement('tr');
     errorRow.classList.add('error-row'); // add error row and display error messages
@@ -430,6 +434,7 @@ function validateUserInputEdit(row, firstName, lastName, email, phoneNumber) {
     errorRow.appendChild(errorCell);
     row.parentNode.insertBefore(errorRow, row.nextElementSibling);
   }
+
   return Object.values(validationResults).every((result) => result.valid);
 }
 
