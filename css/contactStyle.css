@@ -134,6 +134,7 @@ h3 {
   white-space: nowrap;
   align-items: center;
   margin-bottom: 0;
+  border: none;
 }
 
 .contacts-form {
