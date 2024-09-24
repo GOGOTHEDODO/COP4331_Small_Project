@@ -122,12 +122,15 @@ h3 {
   color: lightcoral;
 }
 
+.icon-space {
+  margin-right: 8px; /* Adjust the value as needed */
+}
+
 .error-row {
   color: lightcoral;
   font-size: 0.9rem;
   font-family: "SUSE", sans-serif;
   margin-bottom: 5px;
-  margin-left: 8px;
   white-space: nowrap;
   align-items: center;
 }
