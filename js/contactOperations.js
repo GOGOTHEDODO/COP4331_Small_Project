@@ -376,13 +376,7 @@ function validateUserInputEdit(row, firstName, lastName, email, phoneNumber) {
   const namePattern = /^[A-Za-z]+$/;
   const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
   const phonePattern = /^[0-9]{10,12}$/;
-
-  // Clear any previous error row added directly below the current row
-  let errorRow = row.nextElementSibling;
-  if (errorRow && errorRow.classList.contains('error-row')) {
-    errorRow.remove(); // Remove the error row if it exists
-  }
-
+  
   const validationResults = {
     firstName: { valid: true, message: "" },
     lastName: { valid: true, message: "" },
@@ -390,7 +384,6 @@ function validateUserInputEdit(row, firstName, lastName, email, phoneNumber) {
     phoneNumber: { valid: true, message: "" },
   };
 
-  // Validate inputs
   if (!namePattern.test(firstName)) {
     validationResults.firstName = {
       valid: false,
@@ -416,33 +409,37 @@ function validateUserInputEdit(row, firstName, lastName, email, phoneNumber) {
     };
   }
 
-  // Check if there are any errors and display them below the row
-  if (Object.values(validationResults).some(result => !result.valid)) {
-    errorRow = document.createElement('tr');
+  // Remove any existing error rows
+  if (row.nextElementSibling && row.nextElementSibling.classList.contains('error-row')) {
+    row.nextElementSibling.remove();
+  }
+
+  let hasErrors = false;
+  Object.keys(validationResults).forEach((key) => {
+    const result = validationResults[key];
+    if (!result.valid) {
+      hasErrors = true;
+    }
+  });
+
+  // If there are validation errors, create a new error row below the current row
+  if (hasErrors) {
+    const errorRow = document.createElement('tr');
     errorRow.classList.add('error-row');
     const errorCell = document.createElement('td');
     errorCell.colSpan = row.children.length; // Span across all columns
-    errorCell.classList.add('error-messages');
-
-    // Add error messages
-    Object.keys(validationResults).forEach((key) => {
-      const result = validationResults[key];
-      if (!result.valid) {
-        const errorMsg = document.createElement("div");
-        errorMsg.className = "error-msg-edit";
-        errorMsg.innerHTML = `<span class="fa fa-exclamation-triangle"></span> ${result.message}`;
-        errorCell.appendChild(errorMsg); // Append error message to the error cell
-      }
-    });
-
+    errorCell.innerHTML = `
+      ${!validationResults.firstName.valid ? validationResults.firstName.message + '<br>' : ''}
+      ${!validationResults.lastName.valid ? validationResults.lastName.message + '<br>' : ''}
+      ${!validationResults.email.valid ? validationResults.email.message + '<br>' : ''}
+      ${!validationResults.phoneNumber.valid ? validationResults.phoneNumber.message + '<br>' : ''}
+    `;
     errorRow.appendChild(errorCell);
-    row.parentNode.insertBefore(errorRow, row.nextSibling); // Insert the error row below the current row
+    row.parentNode.insertBefore(errorRow, row.nextElementSibling);
   }
 
-  // Return true if all validations pass
   return Object.values(validationResults).every((result) => result.valid);
 }
-
 
 
 const contactOps = {
