@@ -377,14 +377,10 @@ function validateUserInputEdit(row, firstName, lastName, email, phoneNumber) {
   const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
   const phonePattern = /^[0-9]{10,12}$/;
 
-  // Create or get the error container specific to the row
-  let errorContainer = row.querySelector('.error-messages');
-  if (!errorContainer) {
-    errorContainer = document.createElement('div');
-    errorContainer.className = 'error-messages';
-    row.parentNode.insertBefore(errorContainer, row.nextSibling); // Insert below the row
-  } else {
-    errorContainer.innerHTML = ''; // Clear previous messages
+  // Clear any previous error row added directly below the current row
+  let errorRow = row.nextElementSibling;
+  if (errorRow && errorRow.classList.contains('error-row')) {
+    errorRow.remove(); // Remove the error row if it exists
   }
 
   const validationResults = {
@@ -420,21 +416,33 @@ function validateUserInputEdit(row, firstName, lastName, email, phoneNumber) {
     };
   }
 
-  // Display error messages
-  let hasErrors = false; // Flag to check for any validation errors
-  Object.keys(validationResults).forEach((key) => {
-    const result = validationResults[key];
-    if (!result.valid) {
-      hasErrors = true; // Set the flag to true if there's an error
-      const errorMsg = document.createElement("div");
-      errorMsg.className = "error-msg-edit";
-      errorMsg.innerHTML = `<span class="fa fa-exclamation-triangle"></span> ${result.message}`;
-      errorContainer.appendChild(errorMsg); // Append error message to the error container
-    }
-  });
+  // Check if there are any errors and display them below the row
+  if (Object.values(validationResults).some(result => !result.valid)) {
+    errorRow = document.createElement('tr');
+    errorRow.classList.add('error-row');
+    const errorCell = document.createElement('td');
+    errorCell.colSpan = row.children.length; // Span across all columns
+    errorCell.classList.add('error-messages');
 
-  return Object.values(validationResults).every((result) => result.valid); // Return true if all validations pass
+    // Add error messages
+    Object.keys(validationResults).forEach((key) => {
+      const result = validationResults[key];
+      if (!result.valid) {
+        const errorMsg = document.createElement("div");
+        errorMsg.className = "error-msg-edit";
+        errorMsg.innerHTML = `<span class="fa fa-exclamation-triangle"></span> ${result.message}`;
+        errorCell.appendChild(errorMsg); // Append error message to the error cell
+      }
+    });
+
+    errorRow.appendChild(errorCell);
+    row.parentNode.insertBefore(errorRow, row.nextSibling); // Insert the error row below the current row
+  }
+
+  // Return true if all validations pass
+  return Object.values(validationResults).every((result) => result.valid);
 }
+
 
 
 const contactOps = {
