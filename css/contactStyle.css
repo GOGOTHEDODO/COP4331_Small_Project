@@ -343,7 +343,7 @@ table tr {
   display: none;
   position: absolute;
   bottom: 10px;
-  left: 93%;
+  right: 0;
   background-color: #dfe4e3;
   color: #339989;
   padding: 24px 12px 24px 12px;
@@ -354,7 +354,7 @@ table tr {
   box-shadow: 0 5px 10px rgba(0,0,0,0.1);
   border-right: 10px solid #7de2d1;
   z-index: 1000;
-  transform: translateX(-50%);
+  overflow: hidden;
 }
 
 .notification-box .notification-content {
