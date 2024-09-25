@@ -39,6 +39,7 @@ function addContact(event) {
       if (this.readyState == 4 && this.status == 200) {
         const response = JSON.parse(this.responseText);
         retrieveContacts();
+        showNotificationMessage("Contact Added!");
         console.log("Contact added to backend successfully");
       }
     };
