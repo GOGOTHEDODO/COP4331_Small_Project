@@ -29,7 +29,7 @@ html, body{
 }
 
 .container.active {
-    height: 520px;
+    height: 525px;
     overflow: hidden;
     transition: all 0.3s ease-in;
 }
@@ -89,15 +89,35 @@ input[type="radio"] {
 
 #signup:checked ~ label.login {
     color: #000;
+    transition: transform 300ms ease-in-out;
+    transition-delay: 100ms
 }
 
 #login:checked ~ label.signup {
     color: #000;
+    transition: transform 300ms ease-in-out;
+    transition-delay: 100ms
 }
 
 #login:checked ~ label.login {
     cursor: default;
     user-select: none;
+}
+
+#login:checked ~ label.signup:hover{
+    color: #575756;
+    border-radius: 15px;
+    border-right: 3px solid #7de2d1;
+    border-bottom: 3px solid #7de2d1;
+    transform: translateY(-5%);
+}
+
+#signup:checked ~ label.login:hover{
+    color: #575756;
+    border-radius: 15px;
+    border-left: 3px solid #7de2d1;
+    border-top: 3px solid #7de2d1;
+    transform: translateY(5%);
 }
 
 /* Form Styling */
@@ -121,12 +141,26 @@ input[type="radio"] {
     cursor: pointer;
 }
 
+/* to make the box shadow show */
+.inner-container #signUpButton {
+    margin-bottom: 10px;
+}
+
+.inner-container button:focus, .inner-container button:hover {
+    color: #575756;
+    background-color: #7de2d1;
+    font-weight: 800;
+    box-shadow: 2.1px 5.2px 5.2px hsl(0deg 0% 0% / 0.37);
+    transition: ease-in 0.3s;
+}
+
 .inner-container form .divider {
     height: 50px;
     width: 100%;
     margin-top: 20px;
 }
 
+/* All of the inputs */
 .inner-container form .divider input {
     background-color: #eee;
     height: 100%;
@@ -135,9 +169,18 @@ input[type="radio"] {
     padding-left: 15px;
     border-radius: 15px;
     border: none;
-    border-radius: 5px;
+    border-radius: 10px;
     font-size: 17px;
     transition: all 0.3s ease;
+}
+
+.inner-container .divider.invalid input{
+    border-bottom: 5px solid lightcoral;
+}
+
+.divider input:focus,
+.divider input:hover{
+    box-shadow: 2.1px 5.2px 5.2px hsl(0deg 0% 0% / 0.37);
 }
 
 .container .inner-container {
