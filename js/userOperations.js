@@ -24,8 +24,7 @@ function doLogin() {
     usernameStyle.style.borderBottom = "5px solid lightcoral";
     passwordStyle.style.borderBottom = "5px solid lightcoral";
 
-    document.getElementById("loginResult").innerHTML =
-      "Username and password are required.";
+    showNotificationMessage("Username and password are required.");
     return;
   }
   else {
@@ -64,6 +63,7 @@ function doLogin() {
           }
         } else {
           // Handle HTTP error
+          showNotificationMessage( "An error occurred: " + jsonObject.message);
           document.getElementById("loginResult").innerHTML =
             "An error occurred: " + jsonObject.message;
         }
@@ -105,8 +105,7 @@ function doSignup() {
   if (password.value !== passwordConfirm.value) {
     setBorderStyle(password.style, true);
     setBorderStyle(passwordConfirm.style, true);
-    document.getElementById("signupResult").innerHTML =
-      "Passwords don't match.";
+    showNotificationMessage("Passwords don't match.");
     return;
   }
   else {
@@ -129,7 +128,7 @@ function doSignup() {
 
   // displays error message 
   if (fields.some(field => !field.value)) {
-    document.getElementById("signupResult").innerHTML = "Please fill out all fields.";
+    showNotificationMessage("Please fill out all fields.");
     return;
   }
 
@@ -139,7 +138,7 @@ function doSignup() {
     username: username.value,
     password: password.value,
   };
-  
+
   let jsonPayload = JSON.stringify(payload);
 
   let url = urlBase + "/signup." + extension;
@@ -171,6 +170,21 @@ function doSignup() {
   };
 
   xhr.send(jsonPayload);
+}
+
+function showNotificationMessage(message) {
+  var notification = document.getElementById('notificationBox');
+  notification.textContent = message;
+  notification.style.display = 'block'; 
+  notification.style.opacity = '1'; 
+
+  setTimeout(function() {
+      notification.style.opacity = '0'; 
+  scrollX
+      setTimeout(function() {
+          notification.style.display = 'none';
+      }, 500); 
+  }, 5000);
 }
 
 function doLogout() {
