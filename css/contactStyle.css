@@ -153,6 +153,7 @@ table tr {
 
 .contacts-form {
   grid-area: contact;
+  max-height: 460px;
   background-color: #fffafb;
   padding: 20px;
   border-radius: 15px;
