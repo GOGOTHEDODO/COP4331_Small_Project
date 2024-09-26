@@ -15,12 +15,22 @@ function doLogin() {
   let username = document.getElementById("loginUsername").value;
   let password = document.getElementById("loginPassword").value;
 
+  const usernameStyle = document.getElementById("loginUsername");
+  const passwordStyle = document.getElementById("loginPassword");
+
   document.getElementById("loginResult").innerHTML = "";
 
   if (!username || !password) {
+    usernameStyle.style.borderBottom = "border-bottom: 5px solid lightcoral";
+    passwordStyle.style.borderBottom = "border-bottom: 5px solid lightcoral";
+
     document.getElementById("loginResult").innerHTML =
       "Username and password are required.";
     return;
+  }
+  else {
+    usernameStyle.style.border = "transparent";
+    passwordStyle.style.border = "transparent";
   }
 
   let tmp = { username: username, password: password };
