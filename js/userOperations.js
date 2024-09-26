@@ -21,8 +21,8 @@ function doLogin() {
   document.getElementById("loginResult").innerHTML = "";
 
   if (!username || !password) {
-    usernameStyle.style.borderBottom = "border-bottom: 5px solid lightcoral";
-    passwordStyle.style.borderBottom = "border-bottom: 5px solid lightcoral";
+    usernameStyle.style.borderBottom = "5px solid lightcoral";
+    passwordStyle.style.borderBottom = "5px solid lightcoral";
 
     document.getElementById("loginResult").innerHTML =
       "Username and password are required.";
@@ -78,36 +78,68 @@ function doLogin() {
 }
 
 // TODO : After signup log user in
-// TODO : color entries if invalid input
 function doSignup() {
-  let firstName = document.getElementById("signupFirstName").value;
-  let lastName = document.getElementById("signupLastName").value;
-  let username = document.getElementById("signupUsername").value;
-  let password = document.getElementById("signupPassword").value;
-  let passwordConfirm = document.getElementById("signupPasswordConfirm").value;
+  function getInputValueAndStyle(id) {
+    const element = document.getElementById(id);
+    return {
+        value: element.value,
+        style: element
+    };
+  }
+
+  // gets the values and styles for input
+  const firstName = getInputValueAndStyle("signupFirstName");
+  const lastName = getInputValueAndStyle("signupLastName");
+  const username = getInputValueAndStyle("signupUsername");
+  const password = getInputValueAndStyle("signupPassword");
+  const passwordConfirm = getInputValueAndStyle("signupPasswordConfirm");
 
   document.getElementById("signupResult").innerHTML = "";
 
+  // for changing the border color
+  function setBorderStyle(element, isError) {
+    element.style.borderBottom = isError ? "5px solid lightcoral" : "transparent";
+  }
+
   // Check if passwords match
-  if (password !== passwordConfirm) {
+  if (password.value !== passwordConfirm.value) {
+    setBorderStyle(password.style, true);
+    setBorderStyle(passwordConfirm.style, true);
     document.getElementById("signupResult").innerHTML =
       "Passwords don't match.";
     return;
   }
-
+  else {
+    setBorderStyle(password.style, false);
+    setBorderStyle(passwordConfirm.style, false);
+  }
+  
   // Check if all fields are filled
-  if (!username || !password || !firstName || !lastName) {
-    document.getElementById("signupResult").innerHTML =
-      "Please fill out all fields.";
+  const fields = [username, password, firstName, lastName];
+  const fieldIds = ["signupUsername", "signupPassword", "signupFirstName", "signupLastName"]; 
+
+  for (let i = 0; i < fields.length; i++) {
+    // if the input is not filled
+    if (!fields[i].value) {
+      setBorderStyle(fields[i].style, true);
+    } else {
+      setBorderStyle(fields[i].style, false);
+    }
+  }
+
+  // displays error message 
+  if (fields.some(field => !field.value)) {
+    document.getElementById("signupResult").innerHTML = "Please fill out all fields.";
     return;
   }
 
   let payload = {
-    first_name: firstName,
-    last_name: lastName,
-    username: username,
-    password: password,
+    first_name: firstName.value,
+    last_name: lastName.value,
+    username: username.value,
+    password: password.value,
   };
+  
   let jsonPayload = JSON.stringify(payload);
 
   let url = urlBase + "/signup." + extension;
