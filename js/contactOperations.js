@@ -460,6 +460,5 @@ function validateUserInputEdit(row, firstName, lastName, email, phoneNumber) {
 const contactOps = {
   addContact,
   retrieveContacts,
-  sort,
 };
 export default contactOps;
