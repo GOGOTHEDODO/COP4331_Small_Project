@@ -254,6 +254,10 @@ table tr {
   box-shadow: 4.1px 8.2px 8.2px hsl(0deg 0% 0% / 0.37);
 }
 
+.table input {
+  max-width: 15ch;
+}
+
 .table .button-table button {
   background-color: transparent;
   color: #339989;
