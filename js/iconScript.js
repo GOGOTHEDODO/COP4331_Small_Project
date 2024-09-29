@@ -40,6 +40,11 @@ function sortTableByColumn(table, columnIndex, asc = true) {
     tBody.innerHTML = '';  // Clear the table body
     tBody.append(...sortedRows);  // Append sorted rows
 
+    // Update index column after sorting
+    sortedRows.forEach((row, index) => {
+        row.cells[0].textContent = index + 1; // Update the index in the first column
+    });
+
     // Update header styles
     const headers = table.querySelectorAll("th");
     headers.forEach(header => header.classList.remove("th-sort-asc", "th-sort-desc"));
