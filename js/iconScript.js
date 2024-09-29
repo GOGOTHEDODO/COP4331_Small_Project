@@ -23,39 +23,37 @@ divs.forEach(div => {
     });
 });
 
-function sortTableByColumn(table, column, asc = true) {
-	const dirModifier = asc ? 1 : -1;
-	const tBody = table.tBodies[0];
-	const rows = Array.from(tBody.querySelectorAll("tr"));
+function sortTableByColumn(table, columnIndex, asc = true) {
+    const dirModifier = asc ? 1 : -1;
+    const tBody = table.tBodies[0];
+    const rows = Array.from(tBody.rows);
 
-	// Sort each row
-	const sortedRows = rows.sort((a, b) => {
-		const aColText = a.querySelector(`td:nth-child(${column + 1})`).textContent.trim();
-		const bColText = b.querySelector(`td:nth-child(${column + 1})`).textContent.trim();
+    // Sort rows based on the specified column
+    const sortedRows = rows.sort((rowA, rowB) => {
+        const cellA = rowA.cells[columnIndex].textContent.trim().toLowerCase();
+        const cellB = rowB.cells[columnIndex].textContent.trim().toLowerCase();
 
-		return aColText > bColText ? (1 * dirModifier) : (-1 * dirModifier);
-	});
+        return (cellA > cellB ? 1 : -1) * dirModifier;
+    });
 
-	// Remove all existing TRs from the table
-	while (tBody.firstChild) {
-		tBody.removeChild(tBody.firstChild);
-	}
+    // Clear existing rows and append sorted rows
+    tBody.innerHTML = '';  // Clear the table body
+    tBody.append(...sortedRows);  // Append sorted rows
 
-	// Re-add the newly sorted rows
-	tBody.append(...sortedRows);
-
-	// Remember how the column is currently sorted
-	table.querySelectorAll("th").forEach(th => th.classList.remove("th-sort-asc", "th-sort-desc"));
-	table.querySelector(`th:nth-child(${column + 1})`).classList.toggle("th-sort-asc", asc);
-	table.querySelector(`th:nth-child(${column + 1})`).classList.toggle("th-sort-desc", !asc);
+    // Update header styles
+    const headers = table.querySelectorAll("th");
+    headers.forEach(header => header.classList.remove("th-sort-asc", "th-sort-desc"));
+    headers[columnIndex].classList.toggle("th-sort-asc", asc);
+    headers[columnIndex].classList.toggle("th-sort-desc", !asc);
 }
 
+// Attach event listeners to sortable table headers
 document.querySelectorAll(".table-sortable th").forEach(headerCell => {
-	headerCell.addEventListener("click", () => {
-		const tableElement = headerCell.parentElement.parentElement.parentElement;
-		const headerIndex = Array.prototype.indexOf.call(headerCell.parentElement.children, headerCell);
-		const currentIsAscending = headerCell.classList.contains("th-sort-asc");
+    headerCell.addEventListener("click", () => {
+        const tableElement = headerCell.closest("table");
+        const headerIndex = Array.from(headerCell.parentNode.children).indexOf(headerCell);
+        const isCurrentlyAscending = headerCell.classList.contains("th-sort-asc");
 
-		sortTableByColumn(tableElement, headerIndex, !currentIsAscending);
-	});
+        sortTableByColumn(tableElement, headerIndex, !isCurrentlyAscending);
+    });
 });
