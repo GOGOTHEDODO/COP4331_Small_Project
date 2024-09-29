@@ -1,7 +1,4 @@
 const divs = document.querySelectorAll('input');
-const notification = document.getElementById('notificationBox');
-const buttons = document.querySelectorAll('button');
-const text = document.getElementById('text');
 
 const patterns = {
     firstName: /^[A-Za-z]+$/,
