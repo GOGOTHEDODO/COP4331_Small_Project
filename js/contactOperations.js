@@ -1,5 +1,5 @@
 import userOps from "./userOperations.js";
-const urlBase = "http://www.smallproject14.pro/API";
+const urlBase = "https://www.smallproject14.pro/API";
 const extension = "php";
 
 function addContact(event) {
@@ -79,9 +79,15 @@ function saveContact(row) {
 
   // Check if edited field meets requirements
   if (
-    !validateUserInputEdit(row, updatedFirstName, updatedLastName, updatedEmail, updatedPhoneNumber)
+    !validateUserInputEdit(
+      row,
+      updatedFirstName,
+      updatedLastName,
+      updatedEmail,
+      updatedPhoneNumber
+    )
   ) {
-    const divider = row.querySelector(".divider"); 
+    const divider = row.querySelector(".divider");
     if (divider) {
       divider.classList.remove("valid");
     }
@@ -114,7 +120,7 @@ function saveContact(row) {
   xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
   xhr.onreadystatechange = function () {
     if (this.readyState == 4 && this.status == 200) {
-      showNotificationMessage("Contact Updated!")
+      showNotificationMessage("Contact Updated!");
       console.log("Contact updated successfully");
     }
   };
@@ -149,7 +155,7 @@ function deleteContact(row) {
     try {
       xhr.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
-          showNotificationMessage("Contact Deleted!")
+          showNotificationMessage("Contact Deleted!");
           console.log("Contact deleted successfully");
         }
       };
@@ -161,17 +167,17 @@ function deleteContact(row) {
 }
 
 function showNotificationMessage(message) {
-  var notification = document.getElementById('notificationBox');
+  var notification = document.getElementById("notificationBox");
   notification.textContent = message;
-  notification.style.display = 'block'; 
-  notification.style.opacity = '1'; 
+  notification.style.display = "block";
+  notification.style.opacity = "1";
 
-  setTimeout(function() {
-      notification.style.opacity = '0'; 
-     scrollX
-      setTimeout(function() {
-          notification.style.display = 'none';
-      }, 500); 
+  setTimeout(function () {
+    notification.style.opacity = "0";
+    scrollX;
+    setTimeout(function () {
+      notification.style.display = "none";
+    }, 500);
   }, 5000);
 }
 
@@ -303,7 +309,7 @@ function validateUserInput(formId, firstName, lastName, email, phoneNumber) {
 
     if (input) {
       if (!result.valid) {
-       divider.classList.remove("valid");
+        divider.classList.remove("valid");
 
         const errorMsg = document.createElement("div");
         errorMsg.className = "error-msg";
@@ -311,8 +317,7 @@ function validateUserInput(formId, firstName, lastName, email, phoneNumber) {
           <span class="fa fa-exclamation-triangle"></span> ${result.message}
         `;
         errorContainer.appendChild(errorMsg);
-      } 
-      else {
+      } else {
         divider.classList.remove("valid");
       }
     }
@@ -350,7 +355,6 @@ function replaceButton(row, isEditMode) {
   }
 }
 
-
 function validateUserInputEdit(row, firstName, lastName, email, phoneNumber) {
   const namePattern = /^[A-Za-z]+$/;
   const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
@@ -386,28 +390,31 @@ function validateUserInputEdit(row, firstName, lastName, email, phoneNumber) {
       message: "Please enter a valid phone number (10-12 digits).",
     };
   }
-  if (row.nextElementSibling && row.nextElementSibling.classList.contains('error-row')) {
+  if (
+    row.nextElementSibling &&
+    row.nextElementSibling.classList.contains("error-row")
+  ) {
     row.nextElementSibling.remove(); // remove error rows
   }
 
   let hasErrors = false;
 
   const inputFields = {
-    firstNameInput: row.querySelector('.first-name-input'),
-    lastNameInput: row.querySelector('.last-name-input'),
-    emailInput: row.querySelector('.email-input'),
-    phoneInput: row.querySelector('.phone-input'),
+    firstNameInput: row.querySelector(".first-name-input"),
+    lastNameInput: row.querySelector(".last-name-input"),
+    emailInput: row.querySelector(".email-input"),
+    phoneInput: row.querySelector(".phone-input"),
   };
 
   Object.keys(validationResults).forEach((key) => {
     const result = validationResults[key];
     const inputField = inputFields[`${key}Input`];
-    if (inputField) {  
+    if (inputField) {
       if (!result.valid) {
         hasErrors = true;
-        inputField.classList.add('error-border'); 
+        inputField.classList.add("error-border");
       } else {
-        inputField.classList.remove('error-border');  
+        inputField.classList.remove("error-border");
       }
     } else {
       console.error(`Input field for ${key} is undefined.`);
@@ -415,15 +422,39 @@ function validateUserInputEdit(row, firstName, lastName, email, phoneNumber) {
   });
 
   if (hasErrors) {
-    const errorRow = document.createElement('tr');
-    errorRow.classList.add('error-row'); // add error row and display error messages
-    const errorCell = document.createElement('td');
+    const errorRow = document.createElement("tr");
+    errorRow.classList.add("error-row"); // add error row and display error messages
+    const errorCell = document.createElement("td");
     errorCell.colSpan = row.children.length; // span across all columns
     errorCell.innerHTML = `
-      ${!validationResults.firstName.valid ? '<span class="fa fa-exclamation-triangle icon-space"></span>' + validationResults.firstName.message + '<br>' : ''}
-      ${!validationResults.lastName.valid ? '<span class="fa fa-exclamation-triangle icon-space"></span>' + validationResults.lastName.message + '<br>' : ''}
-      ${!validationResults.email.valid ? '<span class="fa fa-exclamation-triangle icon-space"></span>' + validationResults.email.message + '<br>' : ''}
-      ${!validationResults.phoneNumber.valid ? '<span class="fa fa-exclamation-triangle icon-space"></span>' + validationResults.phoneNumber.message + '<br>' : ''}
+      ${
+        !validationResults.firstName.valid
+          ? '<span class="fa fa-exclamation-triangle icon-space"></span>' +
+            validationResults.firstName.message +
+            "<br>"
+          : ""
+      }
+      ${
+        !validationResults.lastName.valid
+          ? '<span class="fa fa-exclamation-triangle icon-space"></span>' +
+            validationResults.lastName.message +
+            "<br>"
+          : ""
+      }
+      ${
+        !validationResults.email.valid
+          ? '<span class="fa fa-exclamation-triangle icon-space"></span>' +
+            validationResults.email.message +
+            "<br>"
+          : ""
+      }
+      ${
+        !validationResults.phoneNumber.valid
+          ? '<span class="fa fa-exclamation-triangle icon-space"></span>' +
+            validationResults.phoneNumber.message +
+            "<br>"
+          : ""
+      }
     `;
     errorRow.appendChild(errorCell);
     row.parentNode.insertBefore(errorRow, row.nextElementSibling);
